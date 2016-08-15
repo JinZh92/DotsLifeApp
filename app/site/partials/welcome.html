@@ -1,0 +1,26 @@
+<nav class="main-nav">
+	<div class="main-logo">
+		<span>LOGO</span>
+	</div>
+	<ul>
+		<li><a href="" ng-click="ctrl.login()">Login</a></li>
+		<li><a href="" ng-click="ctrl.register()">Register</a></li>
+		<li><a href="" ng-click="ctrl.about()">About</a></li>
+	</ul>
+</nav>
+
+<div class="main-container" ng-class="{'left-closed': ctrl.hideleft}">
+
+	<div ng-show="ctrl.hideleft" class="main-leftarrow glyphicon glyphicon-menu-left" ng-click="ctrl.resetClick()"></div>
+
+	<div class="inner-container" ng-show="!ctrl.hideleft">
+		<h1 class="welcome-baner">Life Calendar</h1>
+		<p class="welcome-p">Plan your life in weeks, and stop the procrastination!</p>
+		<div class="welcome-bday">
+			<input type="date" name="bday" ng-model="ctrl.bday">
+			<input type="submit" ng-click="">
+		</div>
+	</div>
+</div>
+
+<div ui-view></div>
