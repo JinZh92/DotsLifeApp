@@ -1,0 +1,25 @@
+{
+  "name": "Life Calendar",
+  "authors": [
+    "JinZh92 <jinpeng.zh@live.com>"
+  ],
+  "description": "app",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "animate.css": "^3.5.2",
+    "angular-ui-router": "^0.3.1",
+    "AngularJS": "angular-latest#^1.5.8",
+    "jQuery": "^3.1.0",
+    "express": "^4.14.0"
+  }
+}
