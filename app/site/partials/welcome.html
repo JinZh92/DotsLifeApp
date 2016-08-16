@@ -1,26 +1,34 @@
 <nav class="main-nav">
-	<div class="main-logo">
+	<div class="main-logo" ng-click="ctrl.goHome()">
 		<span>LOGO</span>
 	</div>
 	<ul>
 		<li><a href="" ng-click="ctrl.login()">Login</a></li>
-		<li><a href="" ng-click="ctrl.register()">Register</a></li>
+		<li><a href="" ng-click="ctrl.register()">Sign up</a></li>
 		<li><a href="" ng-click="ctrl.about()">About</a></li>
 	</ul>
 </nav>
 
 <div class="main-container" ng-class="{'left-closed': ctrl.hideleft}">
 
-	<div ng-show="ctrl.hideleft" class="main-leftarrow glyphicon glyphicon-menu-left" ng-click="ctrl.resetClick()"></div>
+	<div ng-show="ctrl.hideleft" class="main-lefthidden"  ng-click="ctrl.resetClick()">
+		<div class="main-leftarrow glyphicon glyphicon-menu-left"></div>
+		<div class="main-lefttext" ng-bind="ctrl.lefttext"></div>	
+	</div>
 
 	<div class="inner-container" ng-show="!ctrl.hideleft">
 		<h1 class="welcome-baner">Life Calendar</h1>
 		<p class="welcome-p">Plan your life in weeks, and stop the procrastination!</p>
-		<div class="welcome-bday">
+		<div class="welcome-bday">		
 			<input type="date" name="bday" ng-model="ctrl.bday">
+			<label class=""></label>
 			<input type="submit" ng-click="">
 		</div>
 	</div>
 </div>
 
-<div ui-view></div>
+<div class="main-rightcontainer" ng-show="ctrl.hideleft">
+	<div class="main-rightinner">
+		<div ui-view></div>
+	</div>
+</div>
