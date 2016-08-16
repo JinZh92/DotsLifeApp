@@ -45,17 +45,30 @@
 					controller:'UserCtrl as ctrl'
 				})
 
-			// $httpProvider.interceptor.push(function(jwtHelper){
-			// 	return {
-			// 		request: function(config){
-			// 			console.log('Request: ' + config)
+			$httpProvider.interceptors.push(function(jwtHelper){
+				return {
+					request: function(config){
+						console.log('Request: ' + config)
 						
-			// 			if (localStorage.authToken != undefined){
-			// 				config.headers.authentication = localStorage.authToken;
-			// 			}
-			// 		}
-			// 	}
-			
-		})
+						if (localStorage.authToken != undefined){
+							config.headers.authentication = localStorage.authToken;
+						}
+						return config;
+					}, 
+					response: function(response){
+						var auth_token = response.headers('authentication');
+						console.log('Response: ' + auth_token);
 
+						if (auth_token) {
+							var decrypt_token = jwtHelper.decodeToken(auth_token);
+							console.log('Decrypted token from response: ' + decrypt_token);
+							if (decrypt_token.email){ // what is it checking?
+								localStorage.authToken = auth_token;
+							}
+						}
+						return response;
+					}
+				}
+			})
+		})
 })();

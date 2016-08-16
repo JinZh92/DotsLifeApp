@@ -1,0 +1,29 @@
+{
+  "name": "lifecalendarapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bcrypt": "^0.8.7",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "pg": "^6.1.0",
+    "sequelize": "^3.24.0",
+    "pg-hstore": "^2.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JinZh92/LifeCalendarApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JinZh92/LifeCalendarApp/issues"
+  },
+  "homepage": "https://github.com/JinZh92/LifeCalendarApp#readme"
+}
