@@ -34,6 +34,11 @@
 				templateUrl:'site/partials/about.html',
 				controller:'WelcomeController as ctrl'
 			})
+			.state('thisweek',{
+				url:'/thisweek',
+				templateUrl:'site/partials/thisweek.html',
+				controller:'ThisWeekCtrl as ctrl'
+			})
 		})
 
 })();
