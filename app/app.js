@@ -34,10 +34,15 @@
 				templateUrl:'site/partials/about.html',
 				controller:'WelcomeController as ctrl'
 			})
-			.state('thisweek',{
-				url:'/thisweek',
-				templateUrl:'site/partials/thisweek.html',
-				controller:'ThisWeekCtrl as ctrl'
+			.state('user', {
+				url:'/user',
+				templateUrl:'site/partials/user.html',
+				controller:'UserCtrl as ctrl'
+			})
+			.state('user.thisweek',{
+				url:'/thisweek/:userId',
+				templateUrl:'site/partials/user-thisweek.html',
+				controller:'UserCtrl as ctrl'
 			})
 		})
 

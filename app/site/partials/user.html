@@ -1,0 +1,55 @@
+<!-- overview -->
+<section class="back-overview">
+
+  <!-- vertical nav bar -->
+  <div class="nav-side-menu">
+      <div class="brand">Brand Logo</div>
+      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    
+          <div class="menu-list">
+    
+              <ul id="menu-content" class="menu-content collapse out">
+                  <li>
+                    <a ui-sref="user.thisweek" >
+                    <i class="fa fa-dashboard fa-lg fa-margin"></i> This Week
+                    </a>
+                  </li>
+
+
+                   <li data-toggle="collapse" data-target="#overview" class="collapsed ">
+                    <a href="#"><i class="glyphicon glyphicon-th fa-margin"></i> Overview
+  <!--                    <span class="arrow"></span>
+   -->
+                    </a>
+                  </li>  
+  <!--                 <ul class="sub-menu collapse" id="overview">
+                    <li>View Past</li>
+                    <li>View Present 2</li>
+                    <li>View Future</li>
+                  </ul> -->
+
+                 <li>
+                    <a href="#">
+                    <i class="glyphicon glyphicon-pencil fa-margin"></i> Managemnt
+                    </a>
+                  </li>
+
+                   <li>
+                    <a href="#">
+                    <i class="glyphicon glyphicon-equalizer fa-margin"></i> Tracking 
+                    </a>
+                  </li>
+
+                   <li>
+                    <a href="#">
+                    <i class="fa fa-user fa-lg fa-margin"></i> Profile 
+                    </a>
+                  </li>               
+
+              </ul>
+       </div>
+  </div>
+
+  <div ui-view></div>
+
+</section>
