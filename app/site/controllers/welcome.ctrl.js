@@ -1,8 +1,9 @@
 (function(){
-
-angular
-	.module('lifeCalendarApp')
-	.controller('WelcomeController', WelcomeController);
+	'use-strict';
+	
+	angular
+		.module('lifeCalendarApp')
+		.controller('WelcomeController', WelcomeController);
 
 	function WelcomeController($state, $timeout){
 		var ctrl = this;

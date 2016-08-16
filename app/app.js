@@ -22,12 +22,12 @@
 			.state('welcome.register', {
 				url:'/register',
 				templateUrl:'site/partials/register.html',
-				controller:'WelcomeController as ctrl'
+				controller:'AuthCtrl as ctrl'
 			})
 			.state('welcome.login', {
 				url:'/login',
 				templateUrl:'site/partials/login.html',
-				controller:'WelcomeController as ctrl'
+				controller:'AuthCtrl as ctrl'
 			})
 			.state('welcome.about', {
 				url:'/about',
