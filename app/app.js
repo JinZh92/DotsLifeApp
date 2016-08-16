@@ -43,18 +43,19 @@
 					url:'/thisweek/:userId',
 					templateUrl:'site/partials/user-thisweek.html',
 					controller:'UserCtrl as ctrl'
+				})
 
-			$httpProvider.interceptor.push(function(jwtHelper){
-				return {
-					request: function(config){
-						console.log('Request: ' + config)
+			// $httpProvider.interceptor.push(function(jwtHelper){
+			// 	return {
+			// 		request: function(config){
+			// 			console.log('Request: ' + config)
 						
-						if (localStorage.authToken != undefined){
-							config.headers.authentication = localStorage.authToken;
-						}
-					}
-				}
-			})
+			// 			if (localStorage.authToken != undefined){
+			// 				config.headers.authentication = localStorage.authToken;
+			// 			}
+			// 		}
+			// 	}
+			
 		})
 
 })();
