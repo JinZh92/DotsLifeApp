@@ -2,7 +2,11 @@
 	'use strict'
 
 	angular
-		.module('lifeCalendarApp', ['ui.router', 'ngAnimate']);
+		.module('lifeCalendarApp', [
+			'ui.router', 
+			'ngAnimate',
+			'angular-jwt'
+		]);
 
 	angular
 		.module('lifeCalendarApp')
