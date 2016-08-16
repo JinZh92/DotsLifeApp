@@ -47,7 +47,7 @@
 			$http.post('/api/auth/authenticate',user)
 			.then(function(res){
 				console.log(res);
-				localStorage.loginEmail = ctrl.loginPwd;
+				localStorage.loginEmail = ctrl.loginEmail;
 				ctrl.auth_btn = res.data.msg;
 			})
 		}
