@@ -21,6 +21,7 @@ angular
 		}
 		function resetClick(){
 			ctrl.hideleft = false;
+			$state.go('welcome');
 		}
 		function register(){
 			// ctrl.resetClick();
@@ -42,7 +43,6 @@ angular
 		}
 		function goHome(){
 			ctrl.resetClick();
-			$state.go('welcome');
 		}
 
 	}
