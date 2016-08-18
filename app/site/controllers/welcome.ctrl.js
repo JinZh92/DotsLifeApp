@@ -5,10 +5,18 @@
 		.module('lifeCalendarApp')
 		.controller('WelcomeController', WelcomeController);
 
+	WelcomeController.$inject = ['$state', '$timeout'];
+
 	function WelcomeController($state, $timeout){
 		var ctrl = this;
 		var hideleft = false;
 		var lefttext = '';
+
+		//Check if already logged in
+		if (localStorage.authToken) {
+			console.log('Already logged in!!');
+			$state.go('user');
+		}
 
 		ctrl.actionClick = actionClick;
 		ctrl.resetClick = resetClick;

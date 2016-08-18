@@ -37,7 +37,13 @@
 				.state('user', {
 					url:'/user',
 					templateUrl:'site/partials/user.html',
-					controller:'UserCtrl as ctrl'
+					controller:'UserCtrl as ctrl',
+					resolve:{
+						userResolve: function(UserSrv){
+							UserSrv.getEmailFromToken();
+							return UserSrv.getUserFromEmail();
+						}
+					}
 				})
 				.state('user.thisweek',{
 					url:'/thisweek/:userId',
@@ -47,22 +53,29 @@
 
 			$httpProvider.interceptors.push(function(jwtHelper){
 				return {
+
+					// For every request sent out, attach the authToken in the localStorage to the request header
 					request: function(config){
-						console.log('Request: ' + config)
+						console.log('Request: ', config)
 						
 						if (localStorage.authToken != undefined){
 							config.headers.authentication = localStorage.authToken;
 						}
+						console.log('request header', config.headers.authentication);
 						return config;
 					}, 
+
+					// For every response received, if the response has valid authToken, store it in the localStorage
 					response: function(response){
 						var auth_token = response.headers('authentication');
 						console.log('Response: ' + auth_token);
-
+						// console.log(jwtHelper.decodeToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJAYi5jb20iLCJpZCI6NjIsImlhdCI6MTQ3MTQ2MTMzNX0.WvUZ9dLdnR6EnWtwrJAPb_Kj2SgzNwWcapCyxMRnvn0'))
 						if (auth_token) {
 							var decrypt_token = jwtHelper.decodeToken(auth_token);
-							console.log('Decrypted token from response: ' + decrypt_token);
-							if (decrypt_token.email){ // what is it checking?
+							console.log('Decrypted token from response: ', decrypt_token);
+
+							//check the decrypted token (token is encrypted from an object defined in auth.js in api route)
+							if (decrypt_token.userEmail){
 								localStorage.authToken = auth_token;
 							}
 						}

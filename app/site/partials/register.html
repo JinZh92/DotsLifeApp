@@ -4,7 +4,7 @@
 	<h2>Become a member</h2>
 <!-- 	<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua.</span> -->
-	<form method="post" class="stacked-form" ng-submit="ctrl.register()">
+	<form method="POST" class="stacked-form" ng-submit="ctrl.register()">
 		<span class="input input--manami">
 			<input class="input__field input__field--manami" id="regisEmail" type="text" name="regisEmail" ng-model="ctrl.regisEmail">
 			<label class="input__label input__label--manami" for="regisEmail">
@@ -20,7 +20,7 @@
 		</span>
 		
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisPwd" type="text" name="regisPwd" ng-model="ctrl.regisPwd">
+			<input class="input__field input__field--manami" id="regisPwd" type="password" name="regisPwd" ng-model="ctrl.regisPwd">
 			<label class="input__label input__label--manami" for="regisPwd">
 				<span class="input__label-content input__label-content--manami">Password</span>
 			</label>
@@ -30,6 +30,13 @@
 			<input class="input__field input__field--manami" id="regisRePwd" type="text" name="regisRePwd" ng-model="ctrl.regisRePwd">
 			<label class="input__label input__label--manami" for="regisRePwd">
 				<span class="input__label-content input__label-content--manami">Repeat Password</span>
+			</label>
+		</span>
+
+		<span class="input input--manami">
+			<input class="input__field input__field--manami" id="regisBday" type="date" name="regisBday" ng-model="ctrl.regisBday" min="1935-01-01" max="2016-01-01">
+			<label class="input__label input__label--manami" for="regisBday">
+				<span class="input__label-content input__label-content--manami">Birthday</span>
 			</label>
 		</span>
 

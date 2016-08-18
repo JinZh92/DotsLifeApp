@@ -5,9 +5,9 @@
 		.module('lifeCalendarApp')
 		.controller('AuthCtrl',AuthCtrl);
 
-	AuthCtrl.$inject = ['$http'];
+	AuthCtrl.$inject = ['$state', '$http', 'UserSrv'];
 
-	function AuthCtrl($http){
+	function AuthCtrl($state, $http, UserSrv){
 		var ctrl = this;
 
 		//buttons
@@ -18,17 +18,23 @@
 		ctrl.register = register;
 		ctrl.authenticate = authenticate;
 
+		// //test test
+		// ctrl.getAllUserData = UserSrv.getAllUserData();
+
 		function register(){
 			//check passwords
 			if(ctrl.regisPwd == ctrl.regisRePwd && ctrl.regisPwd != ''){
 				var user = {
-					email:ctrl.regisEmail,
-					password:ctrl.regisPwd
+					userEmail:ctrl.regisEmail,
+					userPswd:ctrl.regisPwd,
+					userFullName:ctrl.regisName,
+					userBirthday:ctrl.regisBday,
+					currEvents: []
 				}
 				user = JSON.stringify(user);
 				$http.post('/api/auth/register',user)
 				.then(function(res){
-					console.log(res);
+					console.log("register res: " + res);
 					ctrl.register_btn = res.data.msg;
 				})
 			}
@@ -39,17 +45,24 @@
 
 		function authenticate(){
 			var user = {
-				email:ctrl.loginEmail,
-				password:ctrl.loginPwd
+				userEmail:ctrl.loginEmail,
+				userPswd:ctrl.loginPwd
 			}
 
 			user = JSON.stringify(user);
 			$http.post('/api/auth/authenticate',user)
 			.then(function(res){
-				console.log(res);
-				localStorage.loginEmail = ctrl.loginEmail;
+				console.log("authenticate res: ", res.data);
+
+				// Storing the authToken and loginEmail in the local storage TODO: Cookies
+				localStorage.loginEmail = res.data.userEmail;
+				localStorage.authToken = res.data.token;
 				ctrl.auth_btn = res.data.msg;
+				// Go to user page when logged in successful
+				$state.go('user');
 			})
 		}
+
+
 	}
 })();
