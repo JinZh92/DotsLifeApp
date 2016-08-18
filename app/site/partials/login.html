@@ -6,7 +6,7 @@
 	<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua.</span>
 
-	<form method="post" class="stacked-form" ng-submit="ctrl.authenticate()">
+	<form method="post" class="stacked-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
 		<span class="input input--manami">
 			<input class="input__field input__field--manami" id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail">
 			<label class="input__label input__label--manami" for="loginEmail">

@@ -26,32 +26,38 @@ router.post('/create',function(req,res){
 	var __event = req.body;
 	models.Events.create(__event);
 	console.log("new event created: ", __event);
-
 })
 
+// update an event
+router.put('/update/:eventid', function(req, res){
+	var where = {where: {id:req.params.eventid}};
+	var __event = req.body;
+	models.Events.find(where).then(function(event){
+		event.updateAttributes({
+			eventTitle: __event.eventTitle,
+			eventDescription: __event.eventDescription,
+			eventStart: __event.eventStart,
+			eventExpectedEnd: __event.eventExpectedEnd,
+			eventActualEnd: __event.eventActualEnd,
+			eventHasSkills: __event.eventHasSkills,
+			eventStatus: __event.eventStatus
+		})
+		__event.id = req.params.eventid;
+		res.json({
+			event: __event
+		})
+	})
+})
 
-
-// // get individual user object from email
-// router.get('/:email', function(req,res){
-// 	var where = {where:{userEmail: req.params.email}};
-// 	models.Users.find(where).then(function(user){
-// 		res.json({user:user})
-// 	});
-// })
-
-// // delete accounts via this get request based on userID
-// router.get('/remove/:userID',function(req,res){
-// 	var where = {where:{id:req.params.userID}};
-// 	models.Users.find(where).then(function(user){
-// 		user.destroy();
-// 		res.json({
-// 			deleted:true
-// 		});	
-// 	});
-// })
-
-
-
-
+// delete event based on the id
+router.get('/remove/:eventid',function(req,res){
+	var where = {where:{id:req.params.eventid}};
+	models.Events.find(where).then(function(event){
+		event.destroy();
+		res.json({
+			deleted:true
+		});	
+	});
+})
 
 module.exports = router;

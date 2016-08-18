@@ -34,8 +34,14 @@
 				user = JSON.stringify(user);
 				$http.post('/api/auth/register',user)
 				.then(function(res){
-					console.log("register res: " + res);
+					console.log("register res: ", res);
 					ctrl.register_btn = res.data.msg;
+					return res;
+				}).then(function(){
+					console.log("email: ", ctrl.regisEmail);
+					console.log("password: ", ctrl.regisPwd);
+					// Log user in after register successfully
+					ctrl.authenticate(ctrl.regisEmail, ctrl.regisPwd);
 				})
 			}
 			else{
@@ -43,10 +49,11 @@
 			}
 		}
 
-		function authenticate(){
+		function authenticate(email, password){
+
 			var user = {
-				userEmail:ctrl.loginEmail,
-				userPswd:ctrl.loginPwd
+				userEmail:email,
+				userPswd:password
 			}
 
 			user = JSON.stringify(user);

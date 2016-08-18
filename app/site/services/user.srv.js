@@ -13,10 +13,12 @@
 		self.getUserFromEmail = getUserFromEmail;
 		self.createEvent = createEvent;
 		self.getUserEvents = getUserEvents;
+		self.updateEvent = updateEvent;
+		self.updateEvents = updateEvents; // Update the myEvents in this service AFTER database has been updated.
 
 		self.myEmail;
 		self.myUser;
-		self.myEvents; // this is an array of event objects AFTER data has been returned.
+		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 
 
 		// decode the authToken from current local storage, and set it to self.myEmail.
@@ -55,6 +57,33 @@
 				})
 		}
 
+		function updateEvent(id, __event){
+			__event = JSON.stringify(__event);
+			return $http.put('api/events/update/' + id, __event)
+				.then(function(data){
+					console.log("updated event with id:" + id, data);
+					if (res.status == 200){
+						// event was updated successfully
+						self.updateEvents(id, __event);
+					}
+				})
+		}
+
+		function updateEvents(id, __event){ 
+		// this function is called by the function above, to update myEvents in this service
+			for (var i=0; i<self.myEvents.length; i++){
+				if (self.myEvents[i].id == id){
+					self.myEvents[i].eventTitle = __event.eventTitle;
+					self.myEvents[i].eventDescription = __event.eventDescription;
+					self.myEvents[i].eventStart = __event.eventStart;
+					self.myEvents[i].eventExpectedEnd = __event.eventExpectedEnd;
+					self.myEvents[i].eventActualEnd = __event.eventActualEnd;
+					self.myEvents[i].eventHasSkills = __event.eventHasSkills;
+					self.myEvents[i].eventStatus = __event.eventStatus;
+				}
+			}
+		}
+
 		function createEvent(event){
 			// move to controller later
 			// only update those that need to be updated.
@@ -74,6 +103,7 @@
 				})
 		}
 		
+		//---------------Skills Model-------------//
 
 	}
 
