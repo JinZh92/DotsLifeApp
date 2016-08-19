@@ -46,15 +46,16 @@
 					}
 				})
 				.state('user.thisweek',{
-					url:'/thisweek/:userId',
+					url:'/thisweek/',
 					templateUrl:'site/partials/user-thisweek.html',
 					controller:'UserCtrl as ctrl'
 				})
 				.state('user.overview',{
-					url:'/overview/:userId',
+					url:'/overview/',
 					templateUrl:'site/partials/user-overview.html',
 					controller:'UserCtrl as ctrl'
-				})	
+				})
+
 
 			$httpProvider.interceptors.push(function(jwtHelper){
 				return {
@@ -86,6 +87,14 @@
 						}
 						return response;
 					}
+				}
+			})
+		})
+
+		.run(function ($rootScope, $state){
+			$rootScope.$on('$stateChangeStart', function(event, toState){
+				if(toState.name == 'user'){
+					$state.go('user.thisweek');
 				}
 			})
 		})

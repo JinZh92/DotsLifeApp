@@ -15,7 +15,7 @@
 		//Check if already logged in
 		if (localStorage.authToken) {
 			console.log('Already logged in!!');
-			$state.go('user');
+			$state.go('user.thisweek');
 		}
 
 		ctrl.actionClick = actionClick;

@@ -8,6 +8,7 @@
 	function UserSrv($http, jwtHelper) {
 		var self = this;
 
+		// Function declaration
 		self.getEmailFromToken = getEmailFromToken;
 		self.getAllUserData = getAllUserData;
 		self.getUserFromEmail = getUserFromEmail;
@@ -15,15 +16,21 @@
 		self.getUserEvents = getUserEvents;
 		self.updateEvent = updateEvent;
 		self.updateEvents = updateEvents; // Update the myEvents in this service AFTER database has been updated.
+		self.getWeeks=getWeeks;
+		self.Coordiante=Coordiante;
 
+		// Variable declaration
 		self.myEmail;
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 
-//added
-		self.getWeeks=getWeeks;
-		self.Coordiante=Coordiante;
+		//------------Decode email from authToken-------//
+		function getEmailFromToken(){
+			var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
+			self.myEmail = decrypt_token.userEmail;
+		}
 
+		//-------------This week and overview-----------//
 		function Coordiante(x,y,z){
 			this.X=x;
 			this.Y=y;
@@ -44,12 +51,6 @@
 			}
 			return self.array;	
 		};
-
-		// decode the authToken from current local storage, and set it to self.myEmail.
-		function getEmailFromToken(){
-			var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
-			self.myEmail = decrypt_token.userEmail;
-		}
 
 		//-------------Users Model--------------//
 		function getAllUserData(){

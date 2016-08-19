@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, UserSrv, userResolve){
+	function UserCtrl($state, UserSrv, userResolve, $rootScope){
 		var ctrl = this;
 
 		//check if logged in. If yes, get the userEmail from the authToken
@@ -18,17 +18,16 @@
 			console.log("resolve: ", ctrl.myData);
 			console.log("my email: ", ctrl.myEmail);
 		}
-		
+
+		// declare variables
 		ctrl.myEmail;
 		ctrl.myData;
 		ctrl.getUserEvents = UserSrv.getUserEvents();
 
-
 		// declare functions
 		ctrl.logout = logout;
-
-
-
+		ctrl.thisweekClick = thisweekClick;
+		ctrl.overviewClick = overviewClick;
 
 		// Clear the authToken from localStorage when user logs out
 		function logout(){
@@ -36,7 +35,7 @@
 			$state.go('welcome');
 		}
 
-//added 
+		// Button clicking functions 
 		function thisweekClick(){
 			$state.go('user.thisweek');
 		}
@@ -44,7 +43,7 @@
 			$state.go('user.overview');
 		}
 		
-		ctrl.array=userSrv.getWeeks();		
+		ctrl.array=UserSrv.getWeeks();		
 
 
 	}	
