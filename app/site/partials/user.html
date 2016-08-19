@@ -1,19 +1,9 @@
-<!-- top nav bar -->
-<nav class="main-nav">
-  <div class="main-logo" ng-click="ctrl.goHome()">
-    <span>LOGO</span>
-  </div>
-  <ul>
-    <li><a href="" ng-click="ctrl.logout()">Logout</a></li>
-  </ul>
-</nav>
-
 <!-- overview -->
 <section class="back-overview">
 
   <!-- vertical nav bar -->
   <div class="nav-side-menu">
-      <div class="brand">Brand Logo</div>
+      <div class="brand" ng-click="ctrl.goHome()">Brand Logo</div>
       <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     
           <div class="menu-list">
@@ -40,7 +30,7 @@
                     <li>View Future</li>
                   </ul> -->
 
-                 <li ng-click="ctrl.thisweekClick()">
+                 <li ng-click="ctrl.managementClick()">
                     <a href="#">
                     <i class="glyphicon glyphicon-pencil fa-margin"></i> Management
                     </a>
@@ -56,7 +46,12 @@
                     <a href="#">
                     <i class="fa fa-user fa-lg fa-margin"></i> Profile 
                     </a>
-                  </li>               
+                  </li>   
+                   <li ng-click="ctrl.logout()">
+                    <a>
+                    <i class="glyphicon glyphicon-log-out fa-margin"></i> Logout 
+                    </a>
+                  </li>                               
 
               </ul>
        </div>
