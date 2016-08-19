@@ -1,0 +1,20 @@
+<div class="overview-title" >
+Life in Weeks 
+</div>
+<button ng-click="ctrl.lifeweeksClick()"> dival</button>
+
+<div >
+	<svg id="dival" >
+	<g >
+		<rect ng-repeat="n in ctrl.array" x="{{n.X}}" y="{{n.Y}}"
+		id="rect{{n.Z}}">
+		</rect>
+	</g>	
+	</svg>
+</div>	
+
+<div class="middle-all">
+	<div class="overview-pic">
+		<img src="../../assets/pic/life-in-weeks.jpg">
+	</div>
+</div>	

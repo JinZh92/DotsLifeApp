@@ -50,6 +50,11 @@
 					templateUrl:'site/partials/user-thisweek.html',
 					controller:'UserCtrl as ctrl'
 				})
+				.state('user.overview',{
+					url:'/overview/:userId',
+					templateUrl:'site/partials/user-overview.html',
+					controller:'UserCtrl as ctrl'
+				})	
 
 			$httpProvider.interceptors.push(function(jwtHelper){
 				return {

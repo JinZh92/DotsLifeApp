@@ -1,0 +1,35 @@
+.overview-title{
+	font-size: 25px;
+	font-family: fantasy;
+	padding-top:30px;
+	padding-bottom: 30px;
+	padding-left: 30px; 
+}
+.overview-pic{
+	width: 600px;
+   	height: 2000px;
+}
+
+.overview-pic img{
+	display: block;
+   	width: 100%;
+}
+
+#div-svg {
+    padding: 10px;
+    margin:10px;
+    width: 700px;
+    height:1400px;
+
+}
+#dival{
+  width: 1500px;
+  height: 2000px;
+}
+
+rect{
+  width: 11px;
+  height: 11px;
+  fill:#eeeeee;
+
+}

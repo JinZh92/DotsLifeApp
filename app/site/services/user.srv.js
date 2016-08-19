@@ -20,6 +20,30 @@
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 
+//added
+		self.getWeeks=getWeeks;
+		self.Coordiante=Coordiante;
+
+		function Coordiante(x,y,z){
+			this.X=x;
+			this.Y=y;
+			this.Z=z;
+		}
+
+		function getWeeks(){
+			self.array=[];
+			var z=1;
+			for(var j=0; j<=51; j++){
+				var x=j*13;
+				for (var i = 0 ; i <= 12; i++) {
+					var y =i*13;
+					var arr= new Coordiante(x,y,z);
+					self.array.push(arr);
+					z++;
+				}
+			}
+			return self.array;	
+		};
 
 		// decode the authToken from current local storage, and set it to self.myEmail.
 		function getEmailFromToken(){

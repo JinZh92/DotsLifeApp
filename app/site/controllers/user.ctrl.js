@@ -36,6 +36,16 @@
 			$state.go('welcome');
 		}
 
+//added 
+		function thisweekClick(){
+			$state.go('user.thisweek');
+		}
+		function overviewClick(){
+			$state.go('user.overview');
+		}
+		
+		ctrl.array=userSrv.getWeeks();		
+
 
 	}	
 

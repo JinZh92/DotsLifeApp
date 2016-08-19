@@ -9,18 +9,20 @@
           <div class="menu-list">
     
               <ul id="menu-content" class="menu-content collapse out">
-                  <li>
-                    <a ui-sref="user.thisweek" >
+                  
+                  <li ng-click="ctrl.thisweekClick()">
+                  <a>
                     <i class="fa fa-dashboard fa-lg fa-margin"></i> This Week
-                    </a>
+                  </a>  
                   </li>
 
 
-                   <li data-toggle="collapse" data-target="#overview" class="collapsed ">
-                    <a href="#"><i class="glyphicon glyphicon-th fa-margin"></i> Overview
+                   <li data-toggle="collapse" data-target="#overview" class="collapsed " ng-click="ctrl.overviewClick()">
+                   <a>
+                    <i class="glyphicon glyphicon-th fa-margin"></i> Overview
   <!--                    <span class="arrow"></span>
-   -->
-                    </a>
+   -->             </a>
+            
                   </li>  
   <!--                 <ul class="sub-menu collapse" id="overview">
                     <li>View Past</li>
@@ -28,13 +30,13 @@
                     <li>View Future</li>
                   </ul> -->
 
-                 <li>
+                 <li ng-click="ctrl.thisweekClick()">
                     <a href="#">
                     <i class="glyphicon glyphicon-pencil fa-margin"></i> Managemnt
                     </a>
                   </li>
 
-                   <li>
+                   <li ng-click="ctrl.overviewClick()">
                     <a href="#">
                     <i class="glyphicon glyphicon-equalizer fa-margin"></i> Tracking 
                     </a>
@@ -49,7 +51,7 @@
               </ul>
        </div>
   </div>
-  <div style="margin-left:250px"> 
+  <div style="margin-left:250px;"> 
     <div ui-view></div>
   </div>  
 </section>
