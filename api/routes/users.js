@@ -43,7 +43,7 @@ router.put('/changePassword/:email',function(req,res){
 	})
 })
 
-// update an individual user
+// update an individual user based on email
 router.put('/update/:email', function(req, res){
 	var where = {where: {userEmail:req.params.email}};
 	var __user = req.body;
