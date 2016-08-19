@@ -23,6 +23,8 @@
 		ctrl.myEmail;
 		ctrl.myData;
 		ctrl.getUserEvents = UserSrv.getUserEvents();
+		ctrl.array = UserSrv.getWeeks();		
+
 
 		// declare functions
 		ctrl.logout = logout;
@@ -42,12 +44,8 @@
 		function overviewClick(){
 			$state.go('user.overview');
 		}
-		
-		ctrl.array=UserSrv.getWeeks();		
-
 
 	}	
-
 })();
 
 

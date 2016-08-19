@@ -66,7 +66,7 @@
 				localStorage.authToken = res.data.token;
 				ctrl.auth_btn = res.data.msg;
 				// Go to user page when logged in successful
-				$state.go('user');
+				$state.go('user.thisweek');
 			})
 		}
 

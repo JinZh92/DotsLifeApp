@@ -91,6 +91,7 @@
 			})
 		})
 
+		// block user from directly accessing state "user" from url bar
 		.run(function ($rootScope, $state){
 			$rootScope.$on('$stateChangeStart', function(event, toState){
 				if(toState.name == 'user'){
