@@ -16,6 +16,12 @@
 		self.getUserEvents = getUserEvents;
 		self.updateEvent = updateEvent;
 		self.updateEvents = updateEvents; // Update the myEvents in this service AFTER database has been updated.
+		self.getUserSkills = getUserSkills;
+		self.createSkill = createSkill;
+		self.updateSkill = updateSkill;
+		self.updateSkills = updateSkills;
+
+		self.getThisWeek = getThisWeek;
 		self.getWeeks=getWeeks;
 		self.Coordiante=Coordiante;
 
@@ -23,6 +29,7 @@
 		self.myEmail;
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
+		self.mySkills = []; // same as above but skills
 
 		//------------Decode email from authToken-------//
 		function getEmailFromToken(){
@@ -31,6 +38,16 @@
 		}
 
 		//-------------This week and overview-----------//
+		function getThisWeek(){
+			var time_now = new Date(Date.now());
+			var bd = new Date(self.myUser.userBirthday);
+			console.log("my birthday from database: ", self.myUser.userBirthday);
+			console.log("bd: ", bd);
+			console.log("time_now", time_now);
+
+			return Math.ceil((time_now - bd)/(1000*3600*24*7))
+		}
+
 		function Coordiante(x,y,z){
 			this.X=x;
 			this.Y=y;
@@ -65,7 +82,7 @@
 
 		function getUserFromEmail(){
 			return $http.get('api/users/' + self.myEmail)
-				.then(function(data){				
+				.then(function(data){
 					console.log("Get user from email " + self.myEmail, data);
 					self.myUser = data.data.user;
 					return data.data.user;
@@ -76,7 +93,7 @@
 		function getUserEvents(){
 			return $http.get('api/events/' + self.myEmail)
 				.then(function(data){
-					console.log(data.data.events);
+					console.log('User events: ', data.data.events);
 					self.myEvents = data.data.events;
 					return data.data.events;
 				})
@@ -96,6 +113,7 @@
 
 		function updateEvents(id, __event){ 
 		// this function is called by the function above, to update myEvents in this service
+		// it updates the one from self.myEvents that has id:id with __event
 			for (var i=0; i<self.myEvents.length; i++){
 				if (self.myEvents[i].id == id){
 					self.myEvents[i].eventTitle = __event.eventTitle;
@@ -129,7 +147,56 @@
 		}
 		
 		//---------------Skills Model-------------//
+		function getUserSkills(){
+			return $http.get('api/skills/' + self.myEmail)
+				.then(function(data){
+					console.log('User Skills: ', data.data.skills);
+					self.mySkills = data.data.skills;
+					return data.data.skills;
+				})
+		}
 
+		function createSkill(skill){
+			// var skill = {
+			// 	// how to make sure that user doesnt break the db if they enters a "'" or something
+			// 	// TODO: think about sql injection attack and the way to prevent it
+			// 	skillName: 'Angular1.5',
+			// 	userEmail: 'test@t.com',
+			// 	tokensTotal: 0,
+			// 	skillLevel: 0,
+			// 	levelUpDate: []
+			// }
+			skill = JSON.stringify(skill);
+			$http.post('api/skills/create', skill)
+				.then(function(res){
+					console.log('successfully created a skill')
+				}, function(err){
+					console.log('oops, something went wrong')
+				})
+		}
+
+		function updateSkill(id, __skill){
+			__skill = JSON.stringify(__skill);
+			return $http.put('api/skills/update/' + id, __event)
+				.then(function(data){
+					console.log("updated event with id:" + id, data);
+					if (res.status == 200){
+						// event was updated successfully
+						self.updateSkills(id, __event);
+					}
+				})
+
+		}
+
+		function updateSkills(id, __skill){
+			for (var i=0; i<self.mySkills.length; i++){
+				if (self.mySkills[i].id == id){
+					self.mySkills[i].skillName = __skill.skillName;
+					self.mySkills[i].tokensTotal = __skill.tokensTotal;
+					self.mySkills[i].skillLevel = __skill.skillLevel;
+					self.mySkills[i].levelUpDate = __skill.levelUpDate;									}
+			}
+		}
 	}
 
 })();
