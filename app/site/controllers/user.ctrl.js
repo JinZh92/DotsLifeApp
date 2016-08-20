@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, UserSrv, userResolve, $rootScope){
+	function UserCtrl($state, UserSrv, userResolve, $rootScope, toastr){
 		var ctrl = this;
 
 		//check if logged in. If yes, get the userEmail from the authToken
@@ -39,6 +39,7 @@
 		function logout(){
 			localStorage.removeItem('authToken');
 			$state.go('welcome');
+			toastr.success('Successfully logged out.');
 		}
 
 		// Button clicking functions 

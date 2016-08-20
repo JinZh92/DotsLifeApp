@@ -5,9 +5,9 @@
 		.module('lifeCalendarApp')
 		.controller('AuthCtrl',AuthCtrl);
 
-	AuthCtrl.$inject = ['$state', '$http', 'UserSrv'];
+	AuthCtrl.$inject = ['$state', '$http', 'UserSrv', 'toastr'];
 
-	function AuthCtrl($state, $http, UserSrv){
+	function AuthCtrl($state, $http, UserSrv, toastr){
 		var ctrl = this;
 
 		//buttons
@@ -38,8 +38,6 @@
 					ctrl.register_btn = res.data.msg;
 					return res;
 				}).then(function(){
-					console.log("email: ", ctrl.regisEmail);
-					console.log("password: ", ctrl.regisPwd);
 					// Log user in after register successfully
 					ctrl.authenticate(ctrl.regisEmail, ctrl.regisPwd);
 				})
@@ -65,7 +63,8 @@
 				localStorage.loginEmail = res.data.userEmail;
 				localStorage.authToken = res.data.token;
 				ctrl.auth_btn = res.data.msg;
-				// Go to user page when logged in successful
+				// Go to user page when logged in successful 
+				toastr.success('Logged in as: ' + localStorage.loginEmail)
 				$state.go('user.thisweek');
 			})
 		}

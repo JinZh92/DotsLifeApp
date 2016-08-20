@@ -5,7 +5,8 @@
 		.module('lifeCalendarApp', [
 			'ui.router', 
 			'ngAnimate',
-			'angular-jwt'
+			'angular-jwt',
+			'toastr'
 		]);
 
 	angular

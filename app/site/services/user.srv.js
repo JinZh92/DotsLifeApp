@@ -12,6 +12,8 @@
 		self.getEmailFromToken = getEmailFromToken;
 		self.getAllUserData = getAllUserData;
 		self.getUserFromEmail = getUserFromEmail;
+		self.changePassword = changePassword;
+		self.updateUser = updateUser;
 		self.createEvent = createEvent;
 		self.getUserEvents = getUserEvents;
 		self.updateEvent = updateEvent;
@@ -41,10 +43,6 @@
 		function getThisWeek(){
 			var time_now = new Date(Date.now());
 			var bd = new Date(self.myUser.userBirthday);
-			console.log("my birthday from database: ", self.myUser.userBirthday);
-			console.log("bd: ", bd);
-			console.log("time_now", time_now);
-
 			return Math.ceil((time_now - bd)/(1000*3600*24*7))
 		}
 
@@ -87,6 +85,34 @@
 					self.myUser = data.data.user;
 					return data.data.user;
 				})
+		}
+
+		function changePassword(email, __user){
+			__user = JSON.stringify(__user);
+			return $http.put('api/users/changePassword/' + email, __user)
+				.then(function(data){
+					console.log("updated user with email:" + email, data);
+					if (res.status == 200){
+						// event was updated successfully
+						self.updateEvents(email, __user);
+					}
+				})
+			// reload the page when user information has been updated.
+			$state.go($state.$current, null, {reload: true})
+		}
+
+		function updateUser(email, __user){
+			__user = JSON.stringify(__user);
+			return $http.put('api/users/update/' + email, __user)
+				.then(function(data){
+					console.log("updated user with email:" + email, data);
+					if (res.status == 200){
+						// event was updated successfully
+						self.updateEvents(email, __user);
+					}
+				})
+			// reload the page when user information has been updated.
+			$state.go($state.$current, null, {reload: true})
 		}
 
 		//-------------Events Model------------//
