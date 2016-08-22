@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.service('UserSrv', UserSrv);
 
-	function UserSrv($http, jwtHelper) {
+	function UserSrv($state, $http, jwtHelper) {
 		var self = this;
 
 		// Function declaration
@@ -120,6 +120,7 @@
 			return $http.get('api/events/' + self.myEmail)
 				.then(function(data){
 					console.log('User events: ', data.data.events);
+					console.log("type of date: ", typeof(data.data.events[0].eventStart));
 					self.myEvents = data.data.events;
 					return data.data.events;
 				})
@@ -154,21 +155,12 @@
 		}
 
 		function createEvent(event){
-			// move to controller later
-			// only update those that need to be updated.
-			// event = {
-			// 	userEmail: 'test@t.com',
-			//     eventTitle: 'testEvent2',
-			//     eventDescription: 'testEvent2Description',
-			//     eventStart: new Date(Date.now()),
-			//     eventExpectedEnd: new Date('8/20/2016'), // august 20
-			//     eventHasSkills: [1,2,3],
-			//     eventStatus:'ONGOING'
-			// }
+
 			event = JSON.stringify(event);
 			$http.post('/api/events/create',event)
 				.then(function(res){
 					//do something when event post request is successful
+					console.log("Created event from controller");
 				})
 		}
 		
@@ -183,15 +175,8 @@
 		}
 
 		function createSkill(skill){
-			// var skill = {
-			// 	// how to make sure that user doesnt break the db if they enters a "'" or something
-			// 	// TODO: think about sql injection attack and the way to prevent it
-			// 	skillName: 'Angular1.5',
-			// 	userEmail: 'test@t.com',
-			// 	tokensTotal: 0,
-			// 	skillLevel: 0,
-			// 	levelUpDate: []
-			// }
+			// how to make sure that user doesnt break the db if they enters a "'" or something
+			// TODO: think about sql injection attack and the way to prevent it
 			skill = JSON.stringify(skill);
 			$http.post('api/skills/create', skill)
 				.then(function(res){

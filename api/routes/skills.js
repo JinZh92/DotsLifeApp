@@ -37,7 +37,7 @@ router.put('/update/:skillid', function(req, res){
 			skillName: __skill.skillName,
 			tokensTotal: __skill.tokensTotal,
 			skillLevel: __skill.skillLevel,
-			levelUpDate: __skill.levelUpDate,
+			levelUpDate: __skill.levelUpDate
 		})
 		__skill.id = req.params.skillid;
 		res.json({

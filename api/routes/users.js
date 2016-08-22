@@ -51,7 +51,7 @@ router.put('/update/:email', function(req, res){
 		event.updateAttributes({
 			userFullName: __user.userFullName,
 			userBirthday: __user.userBirthday,
-			currEvents: __user.currEvents,
+			currEvents: __user.currEvents
 		})
 		__user.userEmail = req.params.email;
 		res.json({
