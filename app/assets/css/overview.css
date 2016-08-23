@@ -1,18 +1,18 @@
 .overview-title{
-	font-size: 25px;
-	font-family: fantasy;
-	padding-top:30px;
-	padding-bottom: 30px;
-	padding-left: 30px; 
+  font-size: 25px;
+  font-family: fantasy;
+  padding-top:30px;
+  padding-bottom: 20px;
+  padding-left: 30px; 
 }
 .overview-pic{
-	width: 600px;
-   	height: 2000px;
+  width: 600px;
+    height: 2000px;
 }
 
 .overview-pic img{
-	display: block;
-   	width: 100%;
+  display: block;
+    width: 100%;
 }
 
 #div-svg {
@@ -31,5 +31,22 @@ rect{
   width: 11px;
   height: 11px;
   fill:#eeeeee;
+  background:rgba(255,255,255,0.05);  
+
 
 }
+rect:hover{
+  fill:gray;
+}
+
+/*seperate for management */
+
+.management-background{
+  width: 600px;
+  min-height: 700px;
+  background:#7f7f7f;
+  background:rgba(255,255,255,0.1);  
+  }
+
+
+
