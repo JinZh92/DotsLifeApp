@@ -1,10 +1,27 @@
 <div class="overview-title" >
 	<h3>
-		All your events for week 2000  
+		View Events  
 	</h3>
 </div>
-<div ">
 
+<div>
+	<form ng-submit="ctrl.getEventsFromWk(ctrl.fromWk, ctrl.toWk)">
+		<label>Events from week</label>
+		<input placeholder="1" ng-model="ctrl.fromWk" type="text" name="">
+
+		<label>to</label>
+		<input placeholder="Current Week: {{ctrl.getThisWeek}}" ng-model="ctrl.toWk" type="text" name="">
+
+		<button ng-click="ctrl.showDates = true" type="submit">Go</button>
+	</form>
+	<span ng-show="ctrl.showDates">
+		Displaying events started between {{ctrl.displayStart|date}} and {{ctrl.displayEnd|date}}
+	</span>
+
+	<button ng-click="ctrl.showAllEvents()">Display All</button>
+</div>
+
+<div>
 	 <div class="management-background " style="padding-left:20px">
 
 		<table class="table">
@@ -15,25 +32,19 @@
 					<th>Due Date</th>
 					<th>Status</th>
 					<th>Skill</th>
-					<th></th>
 				</tr>
 			</thead>
-
 			<tbody>
-				<tr ng-repeat="event in ctrl.myEvents">
+				<tr ng-repeat="event in ctrl.displayedEvents">
 					<td>{{event.eventTitle}}</td>
-					<td>{{event.eventStart}}</td>
-					<td>{{event.eventExpectedEnd}}</td>
+					<td>{{event.eventStart | date}}</td>
+					<td>{{event.eventExpectedEnd | date}}</td>
 					<td>{{event.eventStatus}}</td>
-					<td>{{event.eventHasSkills[0]}}</td>
-					<td><button  ng-click="ctrl.toggleEdit()">Edit</button></td>
+					<td>{{ctrl.getSkillName(event.eventHasSkills[0], ctrl.myEmail)}}</td>
+					<!-- <td><button  ng-click="ctrl.toggleEdit()">Edit</button></td> -->
 				</tr>
 			</tbody>
 		</table>
-
-
-
-		
 
 		<button ng-click="ctrl.toggleAdd()" ng-hide="ctrl.myAdd">Add
 			</button>
@@ -74,8 +85,8 @@
 			            <label for="comment">Description:</label>
 			            <textarea ng-model="ctrl.newEventDes" class="form-control" rows="5" id="comment"></textarea>
 
-			            <button ng-click="ctrl.togglele()">Cancel</button>
-			            <button ng-click="ctrl.togglele()" class="" type="submit" >Add</button>
+			            <button ng-click="ctrl.toggleleAdd()" type="reset">Cancel</button>
+			            <button ng-click="ctrl.toggleleAdd()" type="submit" >Add</button>
 			        </form>
 			    </div>
 		    </div>

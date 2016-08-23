@@ -26,8 +26,11 @@
 		// ctrl.myEvents = UserSrv.getUserEvents(); // array of all user's events
 		console.log("controller event:", ctrl.myEvents)
 		// ctrl.mySkills = UserSrv.getUserSkills(); // array of all user's skills
-		ctrl.incompleteEvents = [];	
+		ctrl.displayedEvents = ctrl.myEvents;
 		ctrl.announcement = [];
+		ctrl.displayStart;
+		ctrl.displayEnd;
+		ctrl.showDates;
 
 		ctrl.array = UserSrv.getWeeks();
 
@@ -41,6 +44,7 @@
 		ctrl.managementClick = managementClick;
 		ctrl.toAnnouncement = toAnnouncement;
 		ctrl.isThisWeek = isThisWeek;
+		ctrl.showAllEvents = showAllEvents;
 		ctrl.addEvent = addEvent;
 		ctrl.concludeEvent = concludeEvent;
 		ctrl.editEvent = editEvent;
@@ -51,6 +55,7 @@
 		ctrl.editUser = editUser;
 		ctrl.addSkill = addSkill;
 		ctrl.addSkillToken = addSkillToken;
+		ctrl.getSkillName = getSkillName;
 		ctrl.levelUp = levelUp;
 		ctrl.updateUserDb = updateUserDb;
 		ctrl.updateEventDb = updateEventDb;
@@ -164,6 +169,12 @@
 			return eventStart <= weekEnd;
 		}
 
+		function showAllEvents(){
+			ctrl.displayedEvents = ctrl.myEvents;
+			ctrl.showDates = false;
+			return ctrl.myEvents;
+		}
+
 		function showIncomplete(){
 			var incompleteArr = [];
 			//TODO return array of envets that are incomplete and scheduled for this week
@@ -178,8 +189,16 @@
 		function addEvent(){
 			var newEventStart = new Date(ctrl.newEventStart);
 			var newEventExpectedEnd = new Date(ctrl.newExpectedEnd);
+			var td = new Date(Date.now());
 			var newEventSkill = [];
+			var newEventStatus = '';
 			newEventSkill.push(ctrl.newEventSkill.id)
+
+			if (newEventExpectedEnd < td){
+				newEventStatus = "COMPLETE";
+			} else {
+				newEventStatus = "INCOMPLETE";
+			}
 
 			var event = {
 				userEmail: ctrl.myEmail,
@@ -188,13 +207,14 @@
 				eventStart: newEventStart,
 				eventExpectedEnd: newEventExpectedEnd,
 				eventHasSkills: newEventSkill,
-				eventStatus: 'INCOMPLETE'
+				eventStatus: newEventStatus
 			}
 			UserSrv.createEvent(event);
 
 			UserSrv.getUserEvents()
 				.then(function(res){
 					ctrl.myEvents = res;
+					ctrl.displayedEvents = res;
 				});
 		}
 
@@ -211,6 +231,7 @@
 
 						var tokensEarned = Math.ceil((expectedEnd - eventStart)/(1000*3600*24)) + 1;
 						ctrl.addSkillToken(eventSkillId, tokensEarned, eventActualEnd);
+						toastr.info("Successfully earned " + tokensEarned + " tokens in skill " + ctrl.getSkillName(eventSkillId, ctrl.myEmail));
 
 						if (ctrl.isSpecial){
 							eventStatus = 'SPECIAL';
@@ -280,6 +301,9 @@
 			endDate = new Date(endDate);
 			console.log("End Date: ", endDate);
 
+			ctrl.displayStart = startDate;
+			ctrl.displayEnd = endDate;
+
 			var eventsBetweenWeeks = [];
 			ctrl.myEvents.forEach(function(event){
 				var eventStart = new Date(event.eventStart);
@@ -288,7 +312,7 @@
 					eventsBetweenWeeks.push(event);
 				}
 			})
-			return eventsBetweenWeeks;
+			ctrl.displayedEvents = eventsBetweenWeeks;
 		}
 
 		function getProgress(event){
@@ -387,7 +411,16 @@
 					}
 				}
 			}
-			
+		}
+
+		function getSkillName(id, email){
+			var skillName = '';
+			ctrl.mySkills.forEach(function(skill){
+				if (skill.userEmail == email && skill.id == id){
+					skillName = skill.skillName;
+				}
+			})
+			return skillName;
 		}
 
 		//------------Update Data in Controller to DB------------//
