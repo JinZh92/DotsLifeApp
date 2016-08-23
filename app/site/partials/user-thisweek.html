@@ -13,7 +13,7 @@ This Week
   <p ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
     <button  ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
     </button>
-    <span>{{ctrl.activeParentIndex}}</span>
+    <!-- <span>{{ctrl.activeParentIndex}}</span> -->
     <br>
     <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
       <button ng-click="ctrl.toggleleCon()">Finish</button>
