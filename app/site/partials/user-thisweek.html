@@ -1,4 +1,4 @@
-<div class="overview-title">
+<div class="thisweek-head">
 This Week
 </div>
 
@@ -9,19 +9,85 @@ This Week
   <h2 class="text-middle">Goals for This Weeks <span style="margin-left: 15px">15%</span></h2>
 </div>
 
-<div  id="todo-overview">
-	<ul >
-	 	<li>Eating <button class="glyphicon glyphicon-remove"></button><button class="glyphicon glyphicon-ok"></button> </li>
-  	<li>Sleeping <button class="glyphicon glyphicon-remove"></button><button class="glyphicon glyphicon-ok"></button></li>	  			<li>Havig fun <button class="glyphicon glyphicon-remove"></button><button class="glyphicon glyphicon-ok"></button></li>
-	  <li>Havig fun <button class="glyphicon glyphicon-remove"></button><button class="glyphicon glyphicon-ok"></button></li>
-	</ul>
-	<form class="search-form middle-all">
-    <div class="form-group has-feedback">
-      <input type="text" class="form-control" name="search" id="search" placeholder="Enter new task">
-      <span class="form-control-feedback glyphicon glyphicon-plus"></span> 
+<div class="todo-overview weekstodo">
+  <p ng-repeat="(parentIndex,event) in ctrl.events">{{event.title}}
+    <button  ng-click="ctrl.showKids(event)"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
+    </button>
+    <br>
+    <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
+      <button ng-click="ctrl.toggleleCon()">Finish</button>
+      <button ng-click="ctrl.toggleleCon()">Special</button>
+      <button ng-click="ctrl.toggleleCon()">Delete</button>
+    </span>
+  </p>
+
+  <button ng-click="ctrl.toggle()" ng-hide="ctrl.myVar">Add
+  </button>
+  
+  <div ng-show="ctrl.myVar" class="modal-body"> 
+  <div class="addstyle">
+        <div class="row">
+            <div class="col-lg-5">
+                <input type="title" id="add-title" name="add-title" class="add-title form-control" placeholder="Enter your title ">
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="start time">
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="finish time">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+        <input type="text" name="skill" class="form-control" placeholder="Enter your skill" list="skills" />
+        <datalist id="skills">
+          <option >Volvo</option>
+          <option>Saab</option>
+          <option>Mercedes</option>
+          <option>Audi</option>
+        </datalist>
+      </div>
+    </div>    
+         
+        <div class="row">
+            <form class="col-lg-8">
+                <div class="form-group">
+                <label for="comment">Describtion:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </form>
+        </div>
+        <button ng-click="ctrl.togglele()">Cancel</button>
+        <button ng-click="ctrl.togglele()" class="" type="button" >Add</button>
     </div>
-  </form>
-</div>    
+    </div>
+  
+</div>
+
+<div  class="todo-overview daliytodo">
+  <p>{{ctrl.todoList[0]}}</p>
+  <ul>
+    <li ng-repeat="too in ctrl.todoList.slice(1,ctrl.todoList.length)">{{too}}<button class="glyphicon glyphicon-ok" 
+    ng-click="ctrl.deleteTodo(too)"
+    ></button> </li>
+  </ul>
+  <form class="search-form middle-all">
+      <div class="form-group has-feedback" >
+          <input type="text submit" class="form-control" ng-model=" ctrl.todo"   ng-click="ctrl.addTodo(ctrl.todo)"
+            name="search" id="search" placeholder="Enter new task">
+      <span type="submit" 
+        class="form-control-feedback glyphicon glyphicon-plus"
+          ></span> 
+      </div>
+    </form>
+</div>   
+<div class="spacer" style="clear: both;"></div> 
+
+</dir>
+      
 
 
 	  	
