@@ -18,6 +18,7 @@
 		self.getUserEvents = getUserEvents;
 		self.updateEvent = updateEvent;
 		self.updateEvents = updateEvents; // Update the myEvents in this service AFTER database has been updated.
+		self.deleteEvent = deleteEvent;
 		self.getUserSkills = getUserSkills;
 		self.createSkill = createSkill;
 		self.updateSkill = updateSkill;
@@ -120,7 +121,7 @@
 			return $http.get('api/events/' + self.myEmail)
 				.then(function(data){
 					console.log('User events: ', data.data.events);
-					console.log("type of date: ", typeof(data.data.events[0].eventStart));
+					// console.log("type of date: ", typeof(data.data.events[0].eventStart));
 					self.myEvents = data.data.events;
 					return data.data.events;
 				})
@@ -161,6 +162,13 @@
 				.then(function(res){
 					//do something when event post request is successful
 					console.log("Created event from controller");
+				})
+		}
+
+		function deleteEvent(id){
+			$http.get('api/events/remove/' + id)
+				.then(function(res){
+					console.log("deleted event");
 				})
 		}
 		

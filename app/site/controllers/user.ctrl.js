@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, UserSrv, userResolve, $rootScope, toastr){
+	function UserCtrl($state, UserSrv, userResolve, $rootScope, toastr, $scope){
 		var ctrl = this;
 
 		//check if logged in. If yes, get the userEmail from the authToken
@@ -25,7 +25,7 @@
 		ctrl.myEvents = UserSrv.getUserEvents(); // array of all user's events
 		ctrl.mySkills = UserSrv.getUserSkills(); // array of all user's skills
 		ctrl.incompleteEvents = [];	
-		ctrl.priorityEvents = [];
+		ctrl.announcement = [];
 
 		ctrl.array = UserSrv.getWeeks();
 
@@ -43,6 +43,8 @@
 		ctrl.editEvent = editEvent;
 		ctrl.getEventsFromWk = getEventsFromWk;
 		ctrl.showIncomplete = showIncomplete;
+		ctrl.getProgress = getProgress;
+		ctrl.getAnniversary = getAnniversary;
 		ctrl.editUser = editUser;
 		ctrl.addSkill = addSkill;
 		ctrl.addSkillToken = addSkillToken;
@@ -66,9 +68,22 @@
 			$state.go('user.overview');
 		}
 
+		//-------------Watcher Function--------------//
+		$scope.$watch(function(){
+			return UserSrv.getUserEvents();
+		}, function(newVal){
+			ctrl.myEvents = UserSrv.getUserEvents();
+		}, true);
+
+		$scope.$watch(function(){
+			return UserSrv.getUserSkills();
+		}, function(newVal){
+			ctrl.mySkills = UserSrv.getUserSkills();
+		}, true);
 
 		//--------------Event Functions--------------//
-		// check if en event is before the end of this week
+
+		// check if en event is before the end of this week, return bool.
 		function isThisWeek(event){
 			var thisWeekNumber = ctrl.getThisWeek;
 			var endTime = ctrl.myData.userBirthday;
@@ -84,35 +99,96 @@
 			//TODO return array of envets that are incomplete and scheduled for this week
 			ctrl.myEvents.forEach(function(event){
 				if (event.eventStatus == 'INCOMPLETE' && ctrl.isThisWeek(event)){
-					console.log("checking if event should be showed!")
+					console.log("Passed checking condition and adding to incomplete list!")
 					incompleteArr.push(event);
 				}
 			})
+			return incompleteArr;
 		}
 
 		function addEvent(){
 			var newEventStart = new Date(ctrl.newEventStart);
 			var newEventExpectedEnd = new Date(ctrl.newExpectedEnd);
+			var newEventSkill = [];
+			newEventSkill.push(ctrl.newEventSkill)
+
 			var event = {
 				userEmail: ctrl.myEmail,
 				eventTitle: ctrl.newEventTitle,
 				eventDescription: ctrl.newEventDes,
 				eventStart: newEventStart,
 				eventExpectedEnd: newEventExpectedEnd,
-				eventHasSkills: [],
+				eventHasSkills: newEventSkill,
 				eventStatus: 'INCOMPLETE'
 			}
 			UserSrv.createEvent(event);
 			ctrl.myEvents = UserSrv.getUserEvents();
 		}
 
-		function concludeEvent(){
-			//TODO setSpecial/levelUp/setActualEnd/checkFinishedSuccessful
+		function concludeEvent(id){
+			//TODO setSpecial/levelUp/setActualEnd/checkFinishedSuccessful/addtoken if successful
+			ctrl.myEvents.forEach(function(event){
+				if (event.id == id){
+					var eventSkillId = event.eventHasSkills[0];
+					var eventStatus = '';
+					var actualEndDate = new Date(ctrl.setActualEnd);
+					var expectedEnd = new Date(event.expectedEnd);
+					var eventStart = new Date(event.eventStart);
+					if (actualEndDate <= expectedEnd){
+
+						var tokensEarned = Math.ceil((expectedEnd - eventStart)/(1000*3600*24)) + 1;
+						ctrl.addSkillToken(eventSkillId, tokensEarned, eventActualEnd);
+
+						if (ctrl.isSpecial){
+							eventStatus = 'SPECIAL';
+						} else {
+							eventStatus = 'COMPLETE';
+						}
+
+					} else {
+						eventStatus = 'FAIL';
+					}
+
+					__event = {
+						eventActualEnd: actualEndDate,
+						eventStatus: eventStatus
+					}
+					UserSrv.updateEvent(event.id, __event);
+				}
+			})
+
 
 		}
 
-		function editEvent(){
+		function editEvent(id){
 			//TODO: Can edit only when it's incomplete.
+			ctrl.myEvents.forEach(function(event){
+				if (event.id == id){
+					if (event.eventStatus == "INCOMPLETE"){
+						var __event = {
+							eventTitle: ctrl.editEventTitle,
+							eventDescription: ctrl.editEventDes,
+							eventStart: ctrl.editEventStart,
+							eventExpectedEnd: ctrl.editEventExpected,
+							eventHasSkills: [ctrl.editEventHasSkillId]
+						}
+						UserSrv.updateEvent(id, __event);
+					}
+				}
+			})
+
+		}
+
+		function deleteEvent(id){
+			ctrl.myEvents.forEach(function(event){
+				if (event.id == id){
+					if (event.eventStatus == "INCOMPLETE"){
+						UserSrv.deleteEvent(id);
+						ctrl.myEvents = UserSrv.getUserEvents();
+					}
+				}
+			})
+			
 		}
 
 		function getEventsFromWk(start, end){
@@ -122,35 +198,106 @@
 			var bd = new Date(ctrl.myData.userBirthday);
 			console.log("Get events from wk, birthday is: ", bd);
 
-			var startDate = bd.setTime(bd.getTime() + (7*(st-1)) * 86400000)
+			var startDate = bd.setTime(bd.getTime() + (7*(st-1)) * 86400000);
+			startDate = new Date(startDate);
 			console.log("Start Date: ", startDate);
 
 			bd = new Date(ctrl.myData.userBirthday);
 			var endDate = bd.setTime(bd.getTime() + (7*(en)) * 86400000);
+			endDate = new Date(endDate);
 			console.log("End Date: ", endDate);
 
+			var eventsBetweenWeeks = [];
+			ctrl.myEvents.forEach(function(event){
+				var eventStart = new Date(event.eventStart);
+				if (eventStart>startDate && eventStart < endDate){
+					console.log("Passed checking for get events from weeks!")
+					eventsBetweenWeeks.push(event);
+				}
+			})
+			return eventsBetweenWeeks;
+		}
 
+		function getProgress(event){
+			var now = new Date(Date.now());
+			var start = new Date(event.eventStart);
+			var end = new Date(event.eventExpectedEnd);
+
+			if (now > start && now < end){
+				var duration = Math.ceil((end - start)/(1000*3600*24)) + 1;
+				var spent = Math.ceil((end - now)/(1000*3600*24));
+				// return the percentage progress to 2 decimal places
+				return (spent/duration * 100).toFixed(2);
+			} else {
+				console.log("Event not started yet");
+				return 0;
+			}	
+		}
+
+		function getAnniversary(event){
+			var now = new Date(Date.now());
+			var end = new Date(event.eventActualEnd);
+			// return number of weeks since
+			return Math.floor((now - end)/(1000*3600*24*7));
 
 		}
 
 		function toAnnouncement(){
 			//TODO: return an array of events that set to special and are 10*k weeks away from now
 			// and events with high priority
+			ctrl.myEvents.forEach(function(event){
+				if (event.eventStatus == "INCOMPLETE"){
+					if (ctrl.getProgress(event) >= 80){
+						ctrl.announcement.push("The time left for: " + event.eventTitle + " is almost up! Time used: " + ctrl.getProgress(event) + "%");
+					}
+				}
+
+				if (event.eventStatus == "SPECIAL"){
+					var numWk = ctrl.getAnniversary(event)/10;
+					if (numWk >= 1 && Number.isInteger(numWk)){
+						ctrl.announcement.push("It's been " + (numWk*10) + " weeks since you did: " + event.eventTitle);
+					}			
+				}
+			})
 		}
 
 
 		//--------------User Functions--------------//
 		function editUser(){
-			//TODO
+			ctrl.myData.userFullName = ctrl.userFullName;
+			ctrl.myData.userBirthday = ctrl.userBirthday;
+			ctrl.updateUserDb();
+		}
+
+		function changePassword(){
+			if (ctrl.newUserPswd != null && ctrl.newUserPswd !='' && ctrl.newUserPswd == ctrl.newUserPswdRep){
+				var user = {
+					userPswd: ctrl.newUserPswd
+				}
+				UserSrv.changePassword(ctrl.myEmail, user);
+			}
 		}
 
 		//--------------Skill Functions--------------//
 		function addSkill(){
-			//TODO
+			var skill = {
+				skillName: ctrl.newSkillName,
+				userEmail: ctrl.myEmail,
+				tokensTotal: 0,
+				skillLevel: 0,
+				levelUpDate: []
+			}
+			UserSrv.createSkill(skill);
 		}
 
-		function addSkillToken(){
-
+		function addSkillToken(id, num, date){
+			ctrl.mySkills.forEach(function(skill){
+				if (skill.id ==  id){
+					skill.tokensTotal += num;
+					ctrl.levelUp(id, date);
+				}
+			})
+			ctrl.updateSkillDb();
 		}
 
 		function levelUp(id, date){
