@@ -1,3 +1,113 @@
 <div class="overview-title" >
-management
+	<h3>
+		All your events for week 2000  
+	</h3>
+</div>
+<div ">
+
+	 <div class="management-background " style="padding-left:20px">
+
+		<h3>
+			 Events for this week:
+		</h3>
+
+		<p ng-repeat="event in ctrl.events">{{event.title}}  
+			<br>
+				Starting time: {{event.starting}}
+				Ending time: {{event.ending}}
+				Status: {{event.skill}}
+			
+				<button  ng-click="ctrl.toggleEdit()">Edit</button>
+			
+		</p> 
+
+		
+
+		<button ng-click="ctrl.toggleAdd()" ng-hide="ctrl.myAdd">Add
+			</button>
+			
+			<div ng-show="ctrl.myAdd" class="modal-body"> 
+				<div class="addstyle">
+			        <div class="row">
+			            <div class="col-lg-5">
+			                <input type="title" id="add-title" name="add-title" class="add-title form-control" placeholder="Enter your title ">
+			            </div>    
+			        </div>
+
+			        <div class="row">
+			            <div class="col-lg-5">
+			              <input type="date" class="form-control" placeholder="start time">
+			            </div>
+			            <div class="col-lg-5">
+			              <input type="date" class="form-control" placeholder="finish time">
+			            </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-7">
+							<input type="text" name="skill" class="form-control" placeholder="Enter your skill" list="skills" />
+							<datalist id="skills">
+							  <option >Volvo</option>
+							  <option>Saab</option>
+							  <option>Mercedes</option>
+							  <option>Audi</option>
+							</datalist>
+						</div>
+					</div>    
+			         
+			        <div class="row">
+			            <form class="col-lg-8">
+			                <div class="form-group">
+			                <label for="comment">Describtion:</label>
+			                <textarea class="form-control" rows="5" id="comment"></textarea>
+			                </div>
+			            </form>
+			        </div>
+			        <button ng-click="ctrl.toggleleAdd()">Cancel</button>
+			        <button ng-click="ctrl.toggleleAdd()" class="" type="button" >Add</button>
+			    </div>
+		    </div>
+			<div ng-show="ctrl.myEdit" class="modal-body"> 
+				<div class="addstyle">
+			        <div class="row">
+			            <div class="col-lg-5">
+			                <input type="title" id="add-title" name="add-title" class="add-title form-control" ng-value="ctrl.events[0].title ">
+			            </div>    
+			        </div>
+
+			        <div class="row">
+			            <div class="col-lg-5">
+			              <input type="text" class="form-control" ng-value="ctrl.events[0].starting ">
+			            </div>
+			            <div class="col-lg-5">
+			              <input type="text" class="form-control" ng-value="ctrl.events[0].ending ">
+			            </div>
+			        </div>
+			        <div class="row">
+			            <div class="col-lg-7">
+							<input type="text" name="skill" class="form-control" ng-value="ctrl.events[0].skill" list="skills" />
+							<datalist id="skills">
+							  <option >Volvo</option>
+							  <option>Saab</option>
+							  <option>Mercedes</option>
+							  <option>Audi</option>
+							</datalist>
+						</div>
+					</div>    
+			         
+			        <div class="row">
+			            <form class="col-lg-8">
+			                <div class="form-group">
+			                <label for="comment">Describtion:</label>
+			                <textarea class="form-control" rows="5" id="comment" >{{ctrl.events[0].describtion}}</textarea>
+			                </div>
+			            </form>
+			        </div>
+			        <button ng-click="ctrl.toggleleEdit()">Cancel</button>
+			        <button ng-click="ctrl.toggleleEdit()" class="" type="button" >Add</button>
+			    </div>
+		    </div>		    
+
+
+		</div> 
+
 </div>

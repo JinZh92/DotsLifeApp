@@ -67,6 +67,73 @@
 		function overviewClick(){
 			$state.go('user.overview');
 		}
+		function managementClick(){
+			$state.go('user.management')
+		}		
+		//-------------thisweek Function-------------//
+		ctrl.todoList=[];
+		ctrl.todoList.push("Daliy Todos: ");
+		ctrl.addTodo = function(todo){			
+			if(todo){
+				if(ctrl.todoList.length>0){
+					if(ctrl.todoList.indexOf(todo)>-1){
+						alert("todo exits")
+					}
+					else{
+						ctrl.todoList.push(ctrl.todo);
+					}
+				}
+				else{
+					ctrl.todoList.push(ctrl.todo);
+				}
+			}
+		}
+
+		ctrl.deleteTodo = function(todo){
+			if(todo){
+				if(ctrl.todoList){
+					var num=ctrl.todoList.indexOf(todo);
+					if(num>-1){
+						ctrl.todoList.splice(num,num);
+					}
+				}	
+			}
+		}
+		ctrl.addOpen = function(){
+			UserSrv.open();
+		}
+		ctrl.myVar=false;
+		ctrl.toggle = function() {
+        ctrl.myVar = !ctrl.myVar;
+    	};
+    	ctrl.togglele=function(){
+    	ctrl.myVar=false;
+    	}
+		ctrl.myAdd=false;
+		ctrl.toggleAdd = function() {
+        ctrl.myAdd = !ctrl.myAdd;
+    	};
+    	ctrl.toggleleAdd=function(){
+    	ctrl.myAdd=false;
+    	}
+    	ctrl.myEdit=false;
+		ctrl.toggleEdit = function() {
+        ctrl.myEdit = !ctrl.myEdit;
+    	};
+    	ctrl.toggleleEdit=function(){
+    	ctrl.myEdit=false;
+    	}
+    	ctrl.activeParentIndex=-1;
+    	ctrl.showKids = function (e) {
+        ctrl.activeParentIndex = ctrl.events.indexOf(e)
+    	};
+    	ctrl.myCon=false;
+		ctrl.toggleCon = function() {
+        ctrl.myCon = !ctrl.myCon;
+    	};
+    	ctrl.toggleleCon=function(){
+    	ctrl.activeParentIndex=-1;
+    	}    			
 
 		//-------------Watcher Function--------------//
 		$scope.$watch(function(){

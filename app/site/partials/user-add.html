@@ -1,0 +1,38 @@
+<div class="modal-background">
+    <div class="modal-header ">
+        <h3 class="modal-title">Create Your Weekly Event: </h3>
+    </div>
+    <div class="modal-body cartstyle"> 
+        <div class="row">
+            <div class="col-lg-5">
+                <input type="title" name="title" class="form-control" placeholder="Enter your title ">
+            </div>    
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="start time">
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" placeholder="finish time">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <input type="skill" name="skill" class="form-control" placeholder="Enter your skill ">
+            </div>    
+        </div>
+        <div class="row">
+            <form class="col-lg-8">
+                <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </form>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">Add</button>
+         <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Not This Time</button>
+    </div>
+</div>

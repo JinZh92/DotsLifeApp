@@ -6,7 +6,9 @@
 			'ui.router', 
 			'ngAnimate',
 			'angular-jwt',
-			'toastr'
+			'toastr',
+			'ui.bootstrap'
+
 		]);
 
 	angular
@@ -56,7 +58,11 @@
 					templateUrl:'site/partials/user-overview.html',
 					controller:'UserCtrl as ctrl'
 				})
-
+				.state('user.management',{
+						url:'/management/',
+						templateUrl:'site/partials/user-management.html',
+						controller:'UserCtrl as ctrl'
+				})	
 
 			$httpProvider.interceptors.push(function(jwtHelper){
 				return {

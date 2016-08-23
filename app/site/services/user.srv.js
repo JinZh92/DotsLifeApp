@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.service('UserSrv', UserSrv);
 
-	function UserSrv($state, $http, jwtHelper) {
+	function UserSrv($uibModal,$state, $http, jwtHelper) {
 		var self = this;
 
 		// Function declaration
@@ -67,6 +67,27 @@
 			}
 			return self.array;	
 		};
+
+        self.open = function () {
+        	console.log('Opening modal');
+       		var modalInstance = $uibModal.open({
+		      	animation: false,
+			   	templateUrl: 'site/partials/user-add.html',
+			    controller: 'ModalInstanceCtrl as ctrl',
+			    // size: size,
+			    // resolve: {
+			    //     items: function () {
+			    //       return self.items;
+			    //     }
+		     //  }
+		    });
+
+		    modalInstance.result.then(function () {
+		      console.log('clicked okay');
+		    }, function () {
+		      console.log('Modal dismissed at: ' + new Date());
+		    });
+		};		
 
 		//-------------Users Model--------------//
 		function getAllUserData(){
