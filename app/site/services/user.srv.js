@@ -9,7 +9,7 @@
 		var self = this;
 
 		// Function declaration
-		self.getEmailFromToken = getEmailFromToken;
+		// self.getEmailFromToken = getEmailFromToken;
 		self.getAllUserData = getAllUserData;
 		self.getUserFromEmail = getUserFromEmail;
 		self.changePassword = changePassword;
@@ -26,19 +26,19 @@
 
 		self.getThisWeek = getThisWeek;
 		self.getWeeks=getWeeks;
-		self.Coordiante=Coordiante;
+		self.Coordinate=Coordinate;
 
 		// Variable declaration
-		self.myEmail;
+		self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 		self.mySkills = []; // same as above but skills
 
-		//------------Decode email from authToken-------//
-		function getEmailFromToken(){
-			var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
-			self.myEmail = decrypt_token.userEmail;
-		}
+		// //------------Decode email from authToken-------//
+		// function getEmailFromToken(){
+		// 	var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
+		// 	self.myEmail = decrypt_token.userEmail;
+		// }
 
 		//-------------This week and overview-----------//
 		function getThisWeek(){
@@ -47,7 +47,7 @@
 			return Math.ceil((time_now - bd)/(1000*3600*24*7))
 		}
 
-		function Coordiante(x,y,z){
+		function Coordinate(x,y,z){
 			this.X=x;
 			this.Y=y;
 			this.Z=z;
@@ -60,7 +60,7 @@
 				var x=j*13;
 				for (var i = 0 ; i <= 12; i++) {
 					var y =i*13;
-					var arr= new Coordiante(x,y,z);
+					var arr= new Coordinate(x,y,z);
 					self.array.push(arr);
 					z++;
 				}

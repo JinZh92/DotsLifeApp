@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, UserSrv, userResolve, $rootScope, toastr, $scope){
+	function UserCtrl($state, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
 		var ctrl = this;
 
 		//check if logged in. If yes, get the userEmail from the authToken
@@ -15,15 +15,17 @@
 			// With resolve, the page is loaded after the email-specific data has already been returned
 			ctrl.myData = userResolve;
 			ctrl.myEmail = ctrl.myData.userEmail;
+			ctrl.myEvents = eventsResolve;
+			ctrl.mySkills = skillsResolve;
 			console.log("resolve: ", ctrl.myData);
-			console.log("my email: ", ctrl.myEmail);
 		}
 
 		//------------Variable Declaration------------//
 		ctrl.myEmail; // User email as string
 		ctrl.myData; // User object
-		ctrl.myEvents = UserSrv.getUserEvents(); // array of all user's events
-		ctrl.mySkills = UserSrv.getUserSkills(); // array of all user's skills
+		// ctrl.myEvents = UserSrv.getUserEvents(); // array of all user's events
+		console.log("controller event:", ctrl.myEvents)
+		// ctrl.mySkills = UserSrv.getUserSkills(); // array of all user's skills
 		ctrl.incompleteEvents = [];	
 		ctrl.announcement = [];
 
@@ -36,6 +38,7 @@
 		ctrl.logout = logout;
 		ctrl.thisweekClick = thisweekClick;
 		ctrl.overviewClick = overviewClick;
+		ctrl.managementClick = managementClick;
 		ctrl.toAnnouncement = toAnnouncement;
 		ctrl.isThisWeek = isThisWeek;
 		ctrl.addEvent = addEvent;
@@ -52,6 +55,7 @@
 		ctrl.updateUserDb = updateUserDb;
 		ctrl.updateEventDb = updateEventDb;
 		ctrl.updateSkillDb = updateSkillDb;
+
 
 		// Clear AuthToken from LocalStorage
 		function logout(){
@@ -124,8 +128,8 @@
     	ctrl.myEdit=false;
     	}
     	ctrl.activeParentIndex=-1;
-    	ctrl.showKids = function (e) {
-        ctrl.activeParentIndex = ctrl.events.indexOf(e)
+    	ctrl.showKids = function (e,f) {
+        ctrl.activeParentIndex = f.indexOf(e)
     	};
     	ctrl.myCon=false;
 		ctrl.toggleCon = function() {
@@ -136,17 +140,17 @@
     	}    			
 
 		//-------------Watcher Function--------------//
-		$scope.$watch(function(){
-			return UserSrv.getUserEvents();
-		}, function(newVal){
-			ctrl.myEvents = UserSrv.getUserEvents();
-		}, true);
+		// $scope.$watch(function(){
+		// 	return UserSrv.getUserEvents();
+		// }, function(newVal){
+		// 	ctrl.myEvents = UserSrv.getUserEvents();
+		// }, true);
 
-		$scope.$watch(function(){
-			return UserSrv.getUserSkills();
-		}, function(newVal){
-			ctrl.mySkills = UserSrv.getUserSkills();
-		}, true);
+		// $scope.$watch(function(){
+		// 	return UserSrv.getUserSkills();
+		// }, function(newVal){
+		// 	ctrl.mySkills = UserSrv.getUserSkills();
+		// }, true);
 
 		//--------------Event Functions--------------//
 
@@ -154,10 +158,9 @@
 		function isThisWeek(event){
 			var thisWeekNumber = ctrl.getThisWeek;
 			var endTime = ctrl.myData.userBirthday;
-			endTime.setTime(endTime.getTime() + (7*(thisWeekNumber)) * 86400000);
 			var eventStart = new Date(event.eventStart);
 			var weekEnd = new Date(endTime);
-			console.log("Eventstart before Weekend??", eventStart<=weekEnd)
+			weekEnd.setTime(weekEnd.getTime() + (7*(thisWeekNumber)) * 86400000);
 			return eventStart <= weekEnd;
 		}
 
@@ -166,7 +169,6 @@
 			//TODO return array of envets that are incomplete and scheduled for this week
 			ctrl.myEvents.forEach(function(event){
 				if (event.eventStatus == 'INCOMPLETE' && ctrl.isThisWeek(event)){
-					console.log("Passed checking condition and adding to incomplete list!")
 					incompleteArr.push(event);
 				}
 			})
@@ -177,7 +179,7 @@
 			var newEventStart = new Date(ctrl.newEventStart);
 			var newEventExpectedEnd = new Date(ctrl.newExpectedEnd);
 			var newEventSkill = [];
-			newEventSkill.push(ctrl.newEventSkill)
+			newEventSkill.push(ctrl.newEventSkill.id)
 
 			var event = {
 				userEmail: ctrl.myEmail,
@@ -189,7 +191,11 @@
 				eventStatus: 'INCOMPLETE'
 			}
 			UserSrv.createEvent(event);
-			ctrl.myEvents = UserSrv.getUserEvents();
+
+			UserSrv.getUserEvents()
+				.then(function(res){
+					ctrl.myEvents = res;
+				});
 		}
 
 		function concludeEvent(id){

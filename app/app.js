@@ -43,25 +43,64 @@
 					controller:'UserCtrl as ctrl',
 					resolve:{
 						userResolve: function(UserSrv){
-							UserSrv.getEmailFromToken();
 							return UserSrv.getUserFromEmail();
+						},
+						eventsResolve: function(UserSrv){
+							return UserSrv.getUserEvents();
+						},
+						skillsResolve: function(UserSrv){
+							return UserSrv.getUserSkills();
 						}
 					}
 				})
 				.state('user.thisweek',{
 					url:'/thisweek/',
 					templateUrl:'site/partials/user-thisweek.html',
-					controller:'UserCtrl as ctrl'
+					controller:'UserCtrl as ctrl',
+					resolve: {
+						userResolve: function(UserSrv){
+							return UserSrv.getUserFromEmail();
+						},
+						eventsResolve: function(UserSrv){
+							return UserSrv.getUserEvents();
+						},
+						skillsResolve: function(UserSrv){
+							return UserSrv.getUserSkills();
+						}
+					}
 				})
 				.state('user.overview',{
 					url:'/overview/',
 					templateUrl:'site/partials/user-overview.html',
-					controller:'UserCtrl as ctrl'
+					controller:'UserCtrl as ctrl',
+					resolve:{
+						userResolve: function(UserSrv){
+							return UserSrv.getUserFromEmail();
+						},
+						eventsResolve: function(UserSrv){
+							return UserSrv.getUserEvents();
+						},
+						skillsResolve: function(UserSrv){
+							return UserSrv.getUserSkills();
+						}
+					}
 				})
 				.state('user.management',{
-						url:'/management/',
-						templateUrl:'site/partials/user-management.html',
-						controller:'UserCtrl as ctrl'
+					url:'/management/',
+					templateUrl:'site/partials/user-management.html',
+					controller:'UserCtrl as ctrl',
+					resolve:{
+						userResolve: function(UserSrv){
+							return UserSrv.getUserFromEmail();
+						},
+						eventsResolve: function(UserSrv){
+							return UserSrv.getUserEvents();
+						},
+						skillsResolve: function(UserSrv){
+							return UserSrv.getUserSkills();
+						}
+					}
+
 				})	
 
 			$httpProvider.interceptors.push(function(jwtHelper){

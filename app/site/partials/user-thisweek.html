@@ -10,9 +10,10 @@ This Week
 </div>
 
 <div class="todo-overview weekstodo">
-  <p ng-repeat="(parentIndex,event) in ctrl.events">{{event.title}}
-    <button  ng-click="ctrl.showKids(event)"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
+  <p ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
+    <button  ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
     </button>
+    <span>{{ctrl.activeParentIndex}}</span>
     <br>
     <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
       <button ng-click="ctrl.toggleleCon()">Finish</button>
@@ -24,45 +25,50 @@ This Week
   <button ng-click="ctrl.toggle()" ng-hide="ctrl.myVar">Add
   </button>
   
-  <div ng-show="ctrl.myVar" class="modal-body"> 
-  <div class="addstyle">
-        <div class="row">
-            <div class="col-lg-5">
-                <input type="title" id="add-title" name="add-title" class="add-title form-control" placeholder="Enter your title ">
-            </div>    
-        </div>
+  <div ng-show="ctrl.myVar" class="modal-body">
 
-        <div class="row">
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="start time">
+    <div class="addstyle">
+
+        <form class="col-lg-12" ng-submit="ctrl.addEvent()">
+            <div>
+                <label>
+                  Event Name:
+                </label>
+                <input ng-model="ctrl.newEventTitle" type="title" id="add-title" name="add-title" class="add-title form-control" placeholder="Enter your title ">
+            </div>    
+
+            <div>
+              <label>
+                Start Date: 
+              </label>
+              <input ng-model="ctrl.newEventStart" type="date" class="form-control" placeholder="Start Date">
             </div>
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="finish time">
+
+            <div>
+              <label>
+                Due Date
+              </label>
+              <input ng-model="ctrl.newExpectedEnd" type="date" class="form-control" placeholder="Due Date">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-7">
-        <input type="text" name="skill" class="form-control" placeholder="Enter your skill" list="skills" />
-        <datalist id="skills">
-          <option >Volvo</option>
-          <option>Saab</option>
-          <option>Mercedes</option>
-          <option>Audi</option>
-        </datalist>
+
+            <div>
+              <label>
+                Select Skill
+              </label>
+              <select ng-model="ctrl.newEventSkill" ng-options="x as x.skillName for x in ctrl.mySkills">
+              </select>
+            </div>  
+          
+            
+            <label for="comment">Description:</label>
+            <textarea ng-model="ctrl.newEventDes" class="form-control" rows="5" id="comment"></textarea>
+
+            <button ng-click="ctrl.togglele()">Cancel</button>
+            <button ng-click="ctrl.togglele()" class="" type="submit" >Add</button>
+        </form>
+
+        
       </div>
-    </div>    
-         
-        <div class="row">
-            <form class="col-lg-8">
-                <div class="form-group">
-                <label for="comment">Describtion:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
-                </div>
-            </form>
-        </div>
-        <button ng-click="ctrl.togglele()">Cancel</button>
-        <button ng-click="ctrl.togglele()" class="" type="button" >Add</button>
-    </div>
     </div>
   
 </div>
