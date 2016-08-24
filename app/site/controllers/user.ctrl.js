@@ -164,17 +164,16 @@
     	}
 
     	function isPast(item){
-    		var id = angular.element(item).data('id');
-    		console.log(id);
+    		// var id = angular.element(item).data('id');
+    		console.log(item);
     		// var id = item.attributes['id'].value;
-    		return id < ("rect__" + ctrl.getThisWeek);
+    		return item < ctrl.getThisWeek;
     	}
 
     	function isNow(item){
-    		var id = angular.element(item).data('id');
     		console.log(id);
     		// var id = item.attributes['id'].value;
-    		return id == ("rect__" + ctrl.getThisWeek);
+    		return item == ctrl.getThisWeek;
     	}
 
 		//-------------Watcher Function--------------//
