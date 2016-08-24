@@ -165,7 +165,7 @@
 			return $http.put('api/events/update/' + id, __event)
 				.then(function(data){
 					console.log("updated event with id:" + id, data);
-					if (res.status == 200){
+					if (data.status == 200){
 						// event was updated successfully
 						self.updateEvents(id, __event);
 					}
@@ -236,7 +236,7 @@
 			return $http.put('api/skills/update/' + id, __event)
 				.then(function(data){
 					console.log("updated event with id:" + id, data);
-					if (res.status == 200){
+					if (data.status == 200){
 						// event was updated successfully
 						self.updateSkills(id, __event);
 					}

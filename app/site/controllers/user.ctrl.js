@@ -300,7 +300,15 @@
 						eventActualEnd: actualEndDate,
 						eventStatus: eventStatus
 					}
-					UserSrv.updateEvent(event.id, __event);
+					UserSrv.updateEvent(event.id, __event)
+						.then(function(){
+							return UserSrv.getUserEvents();
+						})
+						.then(function(res){
+							ctrl.myEvents = res;
+							ctrl.displayedEvents = res;
+							ctrl.showIncomplete();
+						});
 				}
 			})
 
@@ -319,7 +327,15 @@
 							eventExpectedEnd: ctrl.editEventExpected,
 							eventHasSkills: [ctrl.editEventHasSkillId]
 						}
-						UserSrv.updateEvent(id, __event);
+						UserSrv.updateEvent(id, __event)
+							.then(function(){
+								return UserSrv.getUserEvents();
+							})
+							.then(function(res){
+								ctrl.myEvsents = res;
+								ctrl.displayedEvents = res;
+								ctrl.showIncomplete();
+							});
 					}
 				}
 			})
@@ -333,14 +349,14 @@
 
 						// delete and keep the view updated after deletion
 						UserSrv.deleteEvent(id)
-						.then(function(){
-							return UserSrv.getUserEvents();			
-						})
-						.then(function(res){
-							ctrl.myEvents = res;
-							ctrl.displayedEvents = res;
-							ctrl.showIncomplete();
-						});
+							.then(function(){
+								return UserSrv.getUserEvents();			
+							})
+							.then(function(res){
+								ctrl.myEvents = res;
+								ctrl.displayedEvents = res;
+								ctrl.showIncomplete();
+							});
 					}
 
 

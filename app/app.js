@@ -7,8 +7,8 @@
 			'ngAnimate',
 			'angular-jwt',
 			'toastr',
-			'ui.bootstrap'
-
+			'ui.bootstrap',
+			'angular-carousel'
 		]);
 
 	angular
