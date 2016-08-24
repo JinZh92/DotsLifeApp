@@ -41,7 +41,7 @@
 						<td>{{event.eventStart | date}}</td>
 						<td>{{event.eventExpectedEnd | date}}</td>
 						<td>{{event.eventStatus}}</td>
-						<td>{{ctrl.getSkillName(event.eventHasSkills[0], ctrl.myEmail)}}</td>
+						<td>{{ctrl.getSkillName(event.eventHasSkills[0], ctrl.myData.userEmail)}}</td>
 						<!-- <td><button  ng-click="ctrl.toggleEdit()">Edit</button></td> -->
 					</tr>
 				</tbody>

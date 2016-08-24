@@ -172,9 +172,9 @@
 
     	function selectDot(number){
     		console.log(number);
-    		ctrl.displayStart = number;
-    		ctrl.displayEnd = number;
     		$state.go('user.management');
+    		ctrl.getEventsFromWk(number, number);
+    		ctrl.showDates = true;
     	}
 
     	function isPast(item){

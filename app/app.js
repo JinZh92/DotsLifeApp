@@ -55,56 +55,21 @@
 				})
 				.state('user.thisweek',{
 					url:'/thisweek/',
-					templateUrl:'site/partials/user-thisweek.html',
-					controller:'UserCtrl as ctrl',
-					resolve: {
-						userResolve: function(UserSrv){
-							return UserSrv.getUserFromEmail();
-						},
-						eventsResolve: function(UserSrv){
-							return UserSrv.getUserEvents();
-						},
-						skillsResolve: function(UserSrv){
-							return UserSrv.getUserSkills();
-						}
-					}
+					templateUrl:'site/partials/user-thisweek.html'
+					
 				})
 				.state('user.overview',{
 					url:'/overview/',
-					templateUrl:'site/partials/user-overview.html',
-					controller:'UserCtrl as ctrl',
-					resolve:{
-						userResolve: function(UserSrv){
-							return UserSrv.getUserFromEmail();
-						},
-						eventsResolve: function(UserSrv){
-							return UserSrv.getUserEvents();
-						},
-						skillsResolve: function(UserSrv){
-							return UserSrv.getUserSkills();
-						}
-					}
+					templateUrl:'site/partials/user-overview.html'
+					
 				})
 				.state('user.management',{
 					url:'/management/',
-					templateUrl:'site/partials/user-management.html',
-					controller:'UserCtrl as ctrl',
-					resolve:{
-						userResolve: function(UserSrv){
-							return UserSrv.getUserFromEmail();
-						},
-						eventsResolve: function(UserSrv){
-							return UserSrv.getUserEvents();
-						},
-						skillsResolve: function(UserSrv){
-							return UserSrv.getUserSkills();
-						}
-					}
+					templateUrl:'site/partials/user-management.html'
 				})	
 				.state('user.profile', {
 					url:'/profile/',
-					templateUrl:'site/partials/user-profile.html',
-					controller: 'UserCtrl as ctrl'
+					templateUrl:'site/partials/user-profile.html'
 				})
 
 			$httpProvider.interceptors.push(function(jwtHelper){
