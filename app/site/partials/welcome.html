@@ -1,6 +1,6 @@
 <nav class="main-nav">
 	<div class="main-logo" ng-click="ctrl.goHome()">
-		<span>LOGO</span>
+		<span>Dotweek</span>
 	</div>
 	<ul>
 		<li><a href="" ng-click="ctrl.login()">Login</a></li>
@@ -17,13 +17,10 @@
 	</div>
 
 	<div class="inner-container" ng-show="!ctrl.hideleft">
-		<h1 class="welcome-baner">Life Calendar</h1>
-		<p class="welcome-p">Plan your life in weeks, and stop the procrastination!</p>
-		<div class="welcome-bday">		
-			<input type="date" name="bday" ng-model="ctrl.bday">
-			<label class=""></label>
-			<input type="submit" ng-click="">
-		</div>
+		<h1 class="welcome-baner">Your Weekly Life Planner</h1>
+		<p class="welcome-p">Enter your birthday</p>
+		<input class="welcome-bd" type="date" name="bday" ng-model="ctrl.bday">
+		<button class="welcome-submit" type="submit">See my life in weeks</button> 
 	</div>
 </div>
 

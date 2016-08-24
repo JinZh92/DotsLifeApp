@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
+	function UserCtrl($state, $element, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
 		var ctrl = this;
 
 		//check if logged in. If yes, get the userEmail from the authToken
@@ -14,9 +14,11 @@
 		} else {
 			// With resolve, the page is loaded after the email-specific data has already been returned
 			ctrl.myData = userResolve;
-			ctrl.myEmail = ctrl.myData.userEmail;
+			ctrl.myEmail = UserSrv.getEmailFromToken;
 			ctrl.myEvents = eventsResolve;
 			ctrl.mySkills = skillsResolve;
+			ctrl.getThisWeek = UserSrv.getThisWeek();
+
 			console.log("resolve: ", ctrl.myData);
 		}
 
@@ -35,7 +37,6 @@
 		ctrl.array = UserSrv.getWeeks();
 
 		// Get This Week
-		ctrl.getThisWeek = UserSrv.getThisWeek();
 
 		//------------Function Declarations------------//
 		ctrl.logout = logout;
@@ -44,6 +45,9 @@
 		ctrl.managementClick = managementClick;
 		ctrl.toAnnouncement = toAnnouncement;
 		ctrl.isThisWeek = isThisWeek;
+		ctrl.selectDot = selectDot;
+		ctrl.isPast = isPast;
+		ctrl.isNow = isNow;
 		ctrl.showAllEvents = showAllEvents;
 		ctrl.addEvent = addEvent;
 		ctrl.concludeEvent = concludeEvent;
@@ -65,6 +69,7 @@
 		// Clear AuthToken from LocalStorage
 		function logout(){
 			localStorage.removeItem('authToken');
+			localStorage.removeItem('loginEmail');
 			$state.go('welcome');
 			toastr.success('Successfully logged out.');
 		}
@@ -142,7 +147,30 @@
     	};
     	ctrl.toggleleCon=function(){
     	ctrl.activeParentIndex=-1;
-    	}    			
+    	}    	
+
+    	//-------------Dots Life function------------//	
+
+    	function selectDot(number){
+    		console.log(number);
+    		ctrl.displayStart = number;
+    		ctrl.displayEnd = number;
+    		$state.go('user.management');
+    	}
+
+    	function isPast(item){
+    		var id = angular.element(item).data('id');
+    		console.log(id);
+    		// var id = item.attributes['id'].value;
+    		return id < ("rect__" + ctrl.getThisWeek);
+    	}
+
+    	function isNow(item){
+    		var id = angular.element(item).data('id');
+    		console.log(id);
+    		// var id = item.attributes['id'].value;
+    		return id == ("rect__" + ctrl.getThisWeek);
+    	}
 
 		//-------------Watcher Function--------------//
 		// $scope.$watch(function(){

@@ -6,7 +6,6 @@
   margin-left: 90%;
   position: fixed;
 }*/
-
 .back-overview{
   color: white;
   background-image: url("../pic/sky.jpg");
@@ -29,6 +28,11 @@
 }*/
 /*#title-overview h2 span{
   margin-left: 15px;}*/
+
+.thisweek-container{
+  height: 100vh;
+  overflow: scroll;
+}
 
 .thisweek-head{
   font-size: 25px;
@@ -194,6 +198,7 @@ margin-left: 25px;
   color: #e1ffff;
 }
 .nav-side-menu .brand {
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   background-color: #23282e;
   line-height: 70px;
   display: block;
@@ -311,6 +316,7 @@ margin-left: 25px;
     text-align: center;
   }
   .brand {
+    font-family: Copperplate, "Copperplate Gothic Light", fantasy;
     text-align: left !important;
     font-size: 22px;
     padding-left: 20px;

@@ -1,18 +1,18 @@
 <div class="overview-title" >
-Life in Weeks 
+Dots Life
 </div>
-<div >
+<div class="overview-dotsLife">
 	<svg id="dival" >
-	<g>
-		<rect ng-repeat="n in ctrl.array" x="{{n.X}}" y="{{n.Y}}"
-		id="rect{{n.Z}}">
-		</rect>
-	</g>	
+		<g>
+			<rect ng-class="{'rect_past': ctrl.isPast($element.target), 'rect_now': ctrl.isNow($element.target)}" ng-repeat="n in ctrl.array" ng-attr-x="{{n.X}}" ng-attr-y="{{n.Y}}"
+			ng-attr-id="rect_{{n.Z}}" ng-click="ctrl.selectDot($event)">
+			</rect>
+		</g>	
 	</svg>
 </div>	
 
-<div class="middle-all">
+<!-- <div class="middle-all">
 	<div class="overview-pic">
 		<img src="../../assets/pic/life-in-weeks.jpg">
 	</div>
-</div>	
+</div>	 -->

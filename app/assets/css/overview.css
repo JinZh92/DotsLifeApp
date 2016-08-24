@@ -12,41 +12,50 @@
 
 .overview-pic img{
   display: block;
-    width: 100%;
+  width: 100%;
 }
 
 #div-svg {
-    padding: 10px;
-    margin:10px;
-    width: 700px;
-    height:1400px;
+  padding: 10px;
+  margin:10px;
 
 }
 #dival{
-  width: 700px;
-  height: 1100px;
+  width: 590px;
+  height:950px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 rect{
-  width: 11px;
-  height: 11px;
-  fill:#eeeeee;
+  width: 10px;
+  height: 10px;
+  fill:#f5ede5;
   background:rgba(255,255,255,0.05);  
-
-
 }
+
 rect:hover{
   fill:gray;
 }
 
+.rect_past{
+  fill: blue;
+}
+.rect_now{
+  fill: orange;
+}
+
 /*seperate for management */
 
-.management-background{
-  width: 600px;
-  min-height: 700px;
-  background:#7f7f7f;
-  background:rgba(255,255,255,0.1);  
-  }
+.management-container{
+  padding: 20px 40px;
+  width: auto;
+  height: 100%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 
 

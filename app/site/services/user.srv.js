@@ -28,13 +28,17 @@
 		self.getWeeks=getWeeks;
 		self.Coordinate=Coordinate;
 
+
 		// Variable declaration
-		self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
+		self.myEmail;
+		if (localStorage.authToken != null && localStorage != undefined){
+			self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
+		}
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 		self.mySkills = []; // same as above but skills
 
-		// //------------Decode email from authToken-------//
+		//------------Decode email from authToken-------//
 		// function getEmailFromToken(){
 		// 	var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
 		// 	self.myEmail = decrypt_token.userEmail;
@@ -56,10 +60,10 @@
 		function getWeeks(){
 			self.array=[];
 			var z=1;
-			for(var j=0; j<=51; j++){
-				var x=j*13;
-				for (var i = 0 ; i <= 12; i++) {
-					var y =i*13;
+			for(var i=0; i<=84; i++){ // columns
+				var y=i*11;
+				for (var j = 0 ; j <= 51; j++) { // rows 
+					var x =j*11;
 					var arr= new Coordinate(x,y,z);
 					self.array.push(arr);
 					z++;
