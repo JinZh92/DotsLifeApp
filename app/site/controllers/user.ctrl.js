@@ -66,8 +66,8 @@
 		ctrl.updateUserDb = updateUserDb;
 		ctrl.updateEventDb = updateEventDb;
 		ctrl.updateSkillDb = updateSkillDb;
-
-
+		ctrl.deleteEvent=deleteEvent;
+		
 		// Clear AuthToken from LocalStorage
 		function logout(){
 			localStorage.removeItem('authToken');
@@ -118,8 +118,9 @@
 				}	
 			}
 		}
-		ctrl.addOpen = function(){
+		ctrl.addOpen = function(e){
 			UserSrv.open();
+			UserSrv.editingEvent=e;
 		}
 		ctrl.myVar=false;
 		ctrl.toggle = function() {
@@ -128,6 +129,15 @@
     	ctrl.togglele=function(){
     	ctrl.myVar=false;
     	}
+    	ctrl.myVarSkill=false;
+		ctrl.toggleSkill = function() {
+        ctrl.myVarSkill = !ctrl.myVarSkill;
+        console.log("toggoleSkill is clicked")
+    	};
+    	ctrl.toggleleSkill=function(){
+    	ctrl.myVarSkill=false;
+    	};
+
 		ctrl.myAdd=false;
 		ctrl.toggleAdd = function() {
         ctrl.myAdd = !ctrl.myAdd;
@@ -143,8 +153,12 @@
     	ctrl.myEdit=false;
     	}
     	ctrl.activeParentIndex=-1;
+    	ctrl.activeChileIndex=-1;
     	ctrl.showKids = function (e,f) {
         ctrl.activeParentIndex = f.indexOf(e)
+    	};
+    	ctrl.showGrandKids = function (e,f) {
+        ctrl.activeChileIndex = f.indexOf(e)
     	};
     	ctrl.myCon=false;
 		ctrl.toggleCon = function() {
@@ -152,7 +166,7 @@
     	};
     	ctrl.toggleleCon=function(){
     	ctrl.activeParentIndex=-1;
-    	}    	
+    	}   
 
     	//-------------Dots Life function------------//	
 
