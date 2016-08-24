@@ -238,7 +238,11 @@
 			var td = new Date(Date.now());
 			var newEventSkill = [];
 			var newEventStatus = '';
-			newEventSkill.push(ctrl.newEventSkill.id)
+			if (ctrl.newEventSkill.id!=undefined && ctrl.newEventSkill.id!=null){
+				newEventSkill.push(ctrl.newEventSkill.id);
+			} else {
+				newEventSkill.push('');
+			}
 
 			if (newEventExpectedEnd < td){
 				newEventStatus = "COMPLETE";
@@ -247,7 +251,7 @@
 			}
 
 			var event = {
-				userEmail: ctrl.myEmail,
+				userEmail: ctrl.myData.userEmail,
 				eventTitle: ctrl.newEventTitle,
 				eventDescription: ctrl.newEventDes,
 				eventStart: newEventStart,
@@ -323,9 +327,19 @@
 			ctrl.myEvents.forEach(function(event){
 				if (event.id == id){
 					if (event.eventStatus == "INCOMPLETE"){
-						UserSrv.deleteEvent(id);
-						ctrl.myEvents = UserSrv.getUserEvents();
+						UserSrv.deleteEvent(id)
+						.then(function(){
+							return UserSrv.getUserEvents()
+								
+						})
+						.then(function(res){
+							ctrl.myEvents = res;
+							ctrl.displayedEvents = res;
+							ctrl.showIncomplete();
+						});
 					}
+
+
 				}
 			})
 			

@@ -33,16 +33,18 @@
 		self.myEmail;
 		if (localStorage.authToken != null && localStorage != undefined){
 			self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
+			console.log(self.myEmail);
 		}
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 		self.mySkills = []; // same as above but skills
 
 		//------------Decode email from authToken-------//
-		// function getEmailFromToken(){
-		// 	var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
-		// 	self.myEmail = decrypt_token.userEmail;
-		// }
+		function getEmailFromToken(){
+			var decrypt_token = jwtHelper.decodeToken(localStorage.authToken);
+			self.myEmail = decrypt_token.userEmail;
+			return self.myEmail;
+		}
 
 		//-------------This week and overview-----------//
 		function getThisWeek(){
@@ -72,26 +74,29 @@
 			return self.array;	
 		};
 
+        self.editingEvent;
         self.open = function () {
-        	console.log('Opening modal');
-       		var modalInstance = $uibModal.open({
-		      	animation: false,
-			   	templateUrl: 'site/partials/user-add.html',
-			    controller: 'ModalInstanceCtrl as ctrl',
-			    // size: size,
-			    // resolve: {
-			    //     items: function () {
-			    //       return self.items;
-			    //     }
-		     //  }
-		    });
-
-		    modalInstance.result.then(function () {
-		      console.log('clicked okay');
-		    }, function () {
-		      console.log('Modal dismissed at: ' + new Date());
-		    });
-		};		
+            console.log('Opening modal');
+            var modalInstance = $uibModal.open({
+                animation: false,
+                templateUrl: 'site/partials/user-add.html',
+                controller: 'ModalInstanceCtrl as ctrl',
+                // size: size,
+                resolve: {
+                skillsResolve: function(UserSrv){
+                            return UserSrv.getUserSkills();
+                        },
+                eventsResolve: function(UserSrv){
+                            return UserSrv.getUserEvents();
+                        }       
+                }       
+            });
+            modalInstance.result.then(function () {
+              console.log('clicked okay');
+            }, function () {
+              console.log('Modal dismissed at: ' + new Date());
+            });
+        };
 
 		//-------------Users Model--------------//
 		function getAllUserData(){
@@ -184,19 +189,21 @@
 		}
 
 		function createEvent(event){
-
+			console.log('creating event', event);
 			event = JSON.stringify(event);
-			$http.post('/api/events/create',event)
+			return $http.post('/api/events/create',event)
 				.then(function(res){
 					//do something when event post request is successful
 					console.log("Created event from controller");
+					return res;
 				})
 		}
 
 		function deleteEvent(id){
-			$http.get('api/events/remove/' + id)
+			return $http.get('api/events/remove/' + id)
 				.then(function(res){
 					console.log("deleted event");
+					return res;
 				})
 		}
 		
