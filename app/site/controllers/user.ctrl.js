@@ -122,6 +122,10 @@
 			UserSrv.open();
 			UserSrv.editingEvent=e;
 		}
+		ctrl.addEventOpen=function(){
+			console.log("controlleriswork");
+			UserSrv.openEvent();
+		}
 		ctrl.myVar=false;
 		ctrl.toggle = function() {
         ctrl.myVar = !ctrl.myVar;

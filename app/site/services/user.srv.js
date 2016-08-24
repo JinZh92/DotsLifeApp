@@ -83,6 +83,38 @@
                 controller: 'ModalInstanceCtrl as ctrl',
                 // size: size,
                 resolve: {
+                userResolve: function(UserSrv){
+						return UserSrv.getUserFromEmail();
+						},	
+                skillsResolve: function(UserSrv){
+                            return UserSrv.getUserSkills();
+                        },
+                eventsResolve: function(UserSrv){
+                            return UserSrv.getUserEvents();
+                        }       
+                }       
+            });
+            modalInstance.result.then(function () {
+              console.log('clicked okay');
+            }, function () {
+              console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        self.addingEvent;
+        self.myEvents;
+        self.displayedEvents;
+        self.openEvent = function () {
+            console.log('Opening modal');
+            var modalInstance = $uibModal.open({
+                animation: false,
+                templateUrl: 'site/partials/user-addEvent.html',
+                controller: 'ModalInstanceCtrl as ctrl',
+                // size: size,
+                resolve: {
+                userResolve: function(UserSrv){
+						return UserSrv.getUserFromEmail();
+						},
                 skillsResolve: function(UserSrv){
                             return UserSrv.getUserSkills();
                         },
