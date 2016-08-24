@@ -24,7 +24,9 @@ router.get('/:email', function(req, res){
 // create a new skill
 router.post('/create',function(req,res){
 	var __skill = req.body;
-	models.Skills.create(__skill);
+	models.Skills.create(__skill).then(function(skill){
+		res.json({created: true});
+	});
 	console.log("new skill created: ", __skill);
 })
 

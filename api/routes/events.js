@@ -24,7 +24,9 @@ router.get('/:email', function(req, res){
 // create a new event
 router.post('/create',function(req,res){
 	var __event = req.body;
-	models.Events.create(__event);
+	models.Events.create(__event).then(function(event){
+		res.json({created: true})
+	});
 	console.log("new event created: ", __event);
 })
 

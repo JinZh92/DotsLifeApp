@@ -221,10 +221,12 @@
 			// how to make sure that user doesnt break the db if they enters a "'" or something
 			// TODO: think about sql injection attack and the way to prevent it
 			skill = JSON.stringify(skill);
-			$http.post('api/skills/create', skill)
+			return $http.post('api/skills/create', skill)
 				.then(function(res){
+					return res;
 					console.log('successfully created a skill')
 				}, function(err){
+					return err;
 					console.log('oops, something went wrong')
 				})
 		}

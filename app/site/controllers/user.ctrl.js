@@ -14,7 +14,7 @@
 		} else {
 			// With resolve, the page is loaded after the email-specific data has already been returned
 			ctrl.myData = userResolve;
-			ctrl.myEmail = UserSrv.getEmailFromToken;
+			ctrl.myEmail = UserSrv.getEmailFromToken; // not working properly. fix later
 			ctrl.myEvents = eventsResolve;
 			ctrl.mySkills = skillsResolve;
 			ctrl.getThisWeek = UserSrv.getThisWeek();
@@ -238,7 +238,7 @@
 			var td = new Date(Date.now());
 			var newEventSkill = [];
 			var newEventStatus = '';
-			if (ctrl.newEventSkill.id!=undefined && ctrl.newEventSkill.id!=null){
+			if (ctrl.newEventSkill!=undefined && ctrl.newEventSkill!=null){
 				newEventSkill.push(ctrl.newEventSkill.id);
 			} else {
 				newEventSkill.push('');
@@ -259,12 +259,15 @@
 				eventHasSkills: newEventSkill,
 				eventStatus: newEventStatus
 			}
-			UserSrv.createEvent(event);
-
-			UserSrv.getUserEvents()
+			// keep the view updated after new creation
+			UserSrv.createEvent(event)
+				.then(function(){
+					return UserSrv.getUserEvents();
+				})
 				.then(function(res){
 					ctrl.myEvents = res;
 					ctrl.displayedEvents = res;
+					ctrl.showIncomplete();
 				});
 		}
 
@@ -327,10 +330,11 @@
 			ctrl.myEvents.forEach(function(event){
 				if (event.id == id){
 					if (event.eventStatus == "INCOMPLETE"){
+
+						// delete and keep the view updated after deletion
 						UserSrv.deleteEvent(id)
 						.then(function(){
-							return UserSrv.getUserEvents()
-								
+							return UserSrv.getUserEvents();			
 						})
 						.then(function(res){
 							ctrl.myEvents = res;
@@ -440,12 +444,20 @@
 		function addSkill(){
 			var skill = {
 				skillName: ctrl.newSkillName,
-				userEmail: ctrl.myEmail,
+				userEmail: ctrl.myData.userEmail,
 				tokensTotal: 0,
 				skillLevel: 0,
 				levelUpDate: []
 			}
-			UserSrv.createSkill(skill);
+
+			// keep the view updated after new creation
+			UserSrv.createSkill(skill)
+				.then(function(){
+					return UserSrv.getUserSkills();
+				})
+				.then(function(res){
+					ctrl.mySkills = res;
+				});
 		}
 
 		function addSkillToken(id, num, date){
