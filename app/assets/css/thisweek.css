@@ -9,8 +9,8 @@
 .back-overview{
   color: white;
   background-image: url("../pic/sky.jpg");
-  background-size:     cover;                      
-  background-repeat:   no-repeat;
+  background-size: cover;                      
+  background-repeat: no-repeat;
   background-position: center center;  
   background-attachment: fixed;
   opacity:1;
@@ -190,7 +190,7 @@ margin-left: 25px;
   font-weight: 200;
 /*  background-color: #2e353d;
 */  
-  background-color:rgba(0, 0, 0, 0.2);
+  background-color:#23282e;
   position: fixed;
   top: 0px;
   width: 250px;

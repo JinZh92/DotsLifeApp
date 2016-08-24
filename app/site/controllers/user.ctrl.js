@@ -42,6 +42,7 @@
 		ctrl.logout = logout;
 		ctrl.thisweekClick = thisweekClick;
 		ctrl.overviewClick = overviewClick;
+		ctrl.profileClick = profileClick;
 		ctrl.managementClick = managementClick;
 		ctrl.toAnnouncement = toAnnouncement;
 		ctrl.isThisWeek = isThisWeek;
@@ -57,6 +58,7 @@
 		ctrl.getProgress = getProgress;
 		ctrl.getAnniversary = getAnniversary;
 		ctrl.editUser = editUser;
+		ctrl.changePassword = changePassword;
 		ctrl.addSkill = addSkill;
 		ctrl.addSkillToken = addSkillToken;
 		ctrl.getSkillName = getSkillName;
@@ -84,6 +86,9 @@
 		function managementClick(){
 			$state.go('user.management')
 		}		
+		function profileClick(){
+			$state.go('user.profile');
+		}
 		//-------------thisweek Function-------------//
 		ctrl.todoList=[];
 		ctrl.todoList.push("Daliy Todos: ");
@@ -397,9 +402,10 @@
 		function changePassword(){
 			if (ctrl.newUserPswd != null && ctrl.newUserPswd !='' && ctrl.newUserPswd == ctrl.newUserPswdRep){
 				var user = {
+					userEmail: ctrl.myData.userEmail,
 					userPswd: ctrl.newUserPswd
 				}
-				UserSrv.changePassword(ctrl.myEmail, user);
+				UserSrv.changePassword(ctrl.myData.userEmail, user);
 			}
 		}
 

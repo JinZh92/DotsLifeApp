@@ -31,7 +31,7 @@
 rect{
   width: 10px;
   height: 10px;
-  fill:#f5ede5;
+  fill: #f5ede5;
   background:rgba(255,255,255,0.05);  
 }
 
@@ -57,5 +57,13 @@ rect:hover{
   transform: translateX(-50%);
 }
 
-
-
+/*-----profile page------*/
+.user-profile-container{
+  height: 60vh;
+  width: 60vw;
+  position: relative;
+/*  left: 50%;
+  transform: translateX(-50%);*/
+  margin-top: 20%;
+  margin-left: 20%;
+}

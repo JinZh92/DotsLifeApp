@@ -5,7 +5,7 @@
 		.module('lifeCalendarApp')
 		.service('UserSrv', UserSrv);
 
-	function UserSrv($uibModal,$state, $http, jwtHelper) {
+	function UserSrv($uibModal,$state, toastr, $http, jwtHelper) {
 		var self = this;
 
 		// Function declaration
@@ -118,9 +118,13 @@
 			return $http.put('api/users/changePassword/' + email, __user)
 				.then(function(data){
 					console.log("updated user with email:" + email, data);
-					if (res.status == 200){
-						// event was updated successfully
-						self.updateEvents(email, __user);
+					if (data.status == 200){
+						toastr.success("Successfully changed password. Please log in again.")
+						localStorage.removeItem('authToken');
+						localStorage.removeItem('loginEmail');
+						$state.go('welcome');
+					} else {
+						toastr.info('Nope')
 					}
 				})
 			// reload the page when user information has been updated.
@@ -132,9 +136,8 @@
 			return $http.put('api/users/update/' + email, __user)
 				.then(function(data){
 					console.log("updated user with email:" + email, data);
-					if (res.status == 200){
-						// event was updated successfully
-						self.updateEvents(email, __user);
+					if (data.status == 200){
+						toastr.success("Successfully updated user profile.")
 					}
 				})
 			// reload the page when user information has been updated.

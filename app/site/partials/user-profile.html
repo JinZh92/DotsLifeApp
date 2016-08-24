@@ -1,0 +1,73 @@
+<div class="user-profile-container">
+	<form ng-submit="ctrl.editUser()">
+		<table class="profile-table">
+			<tr>
+				<td>
+					<label>Email: </label>
+				</td>
+				<td>
+					<input type="" name="" ng-attr-value="{{ctrl.myData.userEmail}}" disabled>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Name: </label>
+				</td>
+				<td>
+					<input ng-model="ctrl.userFullName" type="" name="" ng-attr-value="{{ctrl.myData.userFullName}}">
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<label>Birthday: </label>
+				</td>
+				<td>
+					<input type="" name="" ng-attr-value="{{ctrl.myData.userBirthday | date}}" disabled>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label>Member since: </label></td>
+				<td>
+					<input type="" name="" ng-attr-value="{{ctrl.myData.createdAt | date}}" disabled>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<button type="submit">Update</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<br>
+
+	<form ng-submit="ctrl.changePassword()">
+		<table>
+			<tr>
+				<td><label>New Password: </label></td>
+				<td>
+					<input ng-model="ctrl.newUserPswd" type="password" name="" value="">
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<label>Repeat new password: </label>
+				</td>
+				<td>
+					<input ng-model="ctrl.newUserPswdRep" type="password" name="" value=""> <br>
+				</td>
+							<tr>
+				<td>
+					<button type="submit">Change Password</button>
+				</td>
+				<td>
+					<button type="reset">Reset</button>
+				</td>
+			</tr>
+			</tr>
+		</table>
+	</form>
+</div>

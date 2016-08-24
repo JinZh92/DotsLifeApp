@@ -48,7 +48,7 @@ router.put('/update/:email', function(req, res){
 	var where = {where: {userEmail:req.params.email}};
 	var __user = req.body;
 	models.Users.find(where).then(function(user){
-		event.updateAttributes({
+		user.updateAttributes({
 			userFullName: __user.userFullName,
 			userBirthday: __user.userBirthday,
 			currEvents: __user.currEvents

@@ -100,8 +100,12 @@
 							return UserSrv.getUserSkills();
 						}
 					}
-
 				})	
+				.state('user.profile', {
+					url:'/profile/',
+					templateUrl:'site/partials/user-profile.html',
+					controller: 'UserCtrl as ctrl'
+				})
 
 			$httpProvider.interceptors.push(function(jwtHelper){
 				return {
