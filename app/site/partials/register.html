@@ -6,35 +6,35 @@
 	tempor incididunt ut labore et dolore magna aliqua.</span> -->
 	<form method="POST" class="stacked-form" ng-submit="ctrl.register()">
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisEmail" type="text" name="regisEmail" ng-model="ctrl.regisEmail">
+			<input class="input__field input__field--manami" id="regisEmail" type="text" name="regisEmail" ng-model="ctrl.regisEmail" required>
 			<label class="input__label input__label--manami" for="regisEmail">
 				<span class="input__label-content input__label-content--manami">Email</span>
 			</label>
 		</span>
 
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisName" type="text" name="regisName" ng-model="ctrl.regisName">
+			<input class="input__field input__field--manami" id="regisName" type="text" name="regisName" ng-model="ctrl.regisName" required>
 			<label class="input__label input__label--manami" for="regisName">
 				<span class="input__label-content input__label-content--manami">Name</span>
 			</label>
 		</span>
 		
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisPwd" type="password" name="regisPwd" ng-model="ctrl.regisPwd">
+			<input class="input__field input__field--manami" id="regisPwd" type="password" name="regisPwd" ng-model="ctrl.regisPwd" required>
 			<label class="input__label input__label--manami" for="regisPwd">
 				<span class="input__label-content input__label-content--manami">Password</span>
 			</label>
 		</span>
 
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisRePwd" type="password" name="regisRePwd" ng-model="ctrl.regisRePwd">
+			<input class="input__field input__field--manami" id="regisRePwd" type="password" name="regisRePwd" ng-model="ctrl.regisRePwd" required>
 			<label class="input__label input__label--manami" for="regisRePwd">
 				<span class="input__label-content input__label-content--manami">Repeat Password</span>
 			</label>
 		</span>
 
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="regisBday" type="date" name="regisBday" ng-model="ctrl.regisBday" min="1935-01-01" max="2016-01-01">
+			<input class="input__field input__field--manami" id="regisBday" type="date" name="regisBday" ng-model="ctrl.regisBday" min="1935-01-01" max="2016-01-01" required>
 			<label class="input__label input__label--manami" for="regisBday">
 				<span class="input__label-content input__label-content--manami">Birthday</span>
 			</label>

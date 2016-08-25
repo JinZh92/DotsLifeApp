@@ -21,10 +21,14 @@
 
 		//------------Function Declarations------------//
 		ctrl.logout 			= logout;
+		ctrl.getThisWeek 		= getThisWeek;
+
 		ctrl.thisweekClick  	= thisweekClick;
 		ctrl.overviewClick 		= overviewClick;
 		ctrl.profileClick 		= profileClick;
 		ctrl.managementClick 	= managementClick;
+		ctrl.trackClick 		= trackClick;
+
 		ctrl.toAnnouncement 	= toAnnouncement;
 		ctrl.nextAnnouncement 	= nextAnnouncement;
 		ctrl.isThisWeek 		= isThisWeek;
@@ -57,12 +61,15 @@
 			ctrl.myEmail 		= UserSrv.getEmailFromToken; // not working properly. fix later
 			ctrl.myEvents 		= eventsResolve;
 			ctrl.mySkills 		= skillsResolve;
-			ctrl.getThisWeek 	= UserSrv.getThisWeek();
+			ctrl.getThisWeek 	= ctrl.getThisWeek();
+
 
 			console.log("Announcement:", ctrl.toAnnouncement())
 			console.log("resolve: ", ctrl.myData);
 		}
 		
+
+
 		// Clear AuthToken from LocalStorage
 		function logout(){
 			localStorage.removeItem('authToken');
@@ -84,7 +91,18 @@
 		function profileClick(){
 			$state.go('user.profile');
 		}
+		function trackClick(){
+			$state.go('user.track');
+		}
 		//-------------thisweek Function-------------//
+
+		function getThisWeek(){
+			var time_now = new Date(Date.now());
+			var bd = new Date(userResolve.userBirthday);
+			return Math.ceil((time_now - bd)/(1000*3600*24*7))
+		}
+
+
 		ctrl.todoList		= [];
 		ctrl.todoList.push("Scratch Board: ");
 		ctrl.addTodo 		= function(todo){			
@@ -424,7 +442,7 @@
 			ctrl.myEvents.forEach(function(event){
 				if (event.eventStatus == "INCOMPLETE"){
 					if (ctrl.getProgress(event) >= 75){
-						announcement.push("The time for: " + event.eventTitle + ", is almost up! Time used: " + ctrl.getProgress(event) + "%");
+						announcement.push("Time for event: " + event.eventTitle + ", is almost up! Time spent: " + ctrl.getProgress(event) + "%.");
 					}
 				}
 
@@ -562,8 +580,76 @@
 			}
 		}
 
-	}	
+	//---------------Track functions (charts)------------//
+		ctrl.options1 = {
+	            chart: {
+	                type: 'multiBarHorizontalChart',
+	                height: 450,
+	                x: function(d){return d.label;},
+	                y: function(d){return d.value;},
+	                showControls: true,
+	                showValues: true,
+	                duration: 500,
+	                xAxis: {
+	                    showMaxMin: false
+	                },
+	                yAxis: {
+	                    axisLabel: 'Values',
+	                    tickFormat: function(d){
+	                        return d3.format(',.2f')(d);
+	                    }
+	                }
+	            }
+	        };
 
+
+	   	ctrl.data1 = [
+	        {
+	            "key": "My Skills",
+	            "color": "#1f77b4",
+	            "values": [
+	                {
+	                    "label" : "Group A" ,
+	                    "value" : 25.307646510375
+	                } ,
+	                {
+	                    "label" : "Group B" ,
+	                    "value" : 16.756779544553
+	                } ,
+	                {
+	                    "label" : "Group C" ,
+	                    "value" : 18.451534877007
+	                } ,
+	                {
+	                    "label" : "Group D" ,
+	                    "value" : 8.6142352811805
+	                } ,
+	                {
+	                    "label" : "Group E" ,
+	                    "value" : 7.8082472075876
+	                } ,
+	                {
+	                    "label" : "Group F" ,
+	                    "value" : 5.259101026956
+	                } ,
+	                {
+	                    "label" : "Group G" ,
+	                    "value" : 0.30947953487127
+	                } ,
+	                {
+	                    "label" : "Group H" ,
+	                    "value" : 0
+	                } ,
+	                {
+	                    "label" : "Group I" ,
+	                    "value" : 0
+	                }
+	            ]
+	        }
+	    ]
+
+
+	}	
 })();
 
 

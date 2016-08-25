@@ -24,13 +24,14 @@
 		self.updateSkill = updateSkill;
 		self.updateSkills = updateSkills;
 
-		self.getThisWeek = getThisWeek;
+		
 		self.getWeeks=getWeeks;
 		self.Coordinate=Coordinate;
 
 
 		// Variable declaration
 		self.myEmail;
+		
 		if (localStorage.authToken != null && localStorage != undefined){
 			self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
 			console.log(self.myEmail);
@@ -47,11 +48,7 @@
 		}
 
 		//-------------This week and overview-----------//
-		function getThisWeek(){
-			var time_now = new Date(Date.now());
-			var bd = new Date(self.myUser.userBirthday);
-			return Math.ceil((time_now - bd)/(1000*3600*24*7))
-		}
+
 
 		function Coordinate(x,y,z){
 			this.X=x;

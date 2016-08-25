@@ -1,15 +1,15 @@
 
 <div class="thisweek-head">
-This Week
+Week <span class="week-number">{{ctrl.getThisWeek}}</span>
 </div>
 
 <div>
-	<div class="text-middle thisweek-title">Hello, {{ctrl.myData.userFullName}}!  You are at week: <span style="color:red ;font-size:50px">{{ctrl.getThisWeek}}</span></div>  	
+	<div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  How are you feeling today?</div>  	
 
-  <div class="text-middle">
-      <p ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</p>  
+  <div class="text-middle announcement-box">
+      <span class="glyphicon glyphicon-bullhorn announcement-icon"></span>
+      <span ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
   </div>
-
 </div>
 
 <!-- Incomplete Todo List -->

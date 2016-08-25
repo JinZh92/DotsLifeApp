@@ -22,6 +22,7 @@
     "jQuery": "^3.1.0",
     "express": "^4.14.0",
     "angular-animate": "^1.5.8",
-    "angular-jwt": "^0.1.0"
+    "angular-jwt": "^0.1.0",
+    "angular-nvd3": "^1.0.9"
   }
 }

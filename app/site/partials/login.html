@@ -8,13 +8,13 @@
 
 	<form method="post" class="stacked-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail">
+			<input class="input__field input__field--manami" id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail" required>
 			<label class="input__label input__label--manami" for="loginEmail">
 				<span class="input__label-content input__label-content--manami">Email</span>
 			</label>
 		</span>
 		<span class="input input--manami">
-			<input class="input__field input__field--manami" id="loginPwd" type="password" name="loginPwd" ng-model="ctrl.loginPwd">
+			<input class="input__field input__field--manami" id="loginPwd" type="password" name="loginPwd" ng-model="ctrl.loginPwd" required>
 			<label class="input__label input__label--manami" for="loginPwd">
 				<span class="input__label-content input__label-content--manami">Password</span>
 			</label>

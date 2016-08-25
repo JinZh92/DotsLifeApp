@@ -7,7 +7,8 @@
 			'ngAnimate',
 			'angular-jwt',
 			'toastr',
-			'ui.bootstrap'
+			'ui.bootstrap',
+			'nvd3'
 		]);
 
 	angular
@@ -69,6 +70,10 @@
 				.state('user.profile', {
 					url:'/profile/',
 					templateUrl:'site/partials/user-profile.html'
+				})
+				.state('user.track', {
+					url:'/track/',
+					templateUrl:'site/partials/user-track.html'
 				})
 
 			$httpProvider.interceptors.push(function(jwtHelper){

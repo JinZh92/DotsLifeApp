@@ -43,7 +43,7 @@
 }
 .thisweek-title{
   padding-top: 0px;
-  font-size: 35px
+  font-size: 32px
 }
 .text-middle{
   text-align: center;
@@ -51,6 +51,17 @@
 .middle-all{
   display: flex;
   justify-content: center;
+}
+.week-number{
+  font-size: 50px;
+  color:rgba(244, 145, 52, 1);
+}
+.announcement-box{
+  background-color: rgba(148, 148, 148, 0.3);
+}
+.announcement-icon{
+  padding: 15px;
+  font-weight: bolder;
 }
 #thisweek-background{
   width: 1000px;
