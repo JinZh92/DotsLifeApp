@@ -9,43 +9,45 @@
   width: 600px;
     height: 2000px;
 }
-
 .overview-pic img{
   display: block;
   width: 100%;
 }
-
 #div-svg {
   padding: 10px;
   margin:10px;
-
 }
 #dival{
-  width: 590px;
-  height:950px;
+  width: 571px;
+  height:934px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  background-image: url(../pic/batman.jpg);
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 50px;
+  overflow: visible;
 }
-
 rect{
   width: 10px;
   height: 10px;
   fill: #f5ede5;
-  background:rgba(255,255,255,0.05);  
+  background:rgba(255,255,255,0.08);  
 }
-
 rect:hover{
   fill:gray;
 }
-
 .rect_past{
-  fill: blue;
+  fill: rgba(60, 129, 190, 0.4);
 }
 .rect_now{
   fill: orange;
 }
-
+.dotgraphtext{
+  position: relative;
+  left: 20px;
+}
 /*seperate for management */
 
 .management-container{
