@@ -6,6 +6,9 @@
   margin-left: 90%;
   position: fixed;
 }*/
+.user_rightcontainer{
+  margin-left: 250px;
+}
 .back-overview{
   color: white;
   background-image: url("../pic/sky.jpg");
@@ -21,8 +24,6 @@
   left:0px;
   z-index:1000;
 }
-
-
 /*#thisweek-title{
   margin-bottom: 500px;
 }*/
@@ -33,7 +34,6 @@
   height: 100vh;
   overflow: scroll;
 }
-
 .thisweek-head{
   font-size: 25px;
   font-family: fantasy;
@@ -45,8 +45,6 @@
   padding-top: 0px;
   font-size: 35px
 }
-
-
 .text-middle{
   text-align: center;
 }
@@ -58,32 +56,33 @@
   width: 1000px;
   height: 1000px;
 }
-
-
 .todo-overview{
   border-radius: 2px;
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
-  margin-top: 50px;
-  margin-bottom: 100px;
-  width:400px;
-  min-height: 200px;
+  margin-top: 20px;
+  min-height: 220px;
   padding: 10px;
-  display: table;
-/*  margin-right: auto;
-  margin-left: auto;  */
+  display: table; 
   font-size: 20px;
   opacity: 0.8;
-  
   float: left;
-
 }
 .weekstodo{
-margin-left: 25px;
+  position: relative;
+  width: 100%;
+}
+.myEventsTitle{
+  margin-bottom: 10px;
 }
 .daliytodo{
-  margin-left: 100px;
+  width: 100%;
 }
-
+.myskills{
+  width: 100%;
+}
+.table-borderless tr td{
+  border-top:  0px !important;
+}
 .todo-overview button{
   font-size: 15px;
   color: black;
@@ -97,21 +96,10 @@ margin-left: 25px;
   /*background:#7f7f7f;*/
   background: black;
   background:rgba(255,255,255,0.1);
-
-
-
 }
 
 
-
-/*for the form
-
-
-
-
-
-
-*/
+/*for the form*/
 .search-form .form-group {
   float: right !important;
   transition: all 0.35s, border-radius 0s;
@@ -163,33 +151,18 @@ margin-left: 25px;
   left: initial;
   font-size: 10px;
 }
-
 .search-form{
   margin-top: 8px;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*for the nav bar
-*/
+/*for the nav bar*/
 .nav-side-menu {
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
   font-weight: 200;
-/*  background-color: #2e353d;
-*/  
+/*  background-color: #2e353d;*/  
   background-color:#23282e;
   position: fixed;
   top: 0px;
@@ -321,6 +294,9 @@ margin-left: 25px;
     font-size: 22px;
     padding-left: 20px;
     line-height: 50px !important;
+  }
+  .user_rightcontainer{
+    margin-left: 0px;
   }
 }
 @media (min-width: 767px) {

@@ -5,68 +5,63 @@
 		.module('lifeCalendarApp')
 		.controller('UserCtrl',UserCtrl)
 
-	function UserCtrl($state, $element, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
+	function UserCtrl($state, $interval, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
 		var ctrl = this;
+
+		//------------Variable Declaration------------//
+		ctrl.myEmail; 			// User email as string
+		ctrl.myData; 			// User object
+		ctrl.displayedEvents 	= ctrl.myEvents;
+		ctrl.displayStart;
+		ctrl.displayEnd;
+		ctrl.showDates;
+		ctrl.announcementIndex 	= 0;
+
+		ctrl.array 				= UserSrv.getWeeks();
+
+		//------------Function Declarations------------//
+		ctrl.logout 			= logout;
+		ctrl.thisweekClick  	= thisweekClick;
+		ctrl.overviewClick 		= overviewClick;
+		ctrl.profileClick 		= profileClick;
+		ctrl.managementClick 	= managementClick;
+		ctrl.toAnnouncement 	= toAnnouncement;
+		ctrl.nextAnnouncement 	= nextAnnouncement;
+		ctrl.isThisWeek 		= isThisWeek;
+		ctrl.selectDot 			= selectDot;
+		ctrl.showAllEvents 		= showAllEvents;
+		ctrl.addEvent 			= addEvent;
+		ctrl.concludeEvent 		= concludeEvent;
+		ctrl.editEvent 			= editEvent;
+		ctrl.getEventsFromWk	= getEventsFromWk;
+		ctrl.showIncomplete 	= showIncomplete;
+		ctrl.getProgress 		= getProgress;
+		ctrl.getAnniversary 	= getAnniversary;
+		ctrl.editUser 			= editUser;
+		ctrl.changePassword 	= changePassword;
+		ctrl.addSkill 			= addSkill;
+		ctrl.addSkillToken 		= addSkillToken;
+		ctrl.getSkillName 		= getSkillName;
+		ctrl.levelUp 			= levelUp;
+		ctrl.updateUserDb 		= updateUserDb;
+		ctrl.updateEventDb 		= updateEventDb;
+		ctrl.updateSkillDb 		= updateSkillDb;
+		ctrl.deleteEvent		= deleteEvent;
 
 		//check if logged in. If yes, get the userEmail from the authToken
 		if (localStorage.authToken == undefined || localStorage.authToken == null){
 			$state.go('welcome');
 		} else {
 			// With resolve, the page is loaded after the email-specific data has already been returned
-			ctrl.myData = userResolve;
-			ctrl.myEmail = UserSrv.getEmailFromToken; // not working properly. fix later
-			ctrl.myEvents = eventsResolve;
-			ctrl.mySkills = skillsResolve;
-			ctrl.getThisWeek = UserSrv.getThisWeek();
+			ctrl.myData 		= userResolve;
+			ctrl.myEmail 		= UserSrv.getEmailFromToken; // not working properly. fix later
+			ctrl.myEvents 		= eventsResolve;
+			ctrl.mySkills 		= skillsResolve;
+			ctrl.getThisWeek 	= UserSrv.getThisWeek();
 
+			console.log("Announcement:", ctrl.toAnnouncement())
 			console.log("resolve: ", ctrl.myData);
 		}
-
-		//------------Variable Declaration------------//
-		ctrl.myEmail; // User email as string
-		ctrl.myData; // User object
-		// ctrl.myEvents = UserSrv.getUserEvents(); // array of all user's events
-		console.log("controller event:", ctrl.myEvents)
-		// ctrl.mySkills = UserSrv.getUserSkills(); // array of all user's skills
-		ctrl.displayedEvents = ctrl.myEvents;
-		ctrl.announcement = [];
-		ctrl.displayStart;
-		ctrl.displayEnd;
-		ctrl.showDates;
-
-		ctrl.array = UserSrv.getWeeks();
-
-		// Get This Week
-
-		//------------Function Declarations------------//
-		ctrl.logout = logout;
-		ctrl.thisweekClick = thisweekClick;
-		ctrl.overviewClick = overviewClick;
-		ctrl.profileClick = profileClick;
-		ctrl.managementClick = managementClick;
-		ctrl.toAnnouncement = toAnnouncement;
-		ctrl.isThisWeek = isThisWeek;
-		ctrl.selectDot = selectDot;
-		ctrl.isPast = isPast;
-		ctrl.isNow = isNow;
-		ctrl.showAllEvents = showAllEvents;
-		ctrl.addEvent = addEvent;
-		ctrl.concludeEvent = concludeEvent;
-		ctrl.editEvent = editEvent;
-		ctrl.getEventsFromWk = getEventsFromWk;
-		ctrl.showIncomplete = showIncomplete;
-		ctrl.getProgress = getProgress;
-		ctrl.getAnniversary = getAnniversary;
-		ctrl.editUser = editUser;
-		ctrl.changePassword = changePassword;
-		ctrl.addSkill = addSkill;
-		ctrl.addSkillToken = addSkillToken;
-		ctrl.getSkillName = getSkillName;
-		ctrl.levelUp = levelUp;
-		ctrl.updateUserDb = updateUserDb;
-		ctrl.updateEventDb = updateEventDb;
-		ctrl.updateSkillDb = updateSkillDb;
-		ctrl.deleteEvent=deleteEvent;
 		
 		// Clear AuthToken from LocalStorage
 		function logout(){
@@ -90,9 +85,9 @@
 			$state.go('user.profile');
 		}
 		//-------------thisweek Function-------------//
-		ctrl.todoList=[];
-		ctrl.todoList.push("Daliy Todos: ");
-		ctrl.addTodo = function(todo){			
+		ctrl.todoList		= [];
+		ctrl.todoList.push("Scratch Board: ");
+		ctrl.addTodo 		= function(todo){			
 			if(todo){
 				if(ctrl.todoList.length>0){
 					if(ctrl.todoList.indexOf(todo)>-1){
@@ -108,11 +103,11 @@
 			}
 		}
 
-		ctrl.deleteTodo = function(todo){
+		ctrl.deleteTodo 	= function(todo){
 			if(todo){
 				if(ctrl.todoList){
-					var num=ctrl.todoList.indexOf(todo);
-					if(num>-1){
+					var num = ctrl.todoList.indexOf(todo);
+					if(num > -1){
 						ctrl.todoList.splice(num,num);
 					}
 				}	
@@ -181,47 +176,31 @@
     		ctrl.showDates = true;
     	}
 
-    	function isPast(item){
-    		// var id = angular.element(item).data('id');
-    		console.log(item);
-    		// var id = item.attributes['id'].value;
-    		return item < ctrl.getThisWeek;
-    	}
+		//-------------Timeout Functions--------------//
 
-    	function isNow(item){
-    		console.log(id);
-    		// var id = item.attributes['id'].value;
-    		return item == ctrl.getThisWeek;
-    	}
+		function nextAnnouncement(){
+			ctrl.announcementIndex =  (ctrl.announcementIndex + 1)%(ctrl.toAnnouncement().length);
+		}
 
-		//-------------Watcher Function--------------//
-		// $scope.$watch(function(){
-		// 	return UserSrv.getUserEvents();
-		// }, function(newVal){
-		// 	ctrl.myEvents = UserSrv.getUserEvents();
-		// }, true);
-
-		// $scope.$watch(function(){
-		// 	return UserSrv.getUserSkills();
-		// }, function(newVal){
-		// 	ctrl.mySkills = UserSrv.getUserSkills();
-		// }, true);
+		$interval(function(){
+			ctrl.nextAnnouncement();
+		}, 5000);
 
 		//--------------Event Functions--------------//
 
 		// check if en event is before the end of this week, return bool.
 		function isThisWeek(event){
-			var thisWeekNumber = ctrl.getThisWeek;
-			var endTime = ctrl.myData.userBirthday;
-			var eventStart = new Date(event.eventStart);
-			var weekEnd = new Date(endTime);
+			var thisWeekNumber 	= ctrl.getThisWeek;
+			var endTime 		= ctrl.myData.userBirthday;
+			var eventStart 		= new Date(event.eventStart);
+			var weekEnd 		= new Date(endTime);
 			weekEnd.setTime(weekEnd.getTime() + (7*(thisWeekNumber)) * 86400000);
-			return eventStart <= weekEnd;
+			return eventStart 	<= weekEnd;
 		}
 
 		function showAllEvents(){
-			ctrl.displayedEvents = ctrl.myEvents;
-			ctrl.showDates = false;
+			ctrl.displayedEvents 	= ctrl.myEvents;
+			ctrl.showDates 			= false;
 			return ctrl.myEvents;
 		}
 
@@ -237,11 +216,12 @@
 		}
 
 		function addEvent(){
-			var newEventStart = new Date(ctrl.newEventStart);
+			var newEventStart 		= new Date(ctrl.newEventStart);
 			var newEventExpectedEnd = new Date(ctrl.newExpectedEnd);
-			var td = new Date(Date.now());
-			var newEventSkill = [];
-			var newEventStatus = '';
+			var td 					= new Date(Date.now());
+			var newEventSkill 		= [];
+			var newEventStatus 		= '';
+
 			if (ctrl.newEventSkill!=undefined && ctrl.newEventSkill!=null){
 				newEventSkill.push(ctrl.newEventSkill.id);
 			} else {
@@ -279,28 +259,34 @@
 			//TODO setSpecial/levelUp/setActualEnd/checkFinishedSuccessful/addtoken if successful
 			ctrl.myEvents.forEach(function(event){
 				if (event.id == id){
-					var eventSkillId = event.eventHasSkills[0];
-					var eventStatus = '';
-					var actualEndDate = new Date(ctrl.setActualEnd);
-					var expectedEnd = new Date(event.expectedEnd);
-					var eventStart = new Date(event.eventStart);
-					if (actualEndDate <= expectedEnd){
+					var eventSkillId 	= event.eventHasSkills[0];
+					var eventStatus 	= '';
+					var actualEndDate 	= new Date(ctrl.setActualEnd);
+					var expectedEnd 	= new Date(event.eventExpectedEnd);
+					var eventStart 		= new Date(event.eventStart);
 
-						var tokensEarned = Math.ceil((expectedEnd - eventStart)/(1000*3600*24)) + 1;
-						ctrl.addSkillToken(eventSkillId, tokensEarned, eventActualEnd);
-						toastr.info("Successfully earned " + tokensEarned + " tokens in skill " + ctrl.getSkillName(eventSkillId, ctrl.myEmail));
+					console.log("event actual end date: ", actualEndDate);
+					console.log("event due date: ", expectedEnd);
+
+					if (actualEndDate <= expectedEnd){
+						console.log("event passed");
+						var tokensEarned 	= Math.ceil((expectedEnd - eventStart)/(1000*3600*24)) + 1;
+						ctrl.addSkillToken(eventSkillId, tokensEarned, expectedEnd);
+						toastr.info("Successfully earned " + tokensEarned + " tokens in skill " + ctrl.getSkillName(eventSkillId, ctrl.myData.userEmail));
 
 						if (ctrl.isSpecial){
-							eventStatus = 'SPECIAL';
+							eventStatus 	= 'SPECIAL';
 						} else {
-							eventStatus = 'COMPLETE';
+							eventStatus 	= 'COMPLETE';
 						}
 
 					} else {
+						console.log("event failed")
+						toastr.info("Unfortunately, you failed the event. :(")
 						eventStatus = 'FAIL';
 					}
 
-					__event = {
+					var __event = {
 						eventActualEnd: actualEndDate,
 						eventStatus: eventStatus
 					}
@@ -336,8 +322,8 @@
 								return UserSrv.getUserEvents();
 							})
 							.then(function(res){
-								ctrl.myEvsents = res;
-								ctrl.displayedEvents = res;
+								ctrl.myEvsents 			= res;
+								ctrl.displayedEvents 	= res;
 								ctrl.showIncomplete();
 							});
 					}
@@ -350,15 +336,14 @@
 			ctrl.myEvents.forEach(function(event){
 				if (event.id == id){
 					if (event.eventStatus == "INCOMPLETE"){
-
 						// delete and keep the view updated after deletion
 						UserSrv.deleteEvent(id)
 							.then(function(){
 								return UserSrv.getUserEvents();			
 							})
 							.then(function(res){
-								ctrl.myEvents = res;
-								ctrl.displayedEvents = res;
+								ctrl.myEvents 			= res;
+								ctrl.displayedEvents 	= res;
 								ctrl.showIncomplete();
 							});
 					}
@@ -371,22 +356,22 @@
 
 		function getEventsFromWk(start, end){
 			//TODO start and end are week
-			var st = Math.min(start, end);
-			var en = Math.max(start, end);
-			var bd = new Date(ctrl.myData.userBirthday);
+			var st 	= Math.min(start, end);
+			var en 	= Math.max(start, end);
+			var bd 	= new Date(ctrl.myData.userBirthday);
 			console.log("Get events from wk, birthday is: ", bd);
 
-			var startDate = bd.setTime(bd.getTime() + (7*(st-1)) * 86400000);
-			startDate = new Date(startDate);
+			var startDate 	= bd.setTime(bd.getTime() + (7*(st-1)) * 86400000);
+			startDate 		= new Date(startDate);
 			console.log("Start Date: ", startDate);
 
-			bd = new Date(ctrl.myData.userBirthday);
+			bd 			= new Date(ctrl.myData.userBirthday);
 			var endDate = bd.setTime(bd.getTime() + (7*(en)) * 86400000);
-			endDate = new Date(endDate);
+			endDate 	= new Date(endDate);
 			console.log("End Date: ", endDate);
 
-			ctrl.displayStart = startDate;
-			ctrl.displayEnd = endDate;
+			ctrl.displayStart 	= startDate;
+			ctrl.displayEnd 	= endDate;
 
 			var eventsBetweenWeeks = [];
 			ctrl.myEvents.forEach(function(event){
@@ -400,13 +385,13 @@
 		}
 
 		function getProgress(event){
-			var now = new Date(Date.now());
-			var start = new Date(event.eventStart);
-			var end = new Date(event.eventExpectedEnd);
+			var now 	= new Date(Date.now());
+			var start 	= new Date(event.eventStart);
+			var end 	= new Date(event.eventExpectedEnd);
 
 			if (now > start && now < end){
-				var duration = Math.ceil((end - start)/(1000*3600*24)) + 1;
-				var spent = Math.ceil((end - now)/(1000*3600*24));
+				var duration 	= Math.ceil((end - start)/(1000*3600*24)) + 1;
+				var spent 		= Math.ceil((now - start)/(1000*3600*24));
 				// return the percentage progress to 2 decimal places
 				return (spent/duration * 100).toFixed(2);
 			} else {
@@ -426,20 +411,23 @@
 		function toAnnouncement(){
 			//TODO: return an array of events that set to special and are 10*k weeks away from now
 			// and events with high priority
+			var announcement = ["Did you know: It takes about 4433 weeks to waste 85 years."];
+			// console.log("generating to announcement");
 			ctrl.myEvents.forEach(function(event){
 				if (event.eventStatus == "INCOMPLETE"){
-					if (ctrl.getProgress(event) >= 80){
-						ctrl.announcement.push("The time left for: " + event.eventTitle + " is almost up! Time used: " + ctrl.getProgress(event) + "%");
+					if (ctrl.getProgress(event) >= 75){
+						announcement.push("The time for: " + event.eventTitle + ", is almost up! Time used: " + ctrl.getProgress(event) + "%");
 					}
 				}
 
 				if (event.eventStatus == "SPECIAL"){
 					var numWk = ctrl.getAnniversary(event)/10;
 					if (numWk >= 1 && Number.isInteger(numWk)){
-						ctrl.announcement.push("It's been " + (numWk*10) + " weeks since you did: " + event.eventTitle);
+						announcement.push("It's been " + (numWk*10) + " weeks since you did: " + event.eventTitle);
 					}			
 				}
 			})
+			return announcement;
 		}
 
 
@@ -453,8 +441,8 @@
 		function changePassword(){
 			if (ctrl.newUserPswd != null && ctrl.newUserPswd !='' && ctrl.newUserPswd == ctrl.newUserPswdRep){
 				var user = {
-					userEmail: ctrl.myData.userEmail,
-					userPswd: ctrl.newUserPswd
+					userEmail: 	ctrl.myData.userEmail,
+					userPswd: 	ctrl.newUserPswd
 				}
 				UserSrv.changePassword(ctrl.myData.userEmail, user);
 			}
@@ -463,11 +451,11 @@
 		//--------------Skill Functions--------------//
 		function addSkill(){
 			var skill = {
-				skillName: ctrl.newSkillName,
-				userEmail: ctrl.myData.userEmail,
-				tokensTotal: 0,
-				skillLevel: 0,
-				levelUpDate: []
+				skillName: 		ctrl.newSkillName,
+				userEmail: 		ctrl.myData.userEmail,
+				tokensTotal: 	0,
+				skillLevel: 	0,
+				levelUpDate: 	[]
 			}
 
 			// keep the view updated after new creation
@@ -516,14 +504,21 @@
 			return skillName;
 		}
 
+		function getTopSkills(){
+			var topSkills = [];
+			ctrl.mySkills.forEach(function(skill){
+
+			})
+		}
+
 		//------------Update Data in Controller to DB------------//
 
 		// Update the User data to database
 		function updateUserDb(){
 			var __user = {			
-				userFullName: ctrl.myData.userFullName,
-				userBirthday: ctrl.myData.userBirthday,
-				currEvents: ctrl.myData.currEvents
+				userFullName: 	ctrl.myData.userFullName,
+				userBirthday: 	ctrl.myData.userBirthday,
+				currEvents: 	ctrl.myData.currEvents
 			}
 			UserSrv.updateUser(ctrl.myData.userEmail, __user);
 		}

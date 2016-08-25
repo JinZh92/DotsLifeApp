@@ -5,59 +5,84 @@ This Week
 
 <div>
 	<div class="text-middle thisweek-title">Hello, {{ctrl.myData.userFullName}}!  You are at week: <span style="color:red ;font-size:50px">{{ctrl.getThisWeek}}</span></div>  	
-  <p class="text-middle">Did you know: A 85 years of life consists of 4433 weeks</p>
+
   <div class="text-middle">
-  <!--   <ul rn-carousel>
-      <li ng-repeat=""></li>
-    </ul> -->
+      <p ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</p>  
   </div>
+
 </div>
 
-<div class="todo-overview weekstodo">
-  <div ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
-    <button ng-click="ctrl.addOpen(event)">Edit</button>
-    <button  ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
-    </button>
-    <!-- <span>{{ctrl.activeParentIndex}}</span> -->
-    <br>
-    <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
-      <button ng-click="ctrl.showGrandKids(event,ctrl.showIncomplete())"
-      ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Finish</button>
-      <button type="button" ng-click="ctrl.deleteEvent(event.id)"
-      ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Delete</button>
+<!-- Incomplete Todo List -->
+<div class="col-xs-12 col-lg-8 col-lg-offset-2">
+  <div class="todo-overview weekstodo">
+    <span class="myEventsTitle">My Events</span>
+    <button class="create_event" ng-click="ctrl.addEventOpen()">Create New</button>
+    <hr>
+
+    <div ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
+      <button ng-click="ctrl.addOpen(event)">Edit</button>
+      <button  ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
+      </button>
+      <!-- <span>{{ctrl.activeParentIndex}}</span> -->
       <br>
-      <span ng-show="ctrl.activeChileIndex==={{parentIndex}}">
-        <input type="date">
-        <input type="button" value="Done" style="float:right;color:black">
-        <label>
-          Set to special
-          <input type="checkbox" >
-        </label>
-        <input type="button" value="Hide" ng-click="ctrl.toggleleCon()" style="float:right; color:black">
-      </span>  
-    </span>
+      <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
+        <button ng-click="ctrl.showGrandKids(event,ctrl.showIncomplete())"
+        ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Finish</button>
+        <button type="button" ng-click="ctrl.deleteEvent(event.id)"
+        ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Delete</button>
+        <br>
+        <span ng-show="ctrl.activeChileIndex==={{parentIndex}}">
+          <input ng-model="ctrl.setActualEnd" type="date">
+          <input ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;color:black">
+          <label>
+            Set to special
+            <input ng-model="ctrl.isSpecial" type="checkbox" >
+          </label>
+          <input type="button" value="Hide" ng-click="ctrl.toggleleCon()" style="float:right; color:black">
+        </span>  
+      </span>
+    </div>
+
   </div>
-  <input type="button" ng-click="ctrl.addEventOpen()" value="Add">
 </div>
+  
 
-<div  class="todo-overview daliytodo">
-  <p>{{ctrl.todoList[0]}}</p>
-  <ul>
-    <li ng-repeat="too in ctrl.todoList.slice(1,ctrl.todoList.length)">{{too}}<button class="glyphicon glyphicon-ok" 
-    ng-click="ctrl.deleteTodo(too)"
-    ></button> </li>
-  </ul>
-  <form class="search-form middle-all">
-      <div class="form-group has-feedback" >
-          <input type="text submit" class="form-control" ng-model=" ctrl.todo"   ng-click="ctrl.addTodo(ctrl.todo)"
-            name="search" id="search" placeholder="Enter new task">
-      <span type="submit" 
-        class="form-control-feedback glyphicon glyphicon-plus"
-          ></span> 
-      </div>
-    </form>
-</div>   
-<div class="spacer" style="clear: both;"></div> 
 
+<!-- Daily Todo Scratch Board -->
+<div class="col-xs-12 col-lg-6">
+  <div class="todo-overview daliytodo" >
+    <p>{{ctrl.todoList[0]}}</p>
+    <hr>
+    <ul>
+      <li ng-repeat="too in ctrl.todoList.slice(1,ctrl.todoList.length)">{{too}}<button class="glyphicon glyphicon-ok" 
+      ng-click="ctrl.deleteTodo(too)"
+      ></button> </li>
+    </ul>
+    <form class="search-form middle-all">
+        <div class="form-group has-feedback" >
+            <input type="text submit" class="form-control" ng-model=" ctrl.todo"   ng-click="ctrl.addTodo(ctrl.todo)"
+              name="search" id="search" placeholder="Enter new task">
+        <span type="submit" 
+          class="form-control-feedback glyphicon glyphicon-plus"
+            ></span> 
+        </div>
+      </form>
+  </div> 
+</div>
+  
+
+<div class="col-xs-12 col-lg-6">
+  <div class="todo-overview myskills">
+    <p>My Top Skills:</p>
+    <hr>
+    <table class="table table-borderless table-condensed">
+      <tr ng-repeat="skill in ctrl.mySkills|orderBy:'-skillLevel'|limitTo:3">
+        <td>{{skill.skillName}}</td>
+        <td>Level: {{skill.skillLevel}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+  
 
 	  	
