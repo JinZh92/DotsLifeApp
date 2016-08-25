@@ -6,12 +6,16 @@
   margin-left: 90%;
   position: fixed;
 }*/
+hr{
+  border-top: 1px solid #333;
+}
 .user_rightcontainer{
   margin-left: 250px;
 }
 .back-overview{
-  color: white;
-  background-image: url("../pic/sky.jpg");
+  color: black;
+  /*background-image: url("../pic/sky.jpg");*/
+  background-color: rgba(236, 238, 241, 1);
   background-size: cover;                      
   background-repeat: no-repeat;
   background-position: center center;  
@@ -29,7 +33,13 @@
 }*/
 /*#title-overview h2 span{
   margin-left: 15px;}*/
-
+.thisweek-rightcontainer{
+  background-image: url(../pic/bg22.jpeg);
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+  color:rgba(236, 238, 241, 1);
+}
 .thisweek-container{
   height: 100vh;
   overflow: auto;
@@ -68,8 +78,8 @@
   height: 1000px;
 }
 .todo-overview{
-  border-radius: 2px;
-  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);
+/*  border-radius: 0px;*/
+  box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.3);
   margin-top: 20px;
   min-height: 220px;
   padding: 10px;
@@ -77,6 +87,17 @@
   font-size: 20px;
   opacity: 0.8;
   float: left;
+}
+.create_event{
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+}
+.conclude_event{
+  width: 40px;
+  height: 25px;
+  border-radius: 3px;
+  margin-left: 15px;
 }
 .weekstodo{
   position: relative;
@@ -98,9 +119,9 @@
   font-size: 15px;
   color: black;
   float: right;
-  opacity: 0.4;
+  opacity: 0.9;
 }
-.todo-overview  :hover {
+.todo-overview :hover {
   opacity: 1;
 }
 .addstyle{
@@ -179,7 +200,6 @@
   top: 0px;
   width: 250px;
   height: 100%;
-  color: #e1ffff;
 }
 .nav-side-menu .brand {
   font-family: Copperplate, "Copperplate Gothic Light", fantasy;
@@ -187,7 +207,9 @@
   line-height: 70px;
   display: block;
   text-align: center;
-  font-size: 25px;
+  font-size: 30px;
+  color: #ef5e29;
+
 }
 .nav-side-menu .toggle-btn {
   display: none;
@@ -264,7 +286,7 @@
 }
 .nav-side-menu li a {
   text-decoration: none;
-  color: #e1ffff;
+  color: rgba(236, 238, 241, 1);
 }
 .nav-side-menu li a i {
   padding-left: 10px;

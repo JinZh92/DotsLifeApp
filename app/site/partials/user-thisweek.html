@@ -1,27 +1,29 @@
+<div class="thisweek-rightcontainer">
+  <div class="thisweek-head">
+  Week <span class="week-number">{{ctrl.getThisWeek}}</span>
+  </div>
 
-<div class="thisweek-head">
-Week <span class="week-number">{{ctrl.getThisWeek}}</span>
-</div>
+  <div>
+    <div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  What do you feel like doing today?</div>   
 
-<div>
-	<div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  What do you feel like doing today?</div>  	
-
-  <div class="text-middle announcement-box">
-      <span class="glyphicon glyphicon-bullhorn announcement-icon"></span>
-      <span ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
+    <div class="text-middle announcement-box">
+        <span class="glyphicon glyphicon-bullhorn announcement-icon"></span>
+        <span ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
+    </div>
   </div>
 </div>
+  
 
 <!-- Incomplete Todo List -->
 <div class="col-xs-12 col-lg-8 col-lg-offset-2">
   <div class="todo-overview weekstodo">
     <span class="myEventsTitle">My Events</span>
-    <button class="create_event" ng-click="ctrl.addEventOpen()">Create New</button>
+    <button class="create_event glyphicon glyphicon-pencil" ng-click="ctrl.addEventOpen()"></button>
     <hr>
 
     <div ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
-      <button ng-click="ctrl.addOpen(event)">Edit</button>
-      <button  ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">Conclude 
+      <button class="glyphicon glyphicon-edit conclude_event" ng-click="ctrl.addOpen(event)"></button>
+      <button class="glyphicon glyphicon-ok conclude_event" ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">
       </button>
       <!-- <span>{{ctrl.activeParentIndex}}</span> -->
       <br>
@@ -54,7 +56,7 @@ Week <span class="week-number">{{ctrl.getThisWeek}}</span>
     <p>{{ctrl.todoList[0]}}</p>
     <hr>
     <ul>
-      <li ng-repeat="too in ctrl.todoList.slice(1,ctrl.todoList.length)">{{too}}<button class="glyphicon glyphicon-ok" 
+      <li ng-repeat="too in ctrl.todoList.slice(1,ctrl.todoList.length)">{{too}}<button class="glyphicon glyphicon-ok conclude_event" 
       ng-click="ctrl.deleteTodo(too)"
       ></button> </li>
     </ul>
