@@ -10,27 +10,27 @@
                     <label>
                       Event Name:
                     </label>
-                    <input ng-model="ctrl.editEventTitle" type="text" id="add-title" class="add-title form-control" ng-value="ctrl.editingEvent.eventTitle">
+                    <input ng-model="ctrl.editEventTitle" type="text" id="add-title" class="add-title form-control" ng-value="ctrl.editingEvent.eventTitle" required>
                 </div>    
                 <div>
                   <label>
                     Start Date: {{ctrl.editingEvent.eventStart}}
                   </label>
-                  <input date-ng-model="ctrl.editEventStart" type="date" class="form-control" >
+                  <input date-ng-model="ctrl.editEventStart" type="date" class="form-control" required>
                 </div>
 
                 <div>
                   <label>
                     Due Date {{ctrl.editingEvent.eventExpectedEnd}}
                   </label>
-                  <input data-ng-model="ctrl.editEventExpected" type="date" class="form-control" pattern="yyyy-mm-dd" valueAsDate="{{ctrl.editingEvent.eventExpectedEnd}}">
+                  <input data-ng-model="ctrl.editEventExpected" type="date" class="form-control" pattern="yyyy-mm-dd" valueAsDate="{{ctrl.editingEvent.eventExpectedEnd}}" required>
                 </div>
 
                 <div>
                   <label>
                     Select Skill
                   </label>
-                  <select ng-model="ctrl.editEventHasSkillId" ng-options="x as x.skillName for x in ctrl.mySkills" >
+                  <select ng-model="ctrl.editEventHasSkillId" ng-options="x as x.skillName for x in ctrl.mySkills" required>
                   </select>
                   <button type="button" value="+" ng-click="ctrl.toggleSkill()" >+</button>
                   

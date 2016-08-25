@@ -32,7 +32,7 @@ This Week
         ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Delete</button>
         <br>
         <span ng-show="ctrl.activeChileIndex==={{parentIndex}}">
-          <input ng-model="ctrl.setActualEnd" type="date">
+          <input ng-model="ctrl.setActualEnd" type="date" required>
           <input ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;color:black">
           <label>
             Set to special

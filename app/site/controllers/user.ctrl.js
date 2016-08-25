@@ -118,7 +118,6 @@
 			UserSrv.editingEvent=e;
 		}
 		ctrl.addEventOpen=function(){
-			console.log("controlleriswork");
 			UserSrv.openEvent();
 		}
 		ctrl.myVar=false;
@@ -218,7 +217,8 @@
 		function addEvent(){
 			var newEventStart 		= new Date(ctrl.newEventStart);
 			var newEventExpectedEnd = new Date(ctrl.newExpectedEnd);
-			var td 					= new Date(Date.now());
+			var td 					= new Date(Date.now()); 
+			td.setTime(td.getTime() - (1 * 86400000)); // - 1 day from td.
 			var newEventSkill 		= [];
 			var newEventStatus 		= '';
 
@@ -229,6 +229,8 @@
 			}
 
 			if (newEventExpectedEnd < td){
+				console.log("creating complete event, due date:", newEventExpectedEnd);
+				console.log("creating complete event, tdL ", td);
 				newEventStatus = "COMPLETE";
 			} else {
 				newEventStatus = "INCOMPLETE";
@@ -264,7 +266,7 @@
 					var actualEndDate 	= new Date(ctrl.setActualEnd);
 					var expectedEnd 	= new Date(event.eventExpectedEnd);
 					var eventStart 		= new Date(event.eventStart);
-
+					console.log("Concluding event: ")
 					console.log("event actual end date: ", actualEndDate);
 					console.log("event due date: ", expectedEnd);
 
@@ -290,6 +292,8 @@
 						eventActualEnd: actualEndDate,
 						eventStatus: eventStatus
 					}
+
+					//update view
 					UserSrv.updateEvent(event.id, __event)
 						.then(function(){
 							return UserSrv.getUserEvents();
@@ -298,7 +302,11 @@
 							ctrl.myEvents = res;
 							ctrl.displayedEvents = res;
 							ctrl.showIncomplete();
-						});
+							return UserSrv.getUserSkills();
+						})
+						.then(function(res){
+							ctrl.mySkills = res;
+						})
 				}
 			})
 
@@ -481,14 +489,21 @@
 		function levelUp(id, date){
 			//TODO: level up the skill based on current level if there are enough tokens
 			// date is an Date object
+			console.log("trying to level up a skill")
 			for (var i=0; i<ctrl.mySkills.length; i++){
 				if (ctrl.mySkills[i].id == id){
 					var currentLevel = ctrl.mySkills[i].skillLevel;
 					var tokensNeeded = Math.floor(2 * (Math.log(currentLevel+1) / Math.log(3)) + 1);
+					console.log("current level is", currentLevel);
+					console.log("tokens needed for next level up is: ", tokensNeeded);
+					console.log("current total tokens in that skill: ", ctrl.mySkills[i].tokensTotal);
 					if (ctrl.mySkills[i].tokensTotal >= tokensNeeded){
 						ctrl.mySkills[i].skillLevel += 1;
 						ctrl.mySkills[i].tokensTotal -= tokensNeeded;
 						ctrl.mySkills[i].levelUpDate.push(date);
+						ctrl.levelUp(id, date);
+					} else {
+						console.log("Not enough tokens to do another level up.")
 					}
 				}
 			}
@@ -499,17 +514,12 @@
 			ctrl.mySkills.forEach(function(skill){
 				if (skill.userEmail == email && skill.id == id){
 					skillName = skill.skillName;
+					console.log("getting skill name:", skillName)
 				}
 			})
 			return skillName;
 		}
 
-		function getTopSkills(){
-			var topSkills = [];
-			ctrl.mySkills.forEach(function(skill){
-
-			})
-		}
 
 		//------------Update Data in Controller to DB------------//
 
