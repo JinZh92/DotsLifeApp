@@ -17,12 +17,12 @@
 		ctrl.showDates;
 		ctrl.announcementIndex 	= 0;
 
+		console.log('User resolve:', userResolve);
+
 		ctrl.array 				= UserSrv.getWeeks();
 
 		//------------Function Declarations------------//
 		ctrl.logout 			= logout;
-		ctrl.getThisWeek 		= getThisWeek;
-
 		ctrl.thisweekClick  	= thisweekClick;
 		ctrl.overviewClick 		= overviewClick;
 		ctrl.profileClick 		= profileClick;
@@ -61,7 +61,7 @@
 			ctrl.myEmail 		= UserSrv.getEmailFromToken; // not working properly. fix later
 			ctrl.myEvents 		= eventsResolve;
 			ctrl.mySkills 		= skillsResolve;
-			ctrl.getThisWeek 	= ctrl.getThisWeek();
+			ctrl.getThisWeek 	= UserSrv.getThisWeek();
 
 
 			console.log("Announcement:", ctrl.toAnnouncement())
@@ -95,13 +95,6 @@
 			$state.go('user.track');
 		}
 		//-------------thisweek Function-------------//
-
-		function getThisWeek(){
-			var time_now = new Date(Date.now());
-			var bd = new Date(userResolve.userBirthday);
-			return Math.ceil((time_now - bd)/(1000*3600*24*7))
-		}
-
 
 		ctrl.todoList		= [];
 		ctrl.todoList.push("Scratch Board: ");
@@ -246,11 +239,16 @@
 				newEventSkill.push('');
 			}
 
+			console.log("due date:", newEventExpectedEnd);
+			console.log("td ", td);
+			console.log(newEventExpectedEnd < td);
+
 			if (newEventExpectedEnd < td){
 				console.log("creating complete event, due date:", newEventExpectedEnd);
-				console.log("creating complete event, tdL ", td);
+				console.log("creating complete event, td ", td);
 				newEventStatus = "COMPLETE";
 			} else {
+				console.log("creating incomplete event")
 				newEventStatus = "INCOMPLETE";
 			}
 
@@ -421,7 +419,7 @@
 				// return the percentage progress to 2 decimal places
 				return (spent/duration * 100).toFixed(2);
 			} else {
-				console.log("Event not started yet");
+				// console.log("Event not started yet");
 				return 0;
 			}	
 		}

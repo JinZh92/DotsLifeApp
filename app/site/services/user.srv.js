@@ -23,19 +23,14 @@
 		self.createSkill = createSkill;
 		self.updateSkill = updateSkill;
 		self.updateSkills = updateSkills;
-
+		self.getThisWeek = getThisWeek;
 		
 		self.getWeeks=getWeeks;
 		self.Coordinate=Coordinate;
 
 
-		// Variable declaration
+		// Variable declaratio
 		self.myEmail;
-		
-		if (localStorage.authToken != null && localStorage != undefined){
-			self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;
-			console.log(self.myEmail);
-		}
 		self.myUser;
 		self.myEvents = []; // this is an array of event objects AFTER data has been returned.
 		self.mySkills = []; // same as above but skills
@@ -49,6 +44,11 @@
 
 		//-------------This week and overview-----------//
 
+		function getThisWeek(){
+			var time_now = new Date(Date.now());
+			var bd = new Date(self.myUser.userBirthday);
+			return Math.ceil((time_now - bd)/(1000*3600*24*7))
+		}
 
 		function Coordinate(x,y,z){
 			this.X=x;
@@ -141,6 +141,8 @@
 		}
 
 		function getUserFromEmail(){
+			getEmailFromToken();
+			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/users/' + self.myEmail)
 				.then(function(data){
 					console.log("Get user from email " + self.myEmail, data);
@@ -182,6 +184,8 @@
 
 		//-------------Events Model------------//
 		function getUserEvents(){
+			getEmailFromToken();
+			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/events/' + self.myEmail)
 				.then(function(data){
 					console.log('User events: ', data.data.events);
@@ -240,6 +244,8 @@
 		
 		//---------------Skills Model-------------//
 		function getUserSkills(){
+			getEmailFromToken();
+			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/skills/' + self.myEmail)
 				.then(function(data){
 					console.log('User Skills: ', data.data.skills);

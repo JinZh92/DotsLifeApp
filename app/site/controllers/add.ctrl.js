@@ -17,7 +17,7 @@
       modalVm.myEmail = UserSrv.getEmailFromToken;
       modalVm.myEvents = eventsResolve;
       modalVm.mySkills = skillsResolve;
-      modalVm.getThisWeek = UserSrv.getThisWeek();
+      // modalVm.getThisWeek = UserSrv.getThisWeek();
 
       console.log("resolve: ", modalVm.myData);
     }
@@ -41,6 +41,8 @@
       var newEventStart = new Date(modalVm.newEventStart);
       var newEventExpectedEnd = new Date(modalVm.newExpectedEnd);
       var td = new Date(Date.now());
+      td.setTime(td.getTime() - (1 * 86400000)); // - 1 day from td.
+
       var newEventSkill = [];
       var newEventStatus = '';
       if (modalVm.newEventSkill.id!=undefined && modalVm.newEventSkill.id!=null){

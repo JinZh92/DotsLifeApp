@@ -32,7 +32,7 @@
 
 .thisweek-container{
   height: 100vh;
-  overflow: scroll;
+  overflow: auto;
 }
 .thisweek-head{
   font-size: 25px;
