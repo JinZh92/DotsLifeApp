@@ -36,6 +36,7 @@
     }
     modalVm.addEvent=addEvent;
     modalVm.displayedEvents = modalVm.myEvents;
+    
     function addEvent(){
       var newEventStart = new Date(modalVm.newEventStart);
       var newEventExpectedEnd = new Date(modalVm.newExpectedEnd);
@@ -65,11 +66,10 @@
       }
       UserSrv.createEvent(event);
 
-      UserSrv.getUserEvents()
-        .then(function(res){
-          modalVm.myEvents = res;
-          modalVm.displayedEvents = res;
-        });
+          UserSrv.getUserEvents()
+            .then(function(res){
+
+            });
       modalVm.cancel();
     }
 
@@ -85,12 +85,18 @@
     function addSkill(){
       var skill = {
         skillName: modalVm.newSkillName,
-        userEmail: modalVm.myEmail,
+        userEmail: modalVm.myData.userEmail,
         tokensTotal: 0,
         skillLevel: 0,
         levelUpDate: []
       }
-      UserSrv.createSkill(skill);
+      UserSrv.createSkill(skill)
+        .then(function(){
+          return UserSrv.getUserSkills();
+        })
+        .then(function(res){
+          modalVm.mySkills = res;
+        });
       // ctrl.toggleleSkill();
       console.log("edit submit");
     }

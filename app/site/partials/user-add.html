@@ -43,12 +43,10 @@
                     Description: {{ctrl.editingEvent.eventDescription}}
                 </label>
                 <textarea ng-model="ctrl.editEventDes" type="text"  class="form-control" rows="5" id="comment"
-                ng-init= "ctrl.editEventDes"
-
-                >  
+                ng-init= "ctrl.editEventDes">  
                 </textarea>
 
-                <button ng-click="ctrl.cancel()">Cancel</button>
+                <button type="reset" ng-click="ctrl.cancel()">Cancel</button>
                 <button type="submit" >Add</button>
             </form> 
           </div>

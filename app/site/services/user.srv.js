@@ -97,6 +97,7 @@
             modalInstance.result.then(function () {
               console.log('clicked okay');
             }, function () {
+            	$state.reload();
               console.log('Modal dismissed at: ' + new Date());
             });
         };
@@ -126,6 +127,7 @@
             modalInstance.result.then(function () {
               console.log('clicked okay');
             }, function () {
+            	$state.reload();
               console.log('Modal dismissed at: ' + new Date());
             });
         };
