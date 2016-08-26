@@ -2,7 +2,7 @@
   font-size: 25px;
   font-family: fantasy;
   padding-top:30px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   padding-left: 30px; 
 }
 .overview-pic{
@@ -51,7 +51,7 @@ rect:hover{
 /*seperate for management */
 
 .management-container{
-  padding: 20px 40px;
+  padding: 0px 40px;
   width: auto;
   height: 100%;
   position: relative;
