@@ -7,8 +7,15 @@
     <div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  What do you feel like doing today?</div>   
 
     <div class="text-middle announcement-box">
-        <span class="glyphicon glyphicon-bullhorn announcement-icon"></span>
-        <span class="animated annContent" ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
+        <div class="animated annContent" ng-repeat="x in ctrl.toAnnouncement()" ng-if="$index == ctrl.announcementIndex"><div class="glyphicon glyphicon-bullhorn announcement-icon"></div>{{x}}</div>  
+
+        <!-- Improve later -->
+<!--         <div class="animated annContent" ng-if="ctrl.showAnnouncement">
+          <div ng-repeat="announement in ctrl.announcements">
+            {{announcement.content}}
+          </div>
+        </div>
+ -->
     </div>
   </div>
 </div>

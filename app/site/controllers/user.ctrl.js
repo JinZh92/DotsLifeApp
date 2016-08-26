@@ -196,7 +196,7 @@
 
 		$interval(function(){
 			ctrl.nextAnnouncement();
-		}, 5000);
+		}, 4500);
 
 		//--------------Event Functions--------------//
 

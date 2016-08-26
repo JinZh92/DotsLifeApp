@@ -72,21 +72,56 @@ hr{
   background-color: rgba(148, 148, 148, 0.3);
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
+  width: 100%;
+  height:46px;
+  overflow: hidden;
 }
 .announcement-icon{
   padding: 15px;
   font-weight: bolder;
 }
-.annContent.ng-hide-add{
+
+.annContent.ng-enter {
+  transition: 1s ease all;
+  opacity: 0;
+}
+
+.annContent.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.annContent.ng-leave {
+  animation-name: slideOutUp;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+}
+.annContent.ng-leave.ng-leave-active {
+  animation-name: slideOutUp;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+}
+.annContent.ng-enter {
+  animation-name: slideInUp;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-delay: 0.5s;
+}
+.annContent.ng-enter.ng-enter-active {
+  animation-name: slideInUp;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+}
+
+/*.annContent.ng-leave{
   color: red;
-  /*transform: rotate(50%);*/
+  transform: rotate(50%);
   animation-name: slideOutUp;
   animation-duration: 3s;
   animation-timing-function: ease;
 }
-.annContent.ng-hide-remove{
-  color: green;
-  animation: slideInUp 3s ease;
+.annContent.ng-hide{*/
+  /*color: green;*/
+  /*animation: slideInUp 3s ease;*/
   /*animation-name: slideInUp;
   animation-duration: 3s;
   animation-timing-function: ease;*/
