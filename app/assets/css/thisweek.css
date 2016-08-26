@@ -39,6 +39,7 @@ hr{
   background-size: cover;
   overflow: hidden;
   color:rgba(236, 238, 241, 1);
+  height: auto;
 }
 .thisweek-container{
   height: 100vh;
@@ -46,14 +47,15 @@ hr{
 }
 .thisweek-head{
   font-size: 25px;
-  font-family: fantasy;
+  font-family: 'Source Sans Pro', sans-serif;
   padding-top:20px;
   padding-bottom: 0px;
   padding-left: 30px; 
 }
 .thisweek-title{
   padding-top: 0px;
-  font-size: 32px
+  font-size: 32px;
+  font-family: 'Source Serif Pro', serif;
 }
 .text-middle{
   text-align: center;
@@ -64,10 +66,11 @@ hr{
 }
 .week-number{
   font-size: 50px;
-  color:rgba(244, 145, 52, 1);
+  color:#ef5e29;
 }
 .announcement-box{
   background-color: rgba(148, 148, 148, 0.3);
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .announcement-icon{
   padding: 15px;
@@ -105,6 +108,7 @@ hr{
 }
 .myEventsTitle{
   margin-bottom: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .daliytodo{
   width: 100%;
