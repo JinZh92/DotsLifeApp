@@ -1,6 +1,6 @@
 <div class="thisweek-rightcontainer">
   <div class="thisweek-head">
-  Week <span class="week-number">{{ctrl.getThisWeek}}</span>
+  Life Week # <span class="week-number">{{ctrl.getThisWeek}}</span>
   </div>
 
   <div>
@@ -8,7 +8,7 @@
 
     <div class="text-middle announcement-box">
         <span class="glyphicon glyphicon-bullhorn announcement-icon"></span>
-        <span ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
+        <span class="animated annContent" ng-repeat="x in ctrl.toAnnouncement()" ng-show="$index == ctrl.announcementIndex">{{x}}</span>  
     </div>
   </div>
 </div>

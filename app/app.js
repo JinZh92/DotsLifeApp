@@ -35,7 +35,10 @@
 				.state('welcome.about', {
 					url:'/about',
 					templateUrl:'site/partials/about.html',
-					controller:'WelcomeController as ctrl'
+				})
+				.state('welcome.dotslife', {
+					url:'/dotslife',
+					templateUrl:'site/partials/dotslife.html'
 				})
 				.state('user', {
 					url:'/user',
@@ -115,6 +118,9 @@
 			$rootScope.$on('$stateChangeStart', function(event, toState){
 				if(toState.name == 'user'){
 					$state.go('user.thisweek');
+				}
+				if (toState.name == 'welcome.dotslife'){
+					$state.go('welcome');
 				}
 			})
 		})

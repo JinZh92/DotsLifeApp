@@ -1,0 +1,13 @@
+<div class="dotslife-container">
+	<div>This is Your Life.</div>
+	<div>Sign Up and Do Something More.</div>
+	<div class="welcome-dotsLife">
+		<svg class="welcome-dival" >
+			<g>
+				<rect ng-class="{'rect_past': n.Z<ctrl.thisWeek, 'rect_now': n.Z==ctrl.thisWeek}" ng-repeat="n in ctrl.array" ng-attr-x="{{n.X}}" ng-attr-y="{{n.Y}}">
+				</rect>
+			</g>	
+		<!-- 	<text transform="translate(-20, 0)" class="dotgraphtext" ng-repeat="x in [10,20,30,40,50,60,70,80]" ng-attr-x="-15" ng-attr-y="{{x*11}}">{{x}}</text> -->
+		</svg>
+	</div>	
+</div>

@@ -116,13 +116,13 @@
               eventDescription: modalVm.editEventDes,
               eventStart: modalVm.editEventStart,
               eventExpectedEnd: modalVm.editEventExpected,
-              // eventHasSkills: [modalVm.editEventHasSkillId]
-              eventHasSkills: modalVm.editEventHasSkillId
+              eventHasSkills: [modalVm.editEventHasSkillId]
             }
             UserSrv.updateEvent(id, __event);
           }
         }
       })
+      modalVm.cancel();
 
     }
 

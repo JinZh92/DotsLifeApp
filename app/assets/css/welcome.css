@@ -7,15 +7,15 @@
 	z-index: 9999;
 }
 .main-logo{
-	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+	font-family: fantasy;
 	float:left;
-	padding:15px 20px;
+	padding:25px;
 	font-size: 30px;
 	color: #ef5e29;
 }
 .main-nav ul{
 	float: right;
-	padding-top: 15px;
+	padding-top: 25px;
 	margin-bottom: 0px;
 	padding-right: 30px;
 }
@@ -41,7 +41,7 @@
 }
 /*--Left content when clicked--*/
 .main-container.left-closed{
-	background-image: url(../pic/bg2.jpg);
+	background-image: url(../pic/bg2.jpeg);
 	background-size: cover;
 	background-position: center;
 	width: 300px;
@@ -64,6 +64,7 @@
 }
 /*--Right content when clicked--*/
 .main-rightcontainer{
+	overflow: auto;
 	position: fixed;
 	top:0px;
 	right:0px;
@@ -103,7 +104,7 @@
 .welcome-p{
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size:20px;
-	color: rgba(237, 237, 237, 1);
+	color: rgb(83, 99, 116);
 	padding:30px;
 	padding-bottom: 10px;
 }
@@ -125,14 +126,37 @@
 	padding: 3px;
 	display: block;
 	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+	margin-left: auto;
+	margin-right: auto;
 	margin-bottom: 15px;
 }
-
+/*--dotslife page--*/
+.dotslife-container{
+	position: absolute;
+	font-family: 'Roboto Condensed', sans-serif;
+	padding:20px;
+	font-size: 15px;
+	overflow: visible;
+	top:30px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.welcome-dival{
+  width: 571px;
+  height:934px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  /*background-image: url(../pic/batman.jpg);*/
+  background-size: cover;
+  background-position: center bottom;
+  margin-bottom: 50px;
+  overflow: visible;
+}
 /*--registration page--*/
 .regis-rightinner{
+	margin-top: 15%;
 	font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;
-	padding:40px 10%;
+	padding:45px 12%;
 	background-color: transparent;;
 }

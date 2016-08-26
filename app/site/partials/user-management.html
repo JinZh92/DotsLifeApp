@@ -8,18 +8,19 @@
 	<div>
 		<form ng-submit="ctrl.getEventsFromWk(ctrl.fromWk, ctrl.toWk)">
 			<label>Events from week</label>
-			<input placeholder="1" ng-model="ctrl.fromWk" type="text" name="">
+			<input placeholder="1" ng-model="ctrl.fromWk" type="text" name="" required>
 
 			<label>to</label>
-			<input placeholder="Current Week: {{ctrl.getThisWeek}}" ng-model="ctrl.toWk" type="text" name="">
+			<input placeholder="Current Week: {{ctrl.getThisWeek}}" ng-model="ctrl.toWk" type="text" name="" required>
 
 			<button ng-click="ctrl.showDates = true" type="submit">Go</button>
+			<button type="button" ng-click="ctrl.showAllEvents()">Display All</button>
+
 		</form>
 		<span ng-show="ctrl.showDates">
 			Displaying events started between {{ctrl.displayStart|date}} and {{ctrl.displayEnd|date}}
 		</span>
 
-		<button ng-click="ctrl.showAllEvents()">Display All</button>
 	</div>
 
 	<div>
