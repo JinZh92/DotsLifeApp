@@ -23,16 +23,9 @@
 
     <div ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
       <button class="glyphicon glyphicon-edit conclude_event" ng-click="ctrl.addOpen(event)"></button>
-      <button class="glyphicon glyphicon-ok conclude_event" ng-click="ctrl.showKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeParentIndex==={{parentIndex}}">
+      <button class="glyphicon glyphicon-ok conclude_event" ng-click="ctrl.showGrandKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeChileIndex==={{parentIndex}}">
       </button>
-      <!-- <span>{{ctrl.activeParentIndex}}</span> -->
       <br>
-      <span ng-show="ctrl.activeParentIndex==={{parentIndex}}" class="modal-body"> 
-        <button ng-click="ctrl.showGrandKids(event,ctrl.showIncomplete())"
-        ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Finish</button>
-        <button type="button" ng-click="ctrl.deleteEvent(event.id)"
-        ng-hide="ctrl.activeChileIndex==={{parentIndex}}">Delete</button>
-        <br>
         <span ng-show="ctrl.activeChileIndex==={{parentIndex}}">
           <input ng-model="ctrl.setActualEnd" type="date" required>
           <input ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;color:black">
@@ -40,9 +33,8 @@
             Set to special
             <input ng-model="ctrl.isSpecial" type="checkbox" >
           </label>
-          <input type="button" value="Hide" ng-click="ctrl.toggleleCon()" style="float:right; color:black">
+          <input type="button" value="Hide" ng-click="ctrl.toggleleGrand()" style="float:right; color:black">
         </span>  
-      </span>
     </div>
 
   </div>

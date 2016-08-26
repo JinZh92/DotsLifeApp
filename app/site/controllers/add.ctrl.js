@@ -36,6 +36,32 @@
     }
     modalVm.addEvent=addEvent;
     modalVm.displayedEvents = modalVm.myEvents;
+    modalVm.deleteEvent=deleteEvent;
+
+    function deleteEvent(id){
+      modalVm.myEvents.forEach(function(event){
+        if (event.id == id){
+          if (event.eventStatus == "INCOMPLETE"){
+            // delete and keep the view updated after deletion
+            UserSrv.deleteEvent(id)
+            console,log("evetn  been deleted")
+              .then(function(){
+                return UserSrv.getUserEvents();     
+              })
+              .then(function(res){
+                modalVm.myEvents       = res;
+                modalVm.displayedEvents  = res;
+                // modalVm.showIncomplete();
+              });
+          }
+
+
+        }
+
+        modalVm.cancel();
+      })
+      
+    }
     
     function addEvent(){
       var newEventStart = new Date(modalVm.newEventStart);
@@ -85,6 +111,8 @@
     };
 
     function addSkill(){
+      if((modalVm.newSkillName != undefined )&& (modalVm.newSkillName != null))
+      {
       var skill = {
         skillName: modalVm.newSkillName,
         userEmail: modalVm.myData.userEmail,
@@ -99,10 +127,24 @@
         .then(function(res){
           modalVm.mySkills = res;
         });
+      }  
+      modalVm.newSkillName=null;  
+      modalVm.toggleleSkill();      
       // ctrl.toggleleSkill();
       console.log("edit submit");
     }
 
+    modalVm.getSkillName=getSkillName;
+    function getSkillName(id){
+      var skillName = '';
+      modalVm.mySkills.forEach(function(skill){
+        if (skill.userEmail == modalVm.myEmail && skill.id == id){
+          skillName = skill.skillName;
+          console.log("getting skill name:", skillName)
+        }
+      })
+      return skillName;
+    }
 
     function editEvent(id){
       //TODO: Can edit only when it's incomplete.
@@ -129,6 +171,49 @@
     modalVm.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+    
+
+    modalVm.myEdit1=false;
+    modalVm.toggleEdit1 = function() {
+
+    modalVm.myEdit1 = !modalVm.myEdit1;
+    console.log(modalVm.myEdit1);
+    };
+    modalVm.toggleleEdit1=function(){
+    modalVm.myEdit1=false;
+    }
+
+    modalVm.myEdit2=false;
+    modalVm.toggleEdit2 = function() {
+    modalVm.myEdit2 = !modalVm.myEdit2;
+    };
+    modalVm.toggleleEdit2=function(){
+    modalVm.myEdit2=false;
+    }
+
+    modalVm.myEdit3=false;
+    modalVm.toggleEdit3 = function() {
+    modalVm.myEdit3 = !modalVm.myEdit3;
+    };
+    modalVm.toggleleEdit3=function(){
+    modalVm.myEdit3=false;
+    }    
+
+    modalVm.myEdit4=false;
+    modalVm.toggleEdit4 = function() {
+    modalVm.myEdit4 = !modalVm.myEdit4;
+    };
+    modalVm.toggleleEdit4=function(){
+    modalVm.myEdit4=false;
+    }
+
+    modalVm.myEdit5=false;
+    modalVm.toggleEdit5 = function() {
+    modalVm.myEdit5 = !modalVm.myEdit5;
+    };
+    modalVm.toggleleEdit5=function(){
+    modalVm.myEdit5=false;
+    }
     // modalVm.ok = function () { // checkout function
     //   console.log ("hello")
     //  $state.go('checkout');

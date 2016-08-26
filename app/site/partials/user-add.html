@@ -1,101 +1,103 @@
-<div class="modal-background">
-    <div class="modal-header ">
-        <h3 class="modal-title">Edit Your Event: </h3>
-    </div>
+<div style="padding:10px; margin-bottom:0px;padding-bottom:0px"> 
+  <h3 class="modal-title">Edit Your Event: </h3>
+  <hr style="margin-bottom:10px">
+</div>
 
-      <div  class="modal-body"> 
-        <div class="addstyle">
-            <form class="col-lg-12" ng-submit="ctrl.editEvent(ctrl.id)">
-                <div>
-                    <label>
-                      Event Name:
-                    </label>
-                    <input ng-model="ctrl.editEventTitle" type="text" id="add-title" class="add-title form-control" ng-value="ctrl.editingEvent.eventTitle" required>
-                </div>    
-                <div>
-                  <label>
-                    Start Date: {{ctrl.editingEvent.eventStart}}
-                  </label>
-                  <input date-ng-model="ctrl.editEventStart" type="date" class="form-control" required>
-                </div>
 
-                <div>
-                  <label>
-                    Due Date {{ctrl.editingEvent.eventExpectedEnd}}
-                  </label>
-                  <input data-ng-model="ctrl.editEventExpected" type="date" class="form-control" pattern="yyyy-mm-dd" valueAsDate="{{ctrl.editingEvent.eventExpectedEnd}}" required>
-                </div>
-
-                <div>
-                  <label>
-                    Select Skill
-                  </label>
-                  <select ng-model="ctrl.editEventHasSkillId" ng-options="x as x.skillName for x in ctrl.mySkills" required>
-                  </select>
-                  <button type="button" value="+" ng-click="ctrl.toggleSkill()" >+</button>
-                  
-                  <div ng-show="ctrl.myVarSkill">
-                    <input type="text" class="form-control"  ng-model="ctrl.newSkillName"  ><input type="button" ng-click="ctrl.addSkill()" value="+">
-                  </div>
-                </div>  
-
-                <label for="comment">
-                    Description: {{ctrl.editingEvent.eventDescription}}
-                </label>
-                <textarea ng-model="ctrl.editEventDes" type="text"  class="form-control" rows="5" id="comment"
-                ng-init= "ctrl.editEventDes">  
-                </textarea>
-
-                <button type="reset" ng-click="ctrl.cancel()">Cancel</button>
-                <button type="submit" >Add</button>
-            </form> 
+<div >
+  <div class="addstyle">
+    <form class="col-lg-12" ng-submit="ctrl.editEvent(ctrl.id)">
+      <table>
+        <td>
+          <tr>
+            <label>
+                Event Title:
+            </label>
+          </tr>
+          <tr>
+            {{ctrl.editingEvent.eventTitle}}
+          </tr>
+          <tr >
+            <button style="float:right" type="button" ng-click="ctrl.toggleEdit1()">Edit</button>
+          </tr>
+        </td>
+        <div ng-show="ctrl.myEdit1">
+          <input ng-model="ctrl.editEventTitle" type="text" id="add-title" class="add-title form-control" ng-value="ctrl.editingEvent.eventTitle">
+        </div>
+        <br>
+        <br>
+        <td>
+          <tr>
+            <label>
+              Select Skill:
+            </label>
+          </tr>
+          <tr>
+            {{ctrl.getSkillName(ctrl.editingEvent.eventHasSkills)}}
+          </tr>
+          <tr>
+            <button style="float:right" type="button" ng-click="ctrl.toggleEdit4()">Edit</button>
+          </tr> 
+        </td>
+        <div ng-show="ctrl.myEdit4">
+          <select ng-model="ctrl.editEventHasSkillId" ng-options="x as x.skillName for x in ctrl.mySkills" required>
+          </select>
+          <button type="button" value="+" ng-click="ctrl.toggleSkill()" >+</button>
+          <div ng-show="ctrl.myVarSkill">
+            <input type="text" class="form-control"  ng-model="ctrl.newSkillName"  ><input type="button" ng-click="ctrl.addSkill()" value="add">
           </div>
-        </div>  
-
-
-
-
-    <div class="modal-footer">
-        <!-- <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">Add</button>
-         <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Not This Time</button> -->
-    </div>
+        </div>    
+        <br>     
+        <td>
+          <tr>
+            <label>
+              Start Date: 
+            </label>
+          </tr>
+          <tr>
+            {{ctrl.editingEvent.eventStart|date}}
+          </tr>
+        </td>
+        <div>
+          <input ng-model="ctrl.editEventStart" type="date" class="form-control">
+        </div>
+        <td>
+          <tr>
+          <label>
+            Due Date: 
+          </label> 
+          </tr>
+          <tr>
+           {{ctrl.editingEvent.eventExpectedEnd|date}}
+          </tr>
+        </td>
+        <div>
+          <input ng-model="ctrl.editEventExpected" type="date" class="form-control" >
+        </div>
+        <br>             
+        <td>
+          <tr>
+            <label >
+              Description: 
+           </label>
+          </tr>
+          <div >
+            <textarea ng-model="ctrl.editEventDes" type="text"  class="form-control" rows="5" id="comment"
+            ng-init= "ctrl.editEventDes">  
+            </textarea> 
+          </div>  
+        </td>              
+        </table>
+        <button style="float:left" type="button" ng-click="ctrl.deleteEvent(ctrl.editingEvent.id)">Delete</button>
+        <div style="float:right">
+          <button type="reset" ng-click="ctrl.cancel()">Cancel</button>
+          <button type="submit" >Submit Edit</button>
+        </div>
+   </form> 
+  </div>
+</div>  
+<div class="modal-footer" style="border-color:white">
 </div>
 
 
 
-
-
-
-
-
-
-    
-<!--     <div class="modal-body cartstyle"> 
-        <div class="row">
-            <div class="col-lg-5">
-                <input type="title" name="title" class="form-control" placeholder="Enter your title ">
-            </div>    
-        </div>
-        <div class="row">
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="start time">
-            </div>
-            <div class="col-lg-5">
-              <input type="text" class="form-control" placeholder="finish time">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-5">
-                <input type="skill" name="skill" class="form-control" placeholder="Enter your skill ">
-            </div>    
-        </div>
-        <div class="row">
-            <form class="col-lg-8">
-                <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
-                </div>
-            </form>
-        </div>
-       
-    </div> -->

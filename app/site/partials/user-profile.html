@@ -1,6 +1,20 @@
-<div class="user-profile-container">
-	<form ng-submit="ctrl.editUser()">
-		<table class="profile-table">
+<div class="overview-title" >
+	<h3>
+		Hello {{ctrl.myData.userFullName}}, view Your Profile  
+	</h3>
+	<h4 >
+		Membership Since: <span style="color:orange">{{ctrl.myData.createdAt | date}}</span>
+	</h4>
+</div>
+
+
+  <div class="user-profile-container">
+	<div class="proflieForm proflieForm1">
+ 		<form ng-submit="ctrl.editUser()" >
+ 		
+		<table class=" profile-table">
+			<label style="color:white">Personal Information</label>
+			<hr>
 			<tr>
 				<td>
 					<label>Email: </label>
@@ -27,24 +41,32 @@
 				</td>
 			</tr>
 
-			<tr>
+<!-- 			<tr>
 				<td><label>Member since: </label></td>
 				<td>
 					<input type="" name="" ng-attr-value="{{ctrl.myData.createdAt | date}}" disabled>
 				</td>
-			</tr>
+			</tr> -->
 
-			<tr>
+<!-- 			<tr>
 				<td>
-					<button type="submit">Update</button>
+					<button class="profileButton" type="submit">Update</button>
 				</td>
-			</tr>
+			</tr> -->
+
 		</table>
+		<br>
+		<button class="profileButton" type="submit">Update</button>
 	</form>
 	<br>
+	</div>
 
-	<form ng-submit="ctrl.changePassword()">
-		<table>
+	<div class="proflieForm proflieForm2">
+	<form ng-submit="ctrl.changePassword()" >
+		
+		<table class="profile-table">
+		<label style="color:white">Password</label>
+		<hr>
 			<tr>
 				<td><label>New Password: </label></td>
 				<td>
@@ -59,15 +81,22 @@
 				<td>
 					<input ng-model="ctrl.newUserPswdRep" type="password" name="" value=""> <br>
 				</td>
-							<tr>
+			</tr>
+<!-- 			<tr>
 				<td>
-					<button type="submit">Change Password</button>
+				<button class="profileButton" type="submit">Change Password</button>
+					
 				</td>
 				<td>
-					<button type="reset">Reset</button>
+					
+					<button class="profileRest" type="reset">Reset</button>
 				</td>
-			</tr>
-			</tr>
+			
+			</tr> -->
 		</table>
+		<br>
+		<button class="profileRest" type="reset">Reset</button>
+		<button class="profileButton" type="submit">Change Password</button>
 	</form>
+	</div>
 </div>

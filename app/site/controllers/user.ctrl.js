@@ -169,14 +169,16 @@
     	ctrl.showGrandKids = function (e,f) {
         ctrl.activeChileIndex = f.indexOf(e)
     	};
+    	ctrl.toggleleGrand=function(){
+    	ctrl.activeChileIndex=-1;
+    	}   
     	ctrl.myCon=false;
 		ctrl.toggleCon = function() {
         ctrl.myCon = !ctrl.myCon;
     	};
     	ctrl.toggleleCon=function(){
     	ctrl.activeParentIndex=-1;
-    	}   
-
+    	}  
     	//-------------Dots Life function------------//	
 
     	function selectDot(number){
