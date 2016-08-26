@@ -420,4 +420,22 @@ body {
 .fa-margin{
   margin-right: 15px;
 }
-
+.finish-inputbox{
+  padding:5px;
+  background: rgba(100,100,100, 0.3);
+}
+.dap_text_box
+{ 
+background:rgba(100,100,100, 0.3);
+color:black;
+border:1px solid #DCDCDC;
+border-radius:2px ;
+font-size:20px ;
+height: 20px ;
+line-height:20px ;
+width: 200px ;
+padding: 10px ;
+box-shadow: -3px 1px 5px #DCDCDC; 
+-webkit-box-shadow: -3px 1px 5px #DCDCDC; 
+-moz-box-shadow: -3px 1px 5px #DCDCDC; 
+}

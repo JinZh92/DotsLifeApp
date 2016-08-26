@@ -33,15 +33,21 @@
       <button class="glyphicon glyphicon-ok conclude_event" ng-click="ctrl.showGrandKids(event,ctrl.showIncomplete())"  ng-hide="ctrl.activeChileIndex==={{parentIndex}}">
       </button>
       <br>
-        <span ng-show="ctrl.activeChileIndex==={{parentIndex}}">
-          <input ng-model="ctrl.setActualEnd" type="date" required>
-          <input ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;color:black">
+        <div class="finish-inputbox" ng-show="ctrl.activeChileIndex==={{parentIndex}}">
           <label>
-            Set to special
-            <input ng-model="ctrl.isSpecial" type="checkbox" >
+            Set your actual finish time: 
           </label>
-          <input type="button" value="Hide" ng-click="ctrl.toggleleGrand()" style="float:right; color:black">
-        </span>  
+          <input class="dap_text_box" ng-model="ctrl.setActualEnd" type="date" required>
+          <br>
+          <label>
+            Set this event to special:
+          <input ng-model="ctrl.isSpecial" type="checkbox" >
+          </label>
+          <button ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;border-width:1px">Done
+          </button>
+          <button type="button" value="Cancel" ng-click="ctrl.toggleleGrand()" style="float:right; border-width:1px;padding">Cancel
+          </button>
+        </div>   
     </div>
 
   </div>
