@@ -62,6 +62,7 @@
 			ctrl.myEvents 		= eventsResolve;
 			ctrl.mySkills 		= skillsResolve;
 			ctrl.getThisWeek 	= UserSrv.getThisWeek();
+			ctrl.showAllEvents();
 
 
 			console.log("Announcement:", ctrl.toAnnouncement())

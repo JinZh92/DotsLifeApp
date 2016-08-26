@@ -18,7 +18,7 @@
             {{ctrl.editingEvent.eventTitle}}
           </tr>
           <tr >
-            <button style="float:right" type="button" ng-click="ctrl.toggleEdit1()">Edit</button>
+            <button class="btnTopMargin saveBtn" style="float:right" type="button" ng-click="ctrl.toggleEdit1()">Edit</button>
           </tr>
         </td>
         <div ng-show="ctrl.myEdit1">
@@ -36,7 +36,7 @@
             {{ctrl.getSkillName(ctrl.editingEvent.eventHasSkills)}}
           </tr>
           <tr>
-            <button style="float:right" type="button" ng-click="ctrl.toggleEdit4()">Edit</button>
+            <button class="btnTopMargin saveBtn" style="float:right" type="button" ng-click="ctrl.toggleEdit4()">Edit</button>
           </tr> 
         </td>
         <div ng-show="ctrl.myEdit4">
@@ -88,10 +88,10 @@
           </div>  
         </td>              
         </table>
-        <button style="float:left" type="button" ng-click="ctrl.deleteEvent(ctrl.editingEvent.id)">Delete</button>
+        <button class="btnTopMargin deleteBtn" style="float:left" type="button" ng-click="ctrl.deleteEvent(ctrl.editingEvent.id)">Delete</button>
         <div style="float:right">
-          <button type="reset" ng-click="ctrl.cancel()">Cancel</button>
-          <button type="submit" >Submit Edit</button>
+          <button class="btnTopMargin saveBtn" type="reset" ng-click="ctrl.cancel()">Cancel</button>
+          <button class="btnTopMargin saveBtn" type="submit" >Update</button>
         </div>
    </form> 
   </div>
