@@ -3,20 +3,13 @@
   Life Week # <span class="week-number">{{ctrl.getThisWeek}}</span>
   </div>
 
-  <div>
-    <div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  What do you feel like doing today?</div>   
+  <div class="text-middle thisweek-title">Hi, {{ctrl.myData.userFullName}}!  What do you feel like doing today?</div>   
 
-    <div class="text-middle announcement-box">
-        <div class="animated annContent" ng-repeat="x in ctrl.toAnnouncement()" ng-if="$index == ctrl.announcementIndex"><div class="glyphicon glyphicon-bullhorn announcement-icon"></div>{{x}}</div>  
-
-        <!-- Improve later -->
-<!--         <div class="animated annContent" ng-if="ctrl.showAnnouncement">
-          <div ng-repeat="announement in ctrl.announcements">
-            {{announcement.content}}
-          </div>
-        </div>
- -->
-    </div>
+  <div class="text-middle announcement-box">
+      <div class="animated annContent" ng-click="ctrl.nextAnnouncement()" ng-repeat="x in ctrl.announcements" ng-if="$index == ctrl.announcementIndex">
+        <div class="glyphicon glyphicon-bullhorn announcement-icon"></div>
+        {{x}}
+      </div>  
   </div>
 </div>
   
@@ -35,12 +28,12 @@
       <br>
         <div class="finish-inputbox" ng-show="ctrl.activeChileIndex==={{parentIndex}}">
           <label>
-            Set your actual finish time: 
+            When did you complete it? 
           </label>
           <input class="dap_text_box" ng-model="ctrl.setActualEnd" type="date" required>
           <br>
           <label>
-            Set this event to special:
+            Is this special?
           <input ng-model="ctrl.isSpecial" type="checkbox" >
           </label>
           <button ng-click="ctrl.concludeEvent(event.id)" type="button" value="Done" style="float:right;border-width:1px">Done

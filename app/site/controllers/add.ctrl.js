@@ -3,7 +3,7 @@
     .module('lifeCalendarApp')
     .controller('ModalInstanceCtrl',ModalInstanceCtrl)
 
-  function ModalInstanceCtrl($scope,$state,UserSrv,userResolve,skillsResolve,eventsResolve,$uibModalInstance,$filter) {
+  function ModalInstanceCtrl($scope,$state,UserSrv,userResolve,skillsResolve,eventsResolve,$uibModalInstance,$filter,toastr) {
     var modalVm = this;
 
     modalVm.addSkill=addSkill;
@@ -44,7 +44,8 @@
           if (event.eventStatus == "INCOMPLETE"){
             // delete and keep the view updated after deletion
             UserSrv.deleteEvent(id)
-            console,log("evetn  been deleted")
+              // console,log("event has been deleted")
+              toastr.info("Event deleted.")
               .then(function(){
                 return UserSrv.getUserEvents();     
               })
@@ -54,8 +55,6 @@
                 // modalVm.showIncomplete();
               });
           }
-
-
         }
 
         modalVm.cancel();
@@ -93,11 +92,11 @@
         eventStatus: newEventStatus
       }
       UserSrv.createEvent(event);
-
           UserSrv.getUserEvents()
             .then(function(res){
 
             });
+      toastr.info("Event created.")
       modalVm.cancel();
     }
 
@@ -128,6 +127,8 @@
           modalVm.mySkills = res;
         });
       }  
+      toastr.info("Skill created.")
+
       modalVm.newSkillName=null;  
       modalVm.toggleleSkill();      
       // ctrl.toggleleSkill();
@@ -140,7 +141,7 @@
       modalVm.mySkills.forEach(function(skill){
         if (skill.userEmail == modalVm.myEmail && skill.id == id){
           skillName = skill.skillName;
-          console.log("getting skill name:", skillName)
+          // console.log("getting skill name:", skillName)
         }
       })
       return skillName;
@@ -150,7 +151,7 @@
       //TODO: Can edit only when it's incomplete.
       console.log(id);
       modalVm.myEvents.forEach(function(event){
-        console.log(event);
+        // console.log(event);
         if (event.id == id){
           if (event.eventStatus == "INCOMPLETE"){
             var __event = {
@@ -161,6 +162,7 @@
               eventHasSkills: [modalVm.editEventHasSkillId]
             }
             UserSrv.updateEvent(id, __event);
+            toastr.info("Event updated.")
           }
         }
       })

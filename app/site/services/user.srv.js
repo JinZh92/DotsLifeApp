@@ -92,10 +92,10 @@
                 }       
             });
             modalInstance.result.then(function () {
-              console.log('clicked okay');
+              // console.log('clicked okay');
             }, function () {
             	$state.reload();
-              console.log('Modal dismissed at: ' + new Date());
+              // console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -103,7 +103,7 @@
         self.myEvents;
         self.displayedEvents;
         self.openEvent = function () {
-            console.log('Opening modal');
+            // console.log('Opening modal');
             var modalInstance = $uibModal.open({
                 animation: false,
                 templateUrl: 'site/partials/user-addEvent.html',
@@ -133,7 +133,7 @@
 		function getAllUserData(){
 			return $http.get('/api/users')
 				.then(function(data){
-					console.log('Get all users data service', data);
+					// console.log('Get all users data service', data);
 					return data.data.users;
 				}, function (err){
 					return err;
@@ -145,7 +145,7 @@
 			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/users/' + self.myEmail)
 				.then(function(data){
-					console.log("Get user from email " + self.myEmail, data);
+					// console.log("Get user from email " + self.myEmail, data);
 					self.myUser = data.data.user;
 					return data.data.user;
 				})
@@ -155,7 +155,7 @@
 			__user = JSON.stringify(__user);
 			return $http.put('api/users/changePassword/' + email, __user)
 				.then(function(data){
-					console.log("updated user with email:" + email, data);
+					// console.log("updated user with email:" + email, data);
 					if (data.status == 200){
 						toastr.success("Successfully changed password. Please log in again.")
 						localStorage.removeItem('authToken');
@@ -173,7 +173,7 @@
 			__user = JSON.stringify(__user);
 			return $http.put('api/users/update/' + email, __user)
 				.then(function(data){
-					console.log("updated user with email:" + email, data);
+					// console.log("updated user with email:" + email, data);
 					if (data.status == 200){
 						toastr.success("Successfully updated user profile.")
 					}
@@ -188,7 +188,7 @@
 			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/events/' + self.myEmail)
 				.then(function(data){
-					console.log('User events: ', data.data.events);
+					// console.log('User events: ', data.data.events);
 					// console.log("type of date: ", typeof(data.data.events[0].eventStart));
 					self.myEvents = data.data.events;
 					return data.data.events;
@@ -199,7 +199,7 @@
 			__event = JSON.stringify(__event);
 			return $http.put('api/events/update/' + id, __event)
 				.then(function(data){
-					console.log("updated event with id:" + id, data);
+					// console.log("updated event with id:" + id, data);
 					if (data.status == 200){
 						// event was updated successfully
 						self.updateEvents(id, __event);
@@ -224,7 +224,7 @@
 		}
 
 		function createEvent(event){
-			console.log('creating event', event);
+			// console.log('creating event', event);
 			event = JSON.stringify(event);
 			return $http.post('/api/events/create',event)
 				.then(function(res){
@@ -248,7 +248,7 @@
 			// self.myEmail = jwtHelper.decodeToken(localStorage.authToken).userEmail;	
 			return $http.get('api/skills/' + self.myEmail)
 				.then(function(data){
-					console.log('User Skills: ', data.data.skills);
+					// console.log('User Skills: ', data.data.skills);
 					self.mySkills = data.data.skills;
 					return data.data.skills;
 				})

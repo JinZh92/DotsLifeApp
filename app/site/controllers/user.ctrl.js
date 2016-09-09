@@ -17,7 +17,8 @@
 		ctrl.showDates;
 		ctrl.announcementIndex 	= 0;
 
-		console.log('User resolve:', userResolve);
+
+		// console.log('User resolve:', userResolve);
 
 		ctrl.array 				= UserSrv.getWeeks();
 
@@ -51,6 +52,8 @@
 		ctrl.updateEventDb 		= updateEventDb;
 		ctrl.updateSkillDb 		= updateSkillDb;
 		ctrl.deleteEvent		= deleteEvent;
+		ctrl.getSkillnLevel 	= getSkillnLevel;
+
 
 		//check if logged in. If yes, get the userEmail from the authToken
 		if (localStorage.authToken == undefined || localStorage.authToken == null){
@@ -63,10 +66,12 @@
 			ctrl.mySkills 		= skillsResolve;
 			ctrl.getThisWeek 	= UserSrv.getThisWeek();
 			ctrl.showAllEvents();
+			ctrl.announcements 	= ctrl.toAnnouncement();
+			ctrl.skillnlevel 	= getSkillnLevel();
 
 
-			console.log("Announcement:", ctrl.toAnnouncement())
-			console.log("resolve: ", ctrl.myData);
+			// console.log("Announcement:", ctrl.announcements);
+			// console.log("resolve: ", ctrl.mySkills);
 		}
 		
 
@@ -193,11 +198,13 @@
 
 		function nextAnnouncement(){
 			ctrl.announcementIndex =  (ctrl.announcementIndex + 1)%(ctrl.toAnnouncement().length);
+			// console.log("current announcementIndex", ctrl.announcementIndex);
 		}
 
 		$interval(function(){
 			ctrl.nextAnnouncement();
 		}, 4500);
+		
 
 		//--------------Event Functions--------------//
 
@@ -429,6 +436,7 @@
 		}
 
 		function getAnniversary(event){
+			//TODO FIX THIS FUNCTION
 			var now = new Date(Date.now());
 			var end = new Date(event.eventActualEnd);
 			// return number of weeks since
@@ -448,8 +456,11 @@
 					}
 				}
 
+				//TODO FIX THIS FUNCTION
 				if (event.eventStatus == "SPECIAL"){
+					// console.log("testing special")
 					var numWk = ctrl.getAnniversary(event)/10;
+					// console.log("10 * " + numWk + "weeks since that event")
 					if (numWk >= 1 && Number.isInteger(numWk)){
 						announcement.push("It's been " + (numWk*10) + " weeks since you did: " + event.eventTitle);
 					}			
@@ -513,7 +524,7 @@
 			for (var i=0; i<ctrl.mySkills.length; i++){
 				if (ctrl.mySkills[i].id == id){
 					var currentLevel = ctrl.mySkills[i].skillLevel;
-					var tokensNeeded = Math.floor(2 * (Math.log(currentLevel+1) / Math.log(3)) + 1);
+					var tokensNeeded = Math.floor(2 * (Math.log(currentLevel+1) / Math.log(3)) + 3);
 					console.log("current level is", currentLevel);
 					console.log("tokens needed for next level up is: ", tokensNeeded);
 					console.log("current total tokens in that skill: ", ctrl.mySkills[i].tokensTotal);
@@ -522,6 +533,7 @@
 						ctrl.mySkills[i].tokensTotal -= tokensNeeded;
 						ctrl.mySkills[i].levelUpDate.push(date);
 						ctrl.levelUp(id, date);
+						toastr.info("Congratulations! Your skill: " + ctrl.mySkills[i].skillName + " just leveled up!")
 					} else {
 						console.log("Not enough tokens to do another level up.")
 					}
@@ -534,7 +546,7 @@
 			ctrl.mySkills.forEach(function(skill){
 				if (skill.userEmail == email && skill.id == id){
 					skillName = skill.skillName;
-					console.log("getting skill name:", skillName)
+					// console.log("getting skill name:", skillName)
 				}
 			})
 			return skillName;
@@ -583,6 +595,16 @@
 		}
 
 	//---------------Track functions (charts)------------//
+
+		function getSkillnLevel(){
+			ctrl.skillnlevel = [];
+			ctrl.mySkills.forEach(function(skill){
+				ctrl.skillnlevel.push({key: skill.skillName, y: skill.skillLevel})
+			});
+			console.log("Getting skill and level");
+			return ctrl.skillnlevel;
+		}
+
 		ctrl.options1 = {
             chart: {
                 type: 'pieChart',
@@ -604,36 +626,36 @@
             }
         };
 
-        ctrl.data1 = [
-            {
-                key: "One",
-                y: 5
-            },
-            {
-                key: "Two",
-                y: 2
-            },
-            {
-                key: "Three",
-                y: 9
-            },
-            {
-                key: "Four",
-                y: 7
-            },
-            {
-                key: "Five",
-                y: 4
-            },
-            {
-                key: "Six",
-                y: 3
-            },
-            {
-                key: "Seven",
-                y: .5
-            }
-        ];
+        // ctrl.data1 = [
+        //     {
+        //         key: "AngularJs",
+        //         y: 10
+        //     },
+        //     {
+        //         key: "Sleep",
+        //         y: 8
+        //     },
+        //     {
+        //         key: "Eat",
+        //         y: 2
+        //     },
+        //     {
+        //         key: "Love",
+        //         y: 3
+        //     },
+        //     {
+        //         key: "Dream",
+        //         y: 9
+        //     },
+        //     {
+        //         key: "Bug Fixing",
+        //         y: 4
+        //     },
+        //     {
+        //         key: "Procrastination",
+        //         y: 1
+        //     }
+        // ];
 
 
 	}	
