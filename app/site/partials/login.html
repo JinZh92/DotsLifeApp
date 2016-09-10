@@ -7,23 +7,29 @@
 		<p>Here you can plan your events weekly. </p> 
 		<p>Just don't forget to conclude them and level up your skills!</p>
 
-		<form method="post" class="stacked-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
-			<span class="input input--manami">
-				<input class="input__field input__field--manami" id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail" required>
-				<label class="input__label input__label--manami" for="loginEmail">
-					<span class="input__label-content input__label-content--manami">Email</span>
-				</label>
-			</span>
-			<span class="input input--manami">
-				<input class="input__field input__field--manami" id="loginPwd" type="password" name="loginPwd" ng-model="ctrl.loginPwd" required>
-				<label class="input__label input__label--manami" for="loginPwd">
-					<span class="input__label-content input__label-content--manami">Password</span>
-				</label>
-			</span>
+		<form method="post" class="login-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
+			<table class="table login-table">
+				<tr>
+					<td>
+						<label for="loginEmail">Email</label>
+					</td>
+					<td>
+						<input id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail" required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="loginPwd">Password</label>
+					</td>
+					<td>
+						<input id="loginPwd" type="password" name="loginPwd" ng-model="ctrl.loginPwd" required>
+					</td>
+				</tr>
 
-			<span class="input input--manami">
-				<input class="loginBtn" type="submit" value="{{ctrl.auth_btn}}" name="Login">
-			</span>
+			</table>
+
+			<input class="loginBtn" type="submit" value="{{ctrl.auth_btn}}" name="Login">
+
 		</form>
 	</div>
 </div>

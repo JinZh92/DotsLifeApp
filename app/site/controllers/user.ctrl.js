@@ -390,7 +390,7 @@
 		}
 
 		function getEventsFromWk(start, end){
-			//TODO start and end are week
+			//start and end are week number
 			var st 	= Math.min(start, end);
 			var en 	= Math.max(start, end);
 			var bd 	= new Date(ctrl.myData.userBirthday);
@@ -417,6 +417,7 @@
 				}
 			})
 			ctrl.displayedEvents = eventsBetweenWeeks;
+			return eventsBetweenWeeks;
 		}
 
 		function getProgress(event){
