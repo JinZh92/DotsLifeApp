@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define('Users', {
-    userEmail: DataTypes.STRING,
+    userEmail: {type: DataTypes.STRING, unique: true},
     userPswd: DataTypes.STRING,
     userFullName: DataTypes.STRING,
     userBirthday: DataTypes.DATE,
