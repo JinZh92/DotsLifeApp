@@ -2,7 +2,7 @@ var express = require('express'),
 	models = require('./models'),
 	bodyParser	= require('body-parser'),
 	app = express(),
-	port = 8080;
+	port = 80;
 
 app.use(express.static(__dirname + './../app/'));
 app.use(bodyParser.json());
