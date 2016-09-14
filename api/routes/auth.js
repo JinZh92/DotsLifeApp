@@ -6,9 +6,11 @@ var router 	= require('express').Router();
 
 //register a new user
 router.post('/register',function(req,res){
-	console.log('Registration Endpoint');
 	var __user = req.body;
 	console.log("req.body is: ", __user);
+	var where = {where:{userEmail:__user.userEmail}};
+	console.log("where for new register:", where);
+	// models.Users.find(where)
 	// encryption
 	bcrypt.genSalt(10, function(err, salt) {
 	    bcrypt.hash(__user.userPswd, salt, function(err, hash) {
@@ -17,11 +19,14 @@ router.post('/register',function(req,res){
 	        	__user.userPswd = hash;
 		        	models.Users.create(__user)
 		        	.then(function(user){
-		        	//remove password from response
+			        	//remove password from response
 
-		        	user.password ='';
-		        	res.json({user:user,msg:'Account Created'});
-		        })
+			        	user.password ='';
+			        	res.json({user:user,msg:'Account Created'});
+		        	}, function(err){
+		        		res.status(403)
+		        			.json({err:'User email already exists.'})
+		        	})
 
 	        }
 	    });

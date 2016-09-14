@@ -7,7 +7,7 @@
 		<p>Here you can plan your events weekly. </p> 
 		<p>Just don't forget to conclude them and level up your skills!</p>
 
-		<form method="post" class="login-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
+		<form name="login" method="post" class="login-form" ng-submit="ctrl.authenticate(ctrl.loginEmail, ctrl.loginPwd)">
 			<table class="table login-table">
 				<tr>
 					<td>
@@ -15,6 +15,8 @@
 					</td>
 					<td>
 						<input id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail" required>
+						<span ng-show="login.loginEmail.$dirty && login.loginEmail.$error.required"><br>Required</span>
+						<span ng-show="login.loginEmail.$dirty && login.loginEmail.$error.email"><br>Not an Email</span>
 					</td>
 				</tr>
 				<tr>
@@ -23,12 +25,13 @@
 					</td>
 					<td>
 						<input id="loginPwd" type="password" name="loginPwd" ng-model="ctrl.loginPwd" required>
+						<span ng-show="login.loginPwd.$dirty && login.loginPwd.$error.required"><br>Required</span>
 					</td>
 				</tr>
 
 			</table>
-
-			<input class="loginBtn" type="submit" value="{{ctrl.auth_btn}}" name="Login">
+			<div ng-show="ctrl.showAuthError">Email and password don't match!</div>
+			<input class="loginBtn" type="submit" value="{{ctrl.auth_btn}}" name="Login" ng-disabled="login.$invalid">
 
 		</form>
 	</div>

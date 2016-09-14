@@ -11,12 +11,16 @@
 		var ctrl = this;
 
 		//buttons
-		ctrl.register_btn = 'Sign Up';
-		ctrl.auth_btn = "Log In";
+		ctrl.register_btn 	= 'Sign Up';
+		ctrl.auth_btn 		= "Log In";
 
 		//Functions
-		ctrl.register = register;
-		ctrl.authenticate = authenticate;
+		ctrl.register 		= register;
+		ctrl.authenticate 	= authenticate;
+
+		//Variables
+		ctrl.showRegisError = false;
+		ctrl.showAuthError 	= false;
 
 		// //test test
 		// ctrl.getAllUserData = UserSrv.getAllUserData();
@@ -35,9 +39,13 @@
 				$http.post('/api/auth/register',user)
 				.then(function(res){
 					console.log("register res: ", res);
+					ctrl.showRegisError = false;
 					ctrl.register_btn = res.data.msg;
 					return res;
-				}).then(function(){
+				}, function(err){
+					ctrl.showRegisError = true;
+				})
+				.then(function(){
 					// Log user in after register successfully
 					ctrl.authenticate(ctrl.regisEmail, ctrl.regisPwd);
 				})
@@ -62,10 +70,14 @@
 				// Storing the authToken and loginEmail in the local storage TODO: Cookies
 				localStorage.loginEmail = res.data.userEmail;
 				localStorage.authToken = res.data.token;
-				ctrl.auth_btn = res.data.msg;
+				ctrl.showError 	= false;
+				ctrl.auth_btn	= res.data.msg;
 				// Go to user page when logged in successful 
-				toastr.success('Logged in as: ' + localStorage.loginEmail)
+				toastr.success('Logged in as: ' + localStorage.loginEmail);
 				$state.go('user.thisweek');
+			}, function(err){
+				ctrl.showAuthError 	= true;
+				console.log("Incorrect password match");
 			})
 		}
 

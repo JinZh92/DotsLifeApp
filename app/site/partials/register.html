@@ -3,24 +3,28 @@
 <!-- TODO: ADD FORM VALIDATION -->
 	<span>Dotsweek</span>
 	<h2>Become a member</h2>
-<!-- 	<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua.</span> -->
-	<form class="login-form" method="POST" ng-submit="ctrl.register()">
+
+	<form class="login-form" name="regis" method="POST" ng-submit="ctrl.register()">
 		<table class="table login-table">
 			<tr>
 				<td>
 					<label for="regisEmail">Email</label>					
 				</td>
 				<td>
-					<input id="regisEmail" type="text" name="regisEmail" ng-model="ctrl.regisEmail" required>
+					<input id="regisEmail" type="email" name="regisEmail" ng-model="ctrl.regisEmail" required>
+					<span ng-show="regis.regisEmail.$dirty && regis.regisEmail.$error.required"><br>Required</span>
+					<span ng-show="regis.regisEmail.$dirty && regis.regisEmail.$error.email"><br>Not an email</span>
 				</td>
+			
 			</tr>
 			<tr>
 				<td>
 					<label for="regisName">Name</label>
 				</td>
 				<td>
-					<input id="regisName" type="text" name="regisName" ng-model="ctrl.regisName" required>
+					<input id="regisName" type="text" name="regisName" ng-maxlength="10" ng-model="ctrl.regisName" required>
+					<span ng-show="regis.regisName.$dirty && regis.regisName.$error.required"><br>Required</span>
+					<span ng-show="regis.regisName.$dirty && regis.regisName.$error.maxlength"><br>Name is too long</span>
 				</td>
 			</tr>
 			<tr>
@@ -28,7 +32,8 @@
 					<label for="regisBday">Birthday</label>
 				</td>
 				<td>
-					<input id="regisBday" type="date" name="regisBday" ng-model="ctrl.regisBday" min="1935-01-01" max="2016-01-01" required>
+					<input id="regisBday" type="date" name="regisBday" ng-model="ctrl.regisBday" min="1935-01-01" max="2016-09-01" required>
+					<span ng-show="regis.regisBday.$dirty && regis.regisBday.$error.required"><br>Required</span
 				</td>
 			</tr>
 			<tr>
@@ -37,6 +42,7 @@
 				</td>
 				<td>
 					<input id="regisPwd" type="password" name="regisPwd" ng-model="ctrl.regisPwd" required>
+					<span ng-show="regis.regisPwd.$dirty && regis.regisPwd.$error.required"><br>Required</span>
 				</td>
 			</tr>
 			<tr>
@@ -45,11 +51,14 @@
 				</td>
 				<td>
 					<input id="regisRePwd" type="password" name="regisRePwd" ng-model="ctrl.regisRePwd" required>
+					<span ng-show="regis.regisRePwd.$dirty && regis.regisRePwd.$error.required"><br>Required</span>
+					<span ng-show="regis.regisRePwd.$valid && ctrl.regisPwd!=ctrl.regisRePwd"><br>Passwords don't match</span>
 				</td>
 			</tr>
 		</table>
 
-		<input class="loginBtn" type="submit" value="{{ctrl.register_btn}}" class="form-input bs-form__buttons tacked-input-box">
+		<div ng-show="ctrl.showRegisError">The email already exists. Log in instead.</div>
+		<input class="loginBtn" type="submit" value="{{ctrl.register_btn}}" class="form-input bs-form__buttons tacked-input-box" ng-disabled="regis.$invalid || ctrl.regisPwd!=ctrl.regisRePwd">
 	</form>
 </div>
 </div>

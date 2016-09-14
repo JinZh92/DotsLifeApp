@@ -8,7 +8,8 @@
 			'angular-jwt',
 			'toastr',
 			'ui.bootstrap',
-			'nvd3'
+			'nvd3',
+			'angular-intro'
 		]);
 
 	angular

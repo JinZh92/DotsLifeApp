@@ -23,6 +23,7 @@
     "express": "^4.14.0",
     "angular-animate": "^1.5.8",
     "angular-jwt": "^0.1.0",
-    "angular-nvd3": "^1.0.9"
+    "angular-nvd3": "^1.0.9",
+    "angular-intro.js": "^2.1.1"
   }
 }
