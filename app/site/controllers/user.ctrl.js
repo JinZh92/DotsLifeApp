@@ -563,7 +563,10 @@
 				userBirthday: 	ctrl.myData.userBirthday,
 				currEvents: 	ctrl.myData.currEvents
 			}
-			UserSrv.updateUser(ctrl.myData.userEmail, __user);
+			UserSrv.updateUser(ctrl.myData.userEmail, __user)
+			.then(function(){
+				$state.reload()
+			});
 		}
 
 		// Update the Events to database

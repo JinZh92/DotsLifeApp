@@ -18,7 +18,7 @@
 <div class="col-xs-12 col-lg-8 col-lg-offset-2">
   <div class="todo-overview weekstodo">
     <span class="myEventsTitle">My Events</span>
-    <button class="create_event glyphicon glyphicon-pencil" ng-click="ctrl.addEventOpen()"></button>
+    <button class="create_event glyphicon glyphicon-plus" ng-click="ctrl.addEventOpen()"></button>
     <hr>
 
     <div ng-repeat="(parentIndex,event) in ctrl.showIncomplete()">{{event.eventTitle}}
