@@ -14,7 +14,7 @@
 						<label for="loginEmail">Email</label>
 					</td>
 					<td>
-						<input id="loginEmail" type="text" name="loginEmail" ng-model="ctrl.loginEmail" required>
+						<input id="loginEmail" type="email" name="loginEmail" ng-model="ctrl.loginEmail" required>
 						<span ng-show="login.loginEmail.$dirty && login.loginEmail.$error.required"><br>Required</span>
 						<span ng-show="login.loginEmail.$dirty && login.loginEmail.$error.email"><br>Not an Email</span>
 					</td>
