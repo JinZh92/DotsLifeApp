@@ -21,6 +21,7 @@
 		//Variables
 		ctrl.showRegisError = false;
 		ctrl.showAuthError 	= false;
+		ctrl.errorMsg 		= '';
 
 		// //test test
 		// ctrl.getAllUserData = UserSrv.getAllUserData();
@@ -76,8 +77,14 @@
 				toastr.success('Logged in as: ' + localStorage.loginEmail);
 				$state.go('user.thisweek');
 			}, function(err){
+				if (err.data.err == "unauhthorized"){
+					ctrl.errorMsg = "Email and password don't match!";
+				} else if (err.data.err == "User does not exist"){
+					ctrl.errorMsg = "User does not exist. Please Sign up first.";
+				}
+
+				// console.log("error message", err)
 				ctrl.showAuthError 	= true;
-				console.log("Incorrect password match");
 			})
 		}
 

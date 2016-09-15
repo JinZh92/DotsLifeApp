@@ -38,36 +38,42 @@ router.post('/authenticate',function(req,res){
 	var __user = req.body;
 
 	var where = {where:{userEmail:__user.userEmail}};
+
 	models.Users.find(where)
 	.then(function(user){
-		// compare encrypted keys
-		bcrypt.compare(__user.userPswd, user.userPswd, function(err, result) {
-		    // res == true 
-		    if(result==true){
-		    	user.userPswd = '';
-		    	delete user.userPswd;
-		    	var user_obj = {
-		    		userEmail:user.userEmail
-		    	};
+		console.log("User:", user);
+		if (user == null){
+			res.status(403)
+				.json({err:'User does not exist'})
+		} else {
+			// compare encrypted keys
+			bcrypt.compare(__user.userPswd, user.userPswd, function(err, result) {
+			    // res == true 
+			    if(result==true){
+			    	user.userPswd = '';
+			    	delete user.userPswd;
+			    	var user_obj = {
+			    		userEmail:user.userEmail
+			    	};
 
-		    	// creating the token based on the current user_obj
-				var token = jwt.sign(user_obj,'brainstationkey');
+			    	// creating the token based on the current user_obj
+					var token = jwt.sign(user_obj,'brainstationkey');
 
-				var user_details = {
-					token:token,
-					userEmail:user.userEmail,
-					msg: 'Logged in successful!'
-				}
-				// Set the response's header 'authentication' to be token
-				res.set('authentication',token);
-		    	res.json(user_details)
-		    }
-		    else{
-		    	res.status(403)
-		    		.json({err:'unauhthorized'});
-		    }
-		});
-		
+					var user_details = {
+						token:token,
+						userEmail:user.userEmail,
+						msg: 'Logged in successful!'
+					}
+					// Set the response's header 'authentication' to be token
+					res.set('authentication',token);
+			    	res.json(user_details)
+			    }
+			    else{
+			    	res.status(403)
+			    		.json({err:'unauhthorized'});
+			    }
+			});
+		}
 	})
 
 })

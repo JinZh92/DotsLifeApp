@@ -30,7 +30,7 @@
 				</tr>
 
 			</table>
-			<div ng-show="ctrl.showAuthError">Email and password don't match!</div>
+			<div ng-show="ctrl.showAuthError">{{ctrl.errorMsg}}</div>
 			<input class="loginBtn" type="submit" value="{{ctrl.auth_btn}}" name="Login" ng-disabled="login.$invalid">
 
 		</form>
