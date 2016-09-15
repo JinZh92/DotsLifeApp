@@ -1,6 +1,6 @@
 # DotsLifeApp
 
-A web application that shows and manages your life in weeks.
+A web application written with AngularJs (v 1.5.8) that shows and manages your life in weeks.
 
 If you are interested in this project, download and follow the steps below:
 
