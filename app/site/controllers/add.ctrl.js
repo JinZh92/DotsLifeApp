@@ -3,6 +3,8 @@
     .module('lifeCalendarApp')
     .controller('ModalInstanceCtrl',ModalInstanceCtrl)
 
+  ModalInstanceCtrl.$inject = ['$scope', '$state', 'UserSrv', 'userResolve', 'skillsResolve', 'eventsResolve', '$uibModalInstance', '$filter', 'toastr'];
+
   function ModalInstanceCtrl($scope,$state,UserSrv,userResolve,skillsResolve,eventsResolve,$uibModalInstance,$filter,toastr) {
     var modalVm = this;
 

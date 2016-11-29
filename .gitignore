@@ -39,3 +39,4 @@ jspm_packages
 
 #bower components
 app/bower_components
+.DS_Store

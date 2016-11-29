@@ -58,7 +58,7 @@
 		</table>
 
 		<div ng-show="ctrl.showRegisError">The email already exists. Log in instead.</div>
-		<input class="loginBtn" type="submit" value="{{ctrl.register_btn}}" class="form-input bs-form__buttons tacked-input-box" ng-disabled="regis.$invalid || ctrl.regisPwd!=ctrl.regisRePwd">
+		<input class="loginBtn" type="submit" value="{{ctrl.register_btn}}" class="form-input bs-form__buttons tacked-input-box" ng-disabled="ctrl.regisPwd!=ctrl.regisRePwd">
 	</form>
 </div>
 </div>

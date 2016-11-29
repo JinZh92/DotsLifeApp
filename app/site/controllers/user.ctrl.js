@@ -3,7 +3,9 @@
 
 	angular
 		.module('lifeCalendarApp')
-		.controller('UserCtrl',UserCtrl)
+		.controller('UserCtrl',UserCtrl);
+
+	UserCtrl.$inject = ['$state', '$interval', 'UserSrv', 'userResolve', 'skillsResolve', 'eventsResolve', '$rootScope', 'toastr', '$scope'];
 
 	function UserCtrl($state, $interval, UserSrv, userResolve, skillsResolve, eventsResolve, $rootScope, toastr, $scope){
 		var ctrl = this;
@@ -448,7 +450,7 @@
 		function toAnnouncement(){
 			//TODO: return an array of events that set to special and are 10*k weeks away from now
 			// and events with high priority
-			var announcement = ["Did you know: It takes about 4433 weeks to waste 85 years."];
+			var announcement = ["Did you know: It takes about 4433 weeks to spend 85 years."];
 			// console.log("generating to announcement");
 			ctrl.myEvents.forEach(function(event){
 				if (event.eventStatus == "INCOMPLETE"){

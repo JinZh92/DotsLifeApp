@@ -1,11 +1,10 @@
-<div class="overview-title" >
+<div uib-popover="test popover content" popover-title="test popover title" popover-placement="left" class="overview-title">
 Dots Life
 </div>
 <div class="overview-dotsLife">
 	<svg id="dival" >
 		<g>
-			<rect ng-class="{'rect_past': n.Z<ctrl.getThisWeek, 'rect_now': n.Z==ctrl.getThisWeek}" ng-repeat="n in ctrl.array" ng-attr-x="{{n.X}}" ng-attr-y="{{n.Y}}"
-			ng-attr-id="rect_{{n.Z}}" ng-click="ctrl.selectDot(n.Z)">
+			<rect uib-popover="0 events in this week. Click to view." popover-title="Week 1" popover-placement="left" popover-trigger="'mouseenter'" ng-class="{'rect_past': n.Z<ctrl.getThisWeek, 'rect_now': n.Z==ctrl.getThisWeek}" ng-repeat="n in ctrl.array" ng-attr-x="{{n.X}}" ng-attr-y="{{n.Y}}" ng-attr-id="rect_{{n.Z}}" ng-click="ctrl.selectDot(n.Z)">
 			</rect>
 		</g>	
 		<text transform="translate(-20, 0)" class="dotgraphtext" ng-repeat="x in [10,20,30,40,50,60,70,80]" ng-attr-x="-15" ng-attr-y="{{x*11}}">{{x}}</text>
